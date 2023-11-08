@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableModule } from 'primeng/table'
+import { ButtonModule } from 'primeng/button'
+import { CheckboxModule } from 'primeng/checkbox'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import { TableModule } from 'primeng/table'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TableModule
+    TableModule,
+    ButtonModule,
+    CheckboxModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

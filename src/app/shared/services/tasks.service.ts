@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { Task } from '../interfaces'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TasksService {
+
+
   getTasksData() {
     return [
       {
         name: 'Выгулять пса',
         complete: false,
-        expiresIn: Date,
+        expiresIn: new Date(),
         category: "string",
       },
       {
         name: 'Выгулять пса 2',
         complete: false,
-        expiresIn: Date,
         category: "string",
       },
       {

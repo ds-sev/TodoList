@@ -7,17 +7,11 @@ td {
   border: 1px solid red;
   width: 80vw;
   border-collapse: collapse;
-
-  &__head {
-    height: 50px;
-    background-color: lightgray;
-  }
-
-  &__column {
-    &_for-button {
-      width: 25px;
-    }
-  }
 }
-
-
+.table__head {
+  height: 50px;
+  background-color: lightgray;
+}
+.table__column_for-button {
+  width: 25px;
+}

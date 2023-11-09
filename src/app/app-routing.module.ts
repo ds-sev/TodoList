@@ -16,7 +16,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'main', canActivate: [AuthGuard], component: ContentPageComponent
+    path: 'todo', canActivate: [AuthGuard], component: ContentPageComponent
   }
 ];
 

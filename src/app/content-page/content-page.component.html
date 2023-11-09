@@ -1,0 +1,29 @@
+<p-button class="new-task-button" label="Добавить задачу" severity="warning" [outlined]="true"
+          [rounded]="true"></p-button>
+<table class="table">
+
+  <thead class="table__head">
+    <tr>
+      <th>Готово</th>
+      <th>Задача</th>
+      <th>Категория</th>
+      <th>Срок</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody class="table__body">
+    <tr>
+      <td><p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox></td>
+      <td>Выгулять пса</td>
+      <td>Домашние дела</td>
+      <td>21.11.9999</td>
+
+      <td class="table__column_for-button"><p-button label="изменить" size="small" severity="warning" [outlined]="true"
+                                                     [rounded]="true" ></p-button></td>
+      <td
+        class="table__column_for-button"><p-button label="удалить" size="small" severity="danger" [outlined]="true"
+                                                   [rounded]="true"></p-button></td>
+    </tr>
+  </tbody>
+</table>

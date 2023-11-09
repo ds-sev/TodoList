@@ -1,0 +1,17 @@
+td {
+  text-align: center;
+}
+
+.table {
+  margin: 10px auto 0;
+  border: 1px solid red;
+  width: 80vw;
+  border-collapse: collapse;
+}
+.table__head {
+  height: 50px;
+  background-color: lightgray;
+}
+.table__column_for-button {
+  width: 25px;
+}

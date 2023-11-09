@@ -2,15 +2,26 @@ td {
   text-align: center;
 }
 
+tr {
+
+}
+
 .table {
+
   margin: 10px auto 0;
   border: 1px solid red;
   width: 80vw;
   border-collapse: collapse;
 
   &__head {
+
+
     height: 50px;
     background-color: lightgray;
+  }
+
+  &__body {
+    //display:contents;
   }
 
   &__column {

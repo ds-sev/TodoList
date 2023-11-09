@@ -1,0 +1,28 @@
+.auth-form {
+  margin: 0 auto 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 250px;
+
+  &__password {
+    height: 30px;
+  }
+
+  &__input-container {
+
+  }
+
+  &__input-field {
+    width: 100%;
+
+    &_invalid {
+      border: 1px solid red;
+    }
+  }
+
+  &__tip {
+    font-size: 12px;
+    color: red;
+  }
+}

@@ -1,7 +1,7 @@
 <div class="auth">
   <div class="auth__title">
     <h3 *ngIf="router.url === '/login'">Авторизация</h3>
-    <h3 *ngIf="router.url === '/register'">Регистрация</h3>
+    <h3 *ngIf="router.url === '/register'">Создать учетную запись</h3>
   </div>
   <router-outlet></router-outlet>
   <div *ngIf="router.url === '/login'"><a routerLink="/register">Зарегистрироваться</a></div>

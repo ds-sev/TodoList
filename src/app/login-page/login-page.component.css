@@ -1,1 +1,17 @@
-
+.login-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 250px;
+  border: 1px solid red;
+}
+.login-form__password {
+  height: 30px;
+}
+.login-form__input-field {
+  width: 100%;
+}
+.login-form__input-field_invalid {
+  border: 1px solid red;
+}

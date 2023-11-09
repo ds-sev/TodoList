@@ -1,6 +1,33 @@
-<h3>Авторизация</h3>
-<form class="login-form">
-  <input type="email" formControlName="email" />
+<form
+  class="login-form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
   <label for="email">Email:</label>
+  <div class="login-form__input-container">
+    <input
+      class="login-form__input-field"
+      formControlName="email"
+      id="email"
+      type="email"
+      [ngClass]="{'login-form__input-field_invalid' : form.get('email')?.invalid && form.get('email')?.touched}"
+    >
+  </div>
+  <label for="password">Пароль:</label>
+  <div class="login-form__input-container">
+    <input
+      class="login-form__input-field"
+      formControlName="password"
+      id="password"
+      type="password"
+      [ngClass]="{'login-form__input-field_invalid' : form.get('password')?.invalid && form.get('password')?.touched}"
+    >
+  </div>
+  <button
+    class="login-form__submit-button"
+    type="submit"
+    [disabled]="form.invalid || form.disabled"
+  >
+    Войти
+  </button>
 </form>
-<div><a routerLink="/register">Зарегистрироваться</a></div>

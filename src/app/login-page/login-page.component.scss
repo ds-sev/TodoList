@@ -1,0 +1,26 @@
+.login-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 250px;
+  border: 1px solid red;
+
+
+  &__password {
+    height: 30px;
+
+  }
+
+  &__input-container {
+  }
+
+  &__input-field {
+    width: 100%;
+
+
+    &_invalid {
+      border: 1px solid red;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router'
+import { Router, RouterLink, RouterOutlet } from '@angular/router'
 
 @Component({
   selector: 'app-auth-layout',
@@ -11,8 +11,11 @@ import { RouterLink, RouterOutlet } from '@angular/router'
 })
 export class AuthLayoutComponent {
 
+  constructor(public router: Router) {
+  }
 
-  
+
+
 
 
 }

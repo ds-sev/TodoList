@@ -1,1 +1,11 @@
-
+.auth {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid red;
+  width: 400px;
+  height: 400px;
+}
+.auth__options {
+  border: 1px solid red;
+}

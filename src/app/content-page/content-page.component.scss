@@ -1,32 +1,21 @@
-td {
-  text-align: center;
-}
-
-tr {
-
-}
-
-.table {
-
-  margin: 10px auto 0;
+.content {
   border: 1px solid red;
-  width: 80vw;
-  border-collapse: collapse;
+  display: grid;
+  grid-template-columns: 200px 0 auto;
 
-  &__head {
+}
+
+.side-menu {
+  border: 1px solid red;
+  min-width: 200px;
+  height: 100vh;
 
 
-    height: 50px;
-    background-color: lightgray;
-  }
+}
 
-  &__body {
-    //display:contents;
-  }
 
-  &__column {
-    &_for-button {
-      width: 25px;
-    }
-  }
+.menu-list {
+  padding: 0 0 0 20px;
+  list-style: none;
+  text-align: left;
 }

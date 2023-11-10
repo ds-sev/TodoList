@@ -9,27 +9,12 @@ export class TasksService {
 
 
   getTasksData() {
-    return [
-      {
-        name: 'Выгулять пса',
-        complete: false,
-        expiresIn: new Date(),
-        category: "string",
-      },
-      {
-        name: 'Выгулять пса 2',
-        complete: false,
-        category: "string",
-      },
-      {
-        name: 'Выгулять кота',
-        complete: false,
-        category: "string",
-      },
-      {
-        name: 'Выгулять кота',
-        complete: false
-      }
-    ]
+    return JSON.parse(localStorage.getItem('tasks'))
+  }
+
+  addTask(newTaskData: Task) {
+    const stored = this.getTasksData()
+    stored.push(newTaskData)
+    return localStorage.setItem('tasks', JSON.stringify(stored))
   }
 }

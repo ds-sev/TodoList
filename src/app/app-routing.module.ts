@@ -6,6 +6,7 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { RegisterPageComponent } from './register-page/register-page.component'
 import { ContentPageComponent } from './content-page/content-page.component'
 import { AuthGuard } from './shared/classes/auth.guard'
+import { TasksTableComponent } from './content-page/tasks-table/tasks-table.component'
 
 const routes: Routes = [
   {
@@ -16,7 +17,9 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'todo', canActivate: [AuthGuard], component: ContentPageComponent
+    path: '', canActivate: [AuthGuard], component: ContentPageComponent, children: [
+      {path: 'tasks', component: TasksTableComponent }
+    ]
   }
 ];
 

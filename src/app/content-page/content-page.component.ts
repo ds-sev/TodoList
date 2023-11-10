@@ -4,17 +4,17 @@ import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
-import { Router } from '@angular/router'
+import { Router, RouterLink, RouterOutlet } from '@angular/router'
 
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
 export class ContentPageComponent {
-  checked: boolean
+
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -22,5 +22,9 @@ export class ContentPageComponent {
   logout() {
     this.authService.logout()
     this.router.navigate(['/login'])
+  }
+
+  addCategory() {
+
   }
 }

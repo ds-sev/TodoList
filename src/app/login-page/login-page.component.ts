@@ -36,6 +36,6 @@ export class LoginPageComponent implements OnInit {
   }
   onSubmit() {
     this.authService.login(this.form.value)
-    this.router.navigate(['/todo'])
+    this.router.navigate(['/tasks'])
   }
 }

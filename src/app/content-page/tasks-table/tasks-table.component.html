@@ -1,0 +1,49 @@
+<p-button
+  class="new-task-button"
+  label="Новая задача"
+  severity="warning"
+  [outlined]="true"
+  [rounded]="true"
+  (click)="onAddTaskClick()"
+>
+</p-button>
+<div *ngIf="tasks.length !== 0; else empty">
+  <table class="table">
+    <thead class="table__head">
+      <tr>
+        <th>Готово</th>
+        <th>Задача</th>
+        <!--       <th>Категория</th> -->
+        <th>Срок</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      <tr *ngFor="let task of tasks">
+        <td>
+          <p-checkbox
+            [(ngModel)]="task.complete"
+            [binary]="true"
+            inputId="binary"
+          ></p-checkbox>
+        </td>
+        <td>{{task.name}}</td>
+        <!--       <td>Домашние дела</td> -->
+        <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
+        <td class="table__column_for-button">
+          <p-button icon="pi pi-pencil" [rounded]="true" severity="warning" [outlined]="true"></p-button>
+        </td>
+        <td
+          class="table__column_for-button">
+          <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true"></p-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #empty>
+  <div class="center">
+    У вас нет задач
+  </div>
+</ng-template>

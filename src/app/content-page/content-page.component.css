@@ -1,17 +1,17 @@
-td {
-  text-align: center;
+.content {
+  border: 1px solid red;
+  display: grid;
+  grid-template-columns: 200px 0 auto;
 }
 
-.table {
-  margin: 10px auto 0;
+.side-menu {
   border: 1px solid red;
-  width: 80vw;
-  border-collapse: collapse;
+  min-width: 200px;
+  height: 100vh;
 }
-.table__head {
-  height: 50px;
-  background-color: lightgray;
-}
-.table__column_for-button {
-  width: 25px;
+
+.menu-list {
+  padding: 0 0 0 20px;
+  list-style: none;
+  text-align: left;
 }

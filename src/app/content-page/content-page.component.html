@@ -1,34 +1,30 @@
-<p-button class="new-task-button" label="Добавить задачу" severity="warning" [outlined]="true"
-          [rounded]="true"></p-button>
-<table class="table">
+<main class="content">
+  <div class="side-menu">
+    <h4>Категории</h4>
+    <ul class="side-menu__list menu-list">
+      <li class="menu-list__item">
+        <a [routerLink]="['/link']">Все</a></li>
+      <li class="menu-list__item">Работа</li>
+      <li class="menu-list__item">Домашние</li>
+    </ul>
+    <p-button
+      label="Добавить категорию"
+      size="small"
+      severity="warning"
+      [outlined]="true"
+      [rounded]="true"
+      (click)="addCategory()">
+    </p-button>
+    <p-button
+      label="Выйти"
+      size="small"
+      severity="warning"
+      [outlined]="true"
+      [rounded]="true"
+      (click)="logout()">
+    </p-button>
+  </div>
+  <router-outlet></router-outlet>
+</main>
 
-  <thead class="table__head">
-    <tr>
-      <th>Готово</th>
-      <th>Задача</th>
-      <th>Категория</th>
-      <th>Срок</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody class="table__body">
-    <tr>
-      <td><p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox></td>
-      <td>Выгулять пса</td>
-      <td>Домашние дела</td>
-      <td>21.11.9999</td>
-
-      <td class="table__column_for-button"><p-button label="изменить" size="small" severity="warning" [outlined]="true"
-                                                     [rounded]="true" ></p-button></td>
-      <td
-        class="table__column_for-button"><p-button label="удалить" size="small" severity="danger" [outlined]="true"
-                                                   [rounded]="true"></p-button></td>
-    </tr>
-  </tbody>
-</table>
-
-
-<p-button label="Выйти" size="small" severity="warning" [outlined]="true"
-          [rounded]="true" (click)="logout()"></p-button>
 

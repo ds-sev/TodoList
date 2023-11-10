@@ -7,6 +7,48 @@
   (click)="onAddTaskClick()"
 >
 </p-button>
+
+
+
+
+<p-dialog header="Новая задача:" [(visible)]="displayModal" [style]="{ width: '50vw' }">
+  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+    <input
+      formControlName="name"
+      id="name"
+      type="text"
+    >
+    <p-calendar
+      formControlName="expiresIn"
+      appendTo="body"
+    >
+    </p-calendar>
+
+
+<!--       <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
+<!--         <p-radioButton -->
+<!--           [inputId]="priority" -->
+<!--           [value]="priority" -->
+<!--           formControlName="priority" -->
+<!--         > -->
+<!--         </p-radioButton> -->
+<!--         <label [for]="priority" class="ml-2">{{ priority }}</label> -->
+<!--       </div> -->
+
+
+
+
+<!--     <div class="flex py-2 justify-content-center"> -->
+<!--       <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
+<!--                   optionLabel="name"></p-dropdown> -->
+<!--     </div> -->
+    <button type="submit">Создать</button>
+  </form>
+</p-dialog>
+
+
+
+
 <div *ngIf="tasks.length !== 0; else empty">
   <table class="table">
     <thead class="table__head">

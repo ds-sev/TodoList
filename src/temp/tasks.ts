@@ -11,7 +11,7 @@ export const TASKS: Task[] = [
     name: 'Накормить кота',
     complete: true,
     expiresIn: new Date(),
-    priority: 'low'
+    priority: 'mid'
   },
   {
     name: 'Выгулять пса',
@@ -19,5 +19,11 @@ export const TASKS: Task[] = [
     expiresIn: new Date(),
     category: 'Домашние',
     priority: 'low'
+  },
+  {
+    name: 'Выгулять пса',
+    complete: false,
+    expiresIn: new Date(),
+    category: 'Домашние',
   }
 ]

@@ -14,7 +14,12 @@ export class TasksService {
 
   addTask(newTaskData: Task) {
     const stored = this.getTasksData()
-    stored.push(newTaskData)
-    return localStorage.setItem('tasks', JSON.stringify(stored))
+    if (stored) {
+      console.log(stored)
+      stored.push(newTaskData)
+      return localStorage.setItem('tasks', JSON.stringify(stored))
+    } else {
+      return localStorage.setItem('tasks', JSON.stringify(newTaskData))
+    }
   }
 }

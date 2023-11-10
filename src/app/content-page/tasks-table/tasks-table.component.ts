@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { CalendarModule } from 'primeng/calendar'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { TasksService } from '../../shared/services/tasks.service'
+import { Observable, Subject } from 'rxjs'
 
 @Component({
   selector: 'app-tasks-table',
@@ -21,43 +22,39 @@ import { TasksService } from '../../shared/services/tasks.service'
 export class TasksTableComponent implements OnInit {
   checked: boolean
 
-  tasks: Task[]
+  // tasks: Task[]
   tasksPriority: Task['priority']
   categories: []
   selectedCategory: string
 
   displayModal: boolean = false
 
+  tasks$: Observable<Task[]>
+
   form: FormGroup
 
   constructor(private tasksService: TasksService) {
   }
 
-
-
-
-
-
   ngOnInit() {
     // this.tasks = TASKS
-    this.tasks = this.tasksService.getTasksData()
+    this.tasks$ = this.tasksService.getTasksData()
+    console.log(this.tasks$)
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
       category: new FormControl,
       priority: new FormControl
     })
-
-    console.log(this.tasksService.getTasksData())
   }
 
   onAddTaskClick() {
     this.displayModal = true
-    console.log('modal')
   }
 
   onSubmitForm() {
     console.log(this.form.value)
     this.tasksService.addTask(this.form.value)
+    this.displayModal = false
   }
 }

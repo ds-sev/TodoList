@@ -49,7 +49,7 @@
 
 
 
-<div *ngIf="tasks.length !== 0; else empty">
+<div *ngIf="tasks$ | async as tasks; else empty">
   <table class="table">
     <thead class="table__head">
       <tr>

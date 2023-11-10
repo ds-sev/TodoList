@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Observable, of, Subscription } from 'rxjs'
 import { Task } from '../interfaces'
 
 @Injectable({
@@ -7,19 +7,23 @@ import { Task } from '../interfaces'
 })
 export class TasksService {
 
+  storedTasks: Task[]
 
-  getTasksData() {
-    return JSON.parse(localStorage.getItem('tasks'))
+  constructor() {
+  }
+
+
+  getTasksData(): Observable<Task[]> {
+    return of(JSON.parse(localStorage.getItem('tasks')))
   }
 
   addTask(newTaskData: Task) {
-    const stored = this.getTasksData()
-    if (stored) {
-      console.log(stored)
-      stored.push(newTaskData)
-      return localStorage.setItem('tasks', JSON.stringify(stored))
+    this.getTasksData().subscribe(tasks => this.storedTasks = tasks)
+    if (this.storedTasks) {
+      this.storedTasks.push(newTaskData)
+      localStorage.setItem('tasks', JSON.stringify(this.storedTasks))
     } else {
-      return localStorage.setItem('tasks', JSON.stringify([newTaskData]))
+      localStorage.setItem('tasks', JSON.stringify([newTaskData]))
     }
   }
 }

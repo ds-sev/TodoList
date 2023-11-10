@@ -39,7 +39,8 @@ export class TasksTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.tasks = TASKS
+    // this.tasks = TASKS
+    this.tasks = this.tasksService.getTasksData()
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,

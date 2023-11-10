@@ -19,7 +19,7 @@ export class TasksService {
       stored.push(newTaskData)
       return localStorage.setItem('tasks', JSON.stringify(stored))
     } else {
-      return localStorage.setItem('tasks', JSON.stringify(newTaskData))
+      return localStorage.setItem('tasks', JSON.stringify([newTaskData]))
     }
   }
 }

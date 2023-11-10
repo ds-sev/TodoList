@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'
 import {
   FormControl,
   FormGroup,
@@ -9,6 +9,7 @@ import {
   Validators
 } from '@angular/forms'
 import { PasswordModule } from 'primeng/password'
+import { AuthService } from '../shared/services/auth.service'
 
 @Component({
   selector: 'app-login-page',
@@ -22,6 +23,9 @@ export class LoginPageComponent implements OnInit {
   value: string
   form: FormGroup
 
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
 
 
   ngOnInit(): void {
@@ -31,11 +35,7 @@ export class LoginPageComponent implements OnInit {
     })
   }
   onSubmit() {
-
-    console.log(this.form)
-
+    this.authService.login(this.form.value)
+    this.router.navigate(['/todo'])
   }
-
-
-
 }

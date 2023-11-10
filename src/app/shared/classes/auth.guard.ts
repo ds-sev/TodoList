@@ -8,6 +8,7 @@ import { AuthService } from '../services/auth.service'
 })
 
 class PermissionService {
+
   constructor(private router: Router, private authService: AuthService) {
   }
 

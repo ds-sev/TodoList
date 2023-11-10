@@ -1,8 +1,4 @@
-<form
-  class="auth-form"
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
->
+<form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="email">Email:</label>
   <div class="auth-form__input-container">
     <input
@@ -10,11 +6,21 @@
       formControlName="email"
       id="email"
       type="email"
-      [ngClass]="{'auth-form__input-field_invalid' : form.get('email')?.invalid && form.get('email')?.touched}"
+      [ngClass]="{
+        'auth-form__input-field_invalid':
+          form.get('email')?.invalid && form.get('email')?.touched
+      }"
+    />
+    <span
+      class="auth-form__tip"
+      *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
     >
-    <span class="auth-form__tip" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-      <span *ngIf="form.get('email')?.errors?.['required']">Email не должен быть пустым</span>
-      <span *ngIf="form.get('email')?.errors?.['email']">Введите корректный Email-адрес</span>
+      <span *ngIf="form.get('email')?.errors?.['required']"
+        >Email не должен быть пустым</span
+      >
+      <span *ngIf="form.get('email')?.errors?.['email']"
+        >Введите корректный Email-адрес</span
+      >
     </span>
   </div>
   <label for="password">Пароль:</label>
@@ -24,15 +30,25 @@
       formControlName="password"
       id="password"
       type="password"
-      [ngClass]="{'auth-form__input-field_invalid' : form.get('password')?.invalid && form.get('password')?.touched}"
+      [ngClass]="{
+        'auth-form__input-field_invalid':
+          form.get('password')?.invalid && form.get('password')?.touched
+      }"
+    />
+    <span
+      class="auth-form__tip"
+      *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
     >
-    <span class="auth-form__tip" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-      <span *ngIf="form.get('password')?.errors?.['required']">Пароль не должен быть пустым</span>
-      <span *ngIf="form.get('password')?.errors?.['minlength']['requiredLength']">
+      <span *ngIf="form.get('password')?.errors?.['required']"
+        >Пароль не должен быть пустым</span
+      >
+      <span
+        *ngIf="form.get('password')?.errors?.['minlength']['requiredLength']"
+      >
         Пароль должен быть длиннее
         {{form.get('password')?.errors?.['minlength']['requiredLength']}}
-        символов.
-        Сейчас: {{form.get('password')?.errors?.['minlength']['actualLength']}}
+        символов. Сейчас:
+        {{form.get('password')?.errors?.['minlength']['actualLength']}}
       </span>
     </span>
   </div>

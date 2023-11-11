@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit, signal, WritableSignal } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -33,13 +33,17 @@ export class TasksTableComponent implements OnInit {
 
   form: FormGroup
 
+
+  tasksList: WritableSignal<Task[]> = signal([])
+
+
+
   constructor(private tasksService: TasksService) {
   }
 
   ngOnInit() {
     // this.tasks = TASKS
     this.tasks$ = this.tasksService.getTasksData()
-    console.log(this.tasks$)
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
@@ -56,5 +60,13 @@ export class TasksTableComponent implements OnInit {
     console.log(this.form.value)
     this.tasksService.addTask(this.form.value)
     this.displayModal = false
+    this.tasks$ = this.tasksService.getTasksData()
+    this.tasks$.subscribe((task) => console.log(task.indexOf))
+  }
+
+  onDeleteTaskClick(index: number) {
+    this.tasksService.deleteTask(index)
+    this.tasks$ = this.tasksService.getTasksData()
+
   }
 }

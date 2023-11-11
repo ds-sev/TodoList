@@ -49,8 +49,8 @@
 
 
 
-<div *ngIf="tasks$ | async as tasks; else empty">
-  <table class="table">
+<div *ngIf="tasks$ | async as tasks">
+  <table class="table" *ngIf="tasks.length > 0; else empty">
     <thead class="table__head">
       <tr>
         <th>Готово</th>
@@ -62,23 +62,36 @@
       </tr>
     </thead>
     <tbody class="table__body">
-      <tr *ngFor="let task of tasks">
+      <tr *ngFor="let task of tasks; let i = index">
         <td>
           <p-checkbox
             [(ngModel)]="task.complete"
             [binary]="true"
-            inputId="binary"
-          ></p-checkbox>
+          >
+          </p-checkbox>
         </td>
         <td>{{task.name}}</td>
         <!--       <td>Домашние дела</td> -->
         <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
         <td class="table__column_for-button">
-          <p-button icon="pi pi-pencil" [rounded]="true" severity="warning" [outlined]="true"></p-button>
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            severity="warning"
+            [outlined]="true"
+          >
+          </p-button>
         </td>
         <td
           class="table__column_for-button">
-          <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true"></p-button>
+          <p-button
+            icon="pi pi-times"
+            [rounded]="true"
+            severity="danger"
+            [outlined]="true"
+            (onClick)="onDeleteTaskClick(i)"
+          >
+          </p-button>
         </td>
       </tr>
     </tbody>

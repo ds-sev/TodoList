@@ -32,6 +32,8 @@ export class TasksTableComponent implements OnInit {
 
   tasksService = inject(TasksService)
 
+  // public priority = Priority
+
   ngOnInit() {
     this.tasksService.getTasksData()
 
@@ -49,6 +51,7 @@ export class TasksTableComponent implements OnInit {
 
   onSubmitForm() {
     this.tasksService.addTask(this.form.value)
+    console.log(this.form.value)
     this.displayModal = false
     this.form.reset()
   }

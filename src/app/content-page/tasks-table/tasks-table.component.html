@@ -19,19 +19,29 @@
       appendTo="body"
     >
     </p-calendar>
-    <!--       <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
-    <!--         <p-radioButton -->
-    <!--           [inputId]="priority" -->
-    <!--           [value]="priority" -->
-    <!--           formControlName="priority" -->
-    <!--         > -->
-    <!--         </p-radioButton> -->
-    <!--         <label [for]="priority" class="ml-2">{{ priority }}</label> -->
-    <!--       </div> -->
-    <!--     <div class="flex py-2 justify-content-center"> -->
-    <!--       <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
-    <!--                   optionLabel="name"></p-dropdown> -->
-    <!--     </div> -->
+
+
+
+<!--           <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
+<!--             <p-radioButton -->
+<!--               [inputId]="priority" -->
+<!--               [value]="priority" -->
+<!--               formControlName="priority" -->
+<!--             > -->
+<!--             </p-radioButton> -->
+<!--             <label [for]="priority" class="ml-2">{{ priority }}</label> -->
+<!--           </div> -->
+<!--         <div class="flex py-2 justify-content-center"> -->
+<!--           <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
+<!--                       optionLabel="name"></p-dropdown> -->
+<!--         </div> -->
+    <div>
+        <input formControlName="priority" type="radio" value="low">Низкий
+        <input formControlName="priority" type="radio" value="mid">Средний
+        <input formControlName="priority" type="radio" value="high">Высокий
+    </div>
+
+
     <button type="submit">Создать</button>
   </form>
 </p-dialog>

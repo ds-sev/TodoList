@@ -8,7 +8,16 @@
 <td>{{task.name}}</td>
 <td *ngIf="false">{{task.category}}</td>
 <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
-<td>{{task.priority}}</td>
+<td>
+  <div *ngIf="task.priority === 'low'"
+       style="width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
+  <div *ngIf="task.priority === 'mid'"
+       style="width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
+  <div *ngIf="task.priority === 'high'"
+       style="width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
+  <div *ngIf="!task.priority"
+       style="width: 20px; height: 20px; background-color: transparent; border-radius: 20px; border: 1px solid black"></div>
+</td>
 <td class="table__column_for-button">
   <p-button
     icon="pi pi-pencil"

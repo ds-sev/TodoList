@@ -21,7 +21,8 @@ export class TasksService {
       id: Math.random().toString(16),
       name: newTaskData.name,
       complete: false,
-      expiresIn: newTaskData.expiresIn
+      expiresIn: newTaskData.expiresIn,
+      priority: newTaskData.priority
     }
 
     if (this.tasksListSig()) {

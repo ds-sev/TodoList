@@ -18,6 +18,13 @@ export class TaskComponent {
 
   tasksService = inject(TasksService)
 
+  // public priority = Priority
+
+  constructor() {
+
+  }
+
+
   onDeleteTaskClick() {
     this.tasksService.deleteTask(this.task.id)
   }

@@ -12,9 +12,15 @@ export interface ITask {
   name: string
   complete: boolean
   expiresIn?: Date
-  category?: string
+  category?: ICategory | null
   priority?: 'low' | 'mid' | 'high'
 }
+
+// export enum Priority {
+//   Low = 'Низкий',
+//   Mid = 'Средний',
+//   High = 'Высокий'
+// }
 
 
 

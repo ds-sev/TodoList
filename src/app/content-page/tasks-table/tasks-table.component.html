@@ -7,10 +7,6 @@
   (click)="onAddTaskClick()"
 >
 </p-button>
-
-
-
-
 <p-dialog header="Новая задача:" [(visible)]="displayModal" [style]="{ width: '50vw' }">
   <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
     <input
@@ -23,78 +19,40 @@
       appendTo="body"
     >
     </p-calendar>
-
-
-<!--       <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
-<!--         <p-radioButton -->
-<!--           [inputId]="priority" -->
-<!--           [value]="priority" -->
-<!--           formControlName="priority" -->
-<!--         > -->
-<!--         </p-radioButton> -->
-<!--         <label [for]="priority" class="ml-2">{{ priority }}</label> -->
-<!--       </div> -->
-
-
-
-
-<!--     <div class="flex py-2 justify-content-center"> -->
-<!--       <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
-<!--                   optionLabel="name"></p-dropdown> -->
-<!--     </div> -->
+    <!--       <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
+    <!--         <p-radioButton -->
+    <!--           [inputId]="priority" -->
+    <!--           [value]="priority" -->
+    <!--           formControlName="priority" -->
+    <!--         > -->
+    <!--         </p-radioButton> -->
+    <!--         <label [for]="priority" class="ml-2">{{ priority }}</label> -->
+    <!--       </div> -->
+    <!--     <div class="flex py-2 justify-content-center"> -->
+    <!--       <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
+    <!--                   optionLabel="name"></p-dropdown> -->
+    <!--     </div> -->
     <button type="submit">Создать</button>
   </form>
 </p-dialog>
-
-
-
-
-<div *ngIf="tasks$ | async as tasks">
-  <table class="table" *ngIf="tasks.length > 0; else empty">
+<div *ngIf="tasksService.tasksListSig() as tasksList">
+  <table class="table" *ngIf="tasksList.length > 0; else empty">
     <thead class="table__head">
       <tr>
         <th>Готово</th>
         <th>Задача</th>
-        <!--       <th>Категория</th> -->
+        <th *ngIf="false">Категория</th>
         <th>Срок</th>
+        <th>Приоритет</th>
         <th></th>
         <th></th>
       </tr>
     </thead>
-    <tbody class="table__body">
-      <tr *ngFor="let task of tasks; let i = index">
-        <td>
-          <p-checkbox
-            [(ngModel)]="task.complete"
-            [binary]="true"
-          >
-          </p-checkbox>
-        </td>
-        <td>{{task.name}}</td>
-        <!--       <td>Домашние дела</td> -->
-        <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
-        <td class="table__column_for-button">
-          <p-button
-            icon="pi pi-pencil"
-            [rounded]="true"
-            severity="warning"
-            [outlined]="true"
-          >
-          </p-button>
-        </td>
-        <td
-          class="table__column_for-button">
-          <p-button
-            icon="pi pi-times"
-            [rounded]="true"
-            severity="danger"
-            [outlined]="true"
-            (onClick)="onDeleteTaskClick(i)"
-          >
-          </p-button>
-        </td>
-      </tr>
-    </tbody>
+    <tr task-table-row
+        class="table__task-container"
+        *ngFor="let task of tasksList"
+        [task]="task"
+    ></tr>
   </table>
 </div>
 <ng-template #empty>

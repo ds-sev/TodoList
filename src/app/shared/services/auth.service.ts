@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { User } from '../interfaces'
+import { IUser } from '../interfaces'
 import { Observable } from 'rxjs'
 
 @Injectable({
@@ -9,11 +9,11 @@ import { Observable } from 'rxjs'
 export class AuthService {
 
 
-  register(user: User) {
+  register(user: IUser) {
     localStorage.setItem('user', JSON.stringify(user))
   }
 
-  login(user: User) {
+  login(user: IUser) {
     if (localStorage.getItem('user') === JSON.stringify(user) ) {
       console.log('Logged In!')
       localStorage.setItem('authorized', 'yes')

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Task } from './shared/interfaces'
+import { ITask } from './shared/interfaces'
 import { TasksService } from './shared/services/tasks.service'
 
 @Component({
@@ -10,7 +10,7 @@ import { TasksService } from './shared/services/tasks.service'
 export class AppComponent implements OnInit {
 
   title = 'TodoList';
-  tasks: Task[] = []
+  tasks: ITask[] = []
 
   checked: boolean
 

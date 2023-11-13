@@ -1,0 +1,30 @@
+<td>
+  <p-checkbox
+    [(ngModel)]="task.complete"
+    [binary]="true"
+    (change)="toggleTaskState()"
+  ></p-checkbox>
+</td>
+<td>{{task.name}}</td>
+<td *ngIf="false">{{task.category}}</td>
+<td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
+<td>{{task.priority}}</td>
+<td class="table__column_for-button">
+  <p-button
+    icon="pi pi-pencil"
+    [rounded]="true"
+    severity="warning"
+    [outlined]="true"
+  ></p-button>
+</td>
+<td
+  class="table__column_for-button">
+  <p-button
+    icon="pi pi-times"
+    [rounded]="true"
+    severity="danger"
+    [outlined]="true"
+    (onClick)="onDeleteTaskClick()"
+  ></p-button>
+</td>
+

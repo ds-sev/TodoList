@@ -1,34 +1,40 @@
-import { Injectable } from '@angular/core'
-import { Observable, of, } from 'rxjs'
-import { Task } from '../interfaces'
+import { Injectable, signal, WritableSignal } from '@angular/core'
+import { ITask } from '../interfaces'
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  private storedTasks: Task[]
+  tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
 
-  constructor() {
+  getTasksData() {
+    this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
   }
 
-  getTasksData(): Observable<Task[]> {
-    return of(JSON.parse(localStorage.getItem('tasks')))
+  updateStorageTasks() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
   }
 
-  addTask(newTaskData: Task) {
-    this.getTasksData().subscribe(tasks => this.storedTasks = tasks)
-    if (this.storedTasks) {
-      this.storedTasks.push(newTaskData)
-      localStorage.setItem('tasks', JSON.stringify(this.storedTasks))
+  addTask(newTaskData: ITask) {
+    const newTask: ITask = {
+      id: Math.random().toString(16),
+      name: newTaskData.name,
+      complete: false,
+      expiresIn: newTaskData.expiresIn
+    }
+
+    if (this.tasksListSig()) {
+      this.tasksListSig.update(v => [...v, newTask])
+      this.updateStorageTasks()
+
     } else {
-      localStorage.setItem('tasks', JSON.stringify([newTaskData]))
+      localStorage.setItem('tasks', JSON.stringify([newTask]))
     }
   }
 
-  deleteTask(index: number) {
-    this.getTasksData().subscribe(tasks => this.storedTasks = tasks)
-    this.storedTasks.splice(index, 1)
-    localStorage.setItem('tasks', JSON.stringify(this.storedTasks))
+  deleteTask(id: string) {
+    this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
+    this.updateStorageTasks()
   }
 }

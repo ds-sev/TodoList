@@ -34,6 +34,11 @@ export class TasksTableComponent implements OnInit {
 
   tasksService = inject(TasksService)
 
+  isEditForm: boolean = false
+
+  minDate: Date = new Date()
+
+
   // public priority = Priority
 
   ngOnInit() {
@@ -48,6 +53,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
+    this.isEditForm = false
     this.displayModal = true
   }
 
@@ -59,7 +65,24 @@ export class TasksTableComponent implements OnInit {
   }
 
   openEditTaskForm(taskData: ITask) {
-    console.log(taskData)
+    console.log(    taskData.expiresIn
+    )
+    this.isEditForm = true
+    this.form.setValue({
+      name: taskData.name,
+      expiresIn: taskData.expiresIn,
+      category: taskData.category || null,
+      priority: taskData.priority || null
+    })
     this.displayModal = true
   }
 }
+
+//TODO: correct calendar view
+//TODO: view category of task if selected All-view
+//TODO:
+//TODO:
+//TODO:
+//TODO:
+//TODO:
+//TODO:

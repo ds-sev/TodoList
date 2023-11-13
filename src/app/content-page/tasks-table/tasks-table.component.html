@@ -37,7 +37,7 @@
 
 
 <p-dialog
-  header="Новая задача:"
+  header="{{ isEditForm ? 'Редактировать' : 'Новая задача:' }}"
   [(visible)]="displayModal"
   [style]="{ width: '50vw' }"
 ><form [formGroup]="form" (ngSubmit)="onSubmitForm()">
@@ -49,6 +49,7 @@
     <p-calendar
       formControlName="expiresIn"
       appendTo="body"
+      [minDate]='minDate'
     >
     </p-calendar>
 
@@ -74,6 +75,6 @@
     </div>
 
 
-    <button type="submit">Создать</button>
+    <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
   </form>
 </p-dialog>

@@ -24,6 +24,7 @@
     [rounded]="true"
     severity="warning"
     [outlined]="true"
+    (onClick)="onEditTaskClick()"
   ></p-button>
 </td>
 <td
@@ -36,4 +37,6 @@
     (onClick)="onDeleteTaskClick()"
   ></p-button>
 </td>
+
+<app-task-form></app-task-form>
 

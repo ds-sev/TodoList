@@ -7,44 +7,7 @@
   (click)="onAddTaskClick()"
 >
 </p-button>
-<p-dialog header="Новая задача:" [(visible)]="displayModal" [style]="{ width: '50vw' }">
-  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
-    <input
-      formControlName="name"
-      id="name"
-      type="text"
-    >
-    <p-calendar
-      formControlName="expiresIn"
-      appendTo="body"
-    >
-    </p-calendar>
 
-
-
-<!--           <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
-<!--             <p-radioButton -->
-<!--               [inputId]="priority" -->
-<!--               [value]="priority" -->
-<!--               formControlName="priority" -->
-<!--             > -->
-<!--             </p-radioButton> -->
-<!--             <label [for]="priority" class="ml-2">{{ priority }}</label> -->
-<!--           </div> -->
-<!--         <div class="flex py-2 justify-content-center"> -->
-<!--           <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
-<!--                       optionLabel="name"></p-dropdown> -->
-<!--         </div> -->
-    <div>
-        <input formControlName="priority" type="radio" value="low">Низкий
-        <input formControlName="priority" type="radio" value="mid">Средний
-        <input formControlName="priority" type="radio" value="high">Высокий
-    </div>
-
-
-    <button type="submit">Создать</button>
-  </form>
-</p-dialog>
 <div *ngIf="tasksService.tasksListSig() as tasksList">
   <table class="table" *ngIf="tasksList.length > 0; else empty">
     <thead class="table__head">
@@ -62,6 +25,7 @@
         class="table__task-container"
         *ngFor="let task of tasksList"
         [task]="task"
+        (openEditForm)="openEditTaskForm($event)"
     ></tr>
   </table>
 </div>
@@ -70,3 +34,46 @@
     У вас нет задач
   </div>
 </ng-template>
+
+
+<p-dialog
+  header="Новая задача:"
+  [(visible)]="displayModal"
+  [style]="{ width: '50vw' }"
+><form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+    <input
+      formControlName="name"
+      id="name"
+      type="text"
+    >
+    <p-calendar
+      formControlName="expiresIn"
+      appendTo="body"
+    >
+    </p-calendar>
+
+
+
+    <!--           <div *ngFor="let priority of tasksPriority" class="field-checkbox"> -->
+    <!--             <p-radioButton -->
+    <!--               [inputId]="priority" -->
+    <!--               [value]="priority" -->
+    <!--               formControlName="priority" -->
+    <!--             > -->
+    <!--             </p-radioButton> -->
+    <!--             <label [for]="priority" class="ml-2">{{ priority }}</label> -->
+    <!--           </div> -->
+    <!--         <div class="flex py-2 justify-content-center"> -->
+    <!--           <p-dropdown appendTo="body" [options]="categories" [(ngModel)]="selectedCategory" placeholder="Выберите категорию" -->
+    <!--                       optionLabel="name"></p-dropdown> -->
+    <!--         </div> -->
+    <div>
+      <input formControlName="priority" type="radio" value="low">Низкий
+      <input formControlName="priority" type="radio" value="mid">Средний
+      <input formControlName="priority" type="radio" value="high">Высокий
+    </div>
+
+
+    <button type="submit">Создать</button>
+  </form>
+</p-dialog>

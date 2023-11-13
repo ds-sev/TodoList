@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, } from '@angular/core'
+import { Component, inject, Input, OnInit, } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -19,6 +19,8 @@ import { TaskComponent } from '../task/task.component'
   styleUrl: './tasks-table.component.scss'
 })
 export class TasksTableComponent implements OnInit {
+
+  @Input()
   checked: boolean
 
   // tasks: Task[]
@@ -54,5 +56,10 @@ export class TasksTableComponent implements OnInit {
     console.log(this.form.value)
     this.displayModal = false
     this.form.reset()
+  }
+
+  openEditTaskForm(taskData: ITask) {
+    console.log(taskData)
+    this.displayModal = true
   }
 }

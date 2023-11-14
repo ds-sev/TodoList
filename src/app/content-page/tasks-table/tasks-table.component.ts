@@ -53,24 +53,25 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
+    this.form.reset()
     this.isEditForm = false
     this.displayModal = true
   }
 
   onSubmitForm() {
-    this.tasksService.addTask(this.form.value)
-    console.log(this.form.value)
+    if (this.isEditForm) {
+      console.log('edit Form')
+    } else {
+      this.tasksService.addTask(this.form.value)
+    }
     this.displayModal = false
-    this.form.reset()
   }
 
   openEditTaskForm(taskData: ITask) {
-    console.log(    taskData.expiresIn
-    )
     this.isEditForm = true
     this.form.setValue({
       name: taskData.name,
-      expiresIn: taskData.expiresIn,
+      expiresIn: taskData.expiresIn ? new Date(taskData.expiresIn) : '',
       category: taskData.category || null,
       priority: taskData.priority || null
     })
@@ -80,9 +81,9 @@ export class TasksTableComponent implements OnInit {
 
 //TODO: correct calendar view
 //TODO: view category of task if selected All-view
-//TODO:
-//TODO:
-//TODO:
+//TODO: complete task view
+//TODO: create method in task service for save edited data
+//TODO: create validation for create/edit task form
 //TODO:
 //TODO:
 //TODO:

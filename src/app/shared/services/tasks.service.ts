@@ -38,4 +38,16 @@ export class TasksService {
     this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
     this.updateStorageTasks()
   }
+
+  editTask(taskId: string, taskEditedData: ITask) {
+    this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
+        id: task.id,
+        name: taskEditedData.name,
+        complete: taskEditedData.complete || false,
+        expiresIn: taskEditedData.expiresIn,
+        priority: taskEditedData.priority
+      } : task)
+    )
+    this.updateStorageTasks()
+  }
 }

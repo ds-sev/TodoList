@@ -38,6 +38,8 @@ export class TasksTableComponent implements OnInit {
 
   minDate: Date = new Date()
 
+  taskToEditId: string
+
 
   // public priority = Priority
 
@@ -60,7 +62,7 @@ export class TasksTableComponent implements OnInit {
 
   onSubmitForm() {
     if (this.isEditForm) {
-      console.log('edit Form')
+      this.tasksService.editTask(this.taskToEditId, this.form.value)
     } else {
       this.tasksService.addTask(this.form.value)
     }
@@ -68,6 +70,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   openEditTaskForm(taskData: ITask) {
+    this.taskToEditId = taskData.id
     this.isEditForm = true
     this.form.setValue({
       name: taskData.name,
@@ -79,9 +82,7 @@ export class TasksTableComponent implements OnInit {
   }
 }
 
-//TODO: correct calendar view
 //TODO: view category of task if selected All-view
-//TODO: complete task view
 //TODO: create method in task service for save edited data
 //TODO: create validation for create/edit task form
 //TODO:

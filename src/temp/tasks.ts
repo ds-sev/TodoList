@@ -1,11 +1,15 @@
 import { ITask } from '../app/shared/interfaces'
+
 export const TASKS: ITask[] = [
   {
     id: '1',
     name: 'Изучить signals',
     complete: false,
     expiresIn: new Date(),
-    category: 'Работа',
+    category: {
+      id: '1',
+      name: 'Работа'
+    },
     priority: 'high'
   },
   {
@@ -20,7 +24,10 @@ export const TASKS: ITask[] = [
     name: 'Выгулять пса',
     complete: false,
     expiresIn: new Date(),
-    category: 'Домашние',
+    category: {
+      id: '2',
+      name: 'Домашние'
+    },
     priority: 'low'
   },
   {
@@ -28,6 +35,9 @@ export const TASKS: ITask[] = [
     name: 'Выгулять пса',
     complete: false,
     expiresIn: new Date(),
-    category: 'Домашние',
+    category: {
+      id: '2',
+      name: 'Домашние'
+    },
   }
 ]

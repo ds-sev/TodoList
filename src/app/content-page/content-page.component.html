@@ -1,22 +1,6 @@
 <main class="content">
   <div class="side-menu">
-    <h4>Категории</h4>
-    <ul class="side-menu__list menu-list">
-      <li class="menu-list__item">
-        <a [routerLink]="['/link']">Все</a>
-      </li>
-      @for (category of categoriesList; track category) {
-        <li class="menu-list__item">{{category.name}}</li>
-      }
-    </ul>
-    <p-button
-      label="Добавить категорию"
-      size="small"
-      severity="warning"
-      [outlined]="true"
-      [rounded]="true"
-      (click)="addCategory()">
-    </p-button>
+    <app-categories></app-categories>
     <p-button
       label="Выйти"
       size="small"

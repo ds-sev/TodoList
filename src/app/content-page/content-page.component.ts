@@ -5,41 +5,29 @@ import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
 import { Router, RouterLink, RouterOutlet } from '@angular/router'
-import { ICategory } from '../shared/interfaces'
 import { CATEGORIES } from '../../temp/categories'
+import { CategoriesComponent } from './categories/categories.component'
 
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink, CategoriesComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
-export class ContentPageComponent implements OnInit {
-
-  categoriesList: ICategory[]
-
+export class ContentPageComponent {
 
   constructor(private authService: AuthService, private router: Router) {
-  }
-
-  ngOnInit() {
-    this.categoriesList = CATEGORIES
   }
 
   logout() {
     this.authService.logout()
     this.router.navigate(['/login'])
   }
-
-  addCategory() {
-
-  }
 }
 
-//TODO: move categories to separate component
-//TODO:
-//TODO:
-//TODO:
-//TODO:
+//TODO: signOut confirmation popup
+//TODO: routing for user-added categories
+//TODO: edit categories names
+//TODO: delete category? with all tasks?
 //TODO: edit styles

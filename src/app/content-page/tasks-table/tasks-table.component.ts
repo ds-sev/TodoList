@@ -83,8 +83,7 @@ export class TasksTableComponent implements OnInit {
 }
 
 //TODO: view category of task if selected All-view
-//TODO: create method in task service for save edited data
 //TODO: create validation for create/edit task form
-//TODO:
-//TODO:
-//TODO:
+//TODO: add colors for date-marked tasks fields
+//TODO: create delete confirmation popup
+//TODO: filter for tasks

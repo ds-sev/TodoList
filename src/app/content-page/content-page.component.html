@@ -3,9 +3,11 @@
     <h4>Категории</h4>
     <ul class="side-menu__list menu-list">
       <li class="menu-list__item">
-        <a [routerLink]="['/link']">Все</a></li>
-      <li class="menu-list__item">Работа</li>
-      <li class="menu-list__item">Домашние</li>
+        <a [routerLink]="['/link']">Все</a>
+      </li>
+      @for (category of categoriesList; track category) {
+        <li class="menu-list__item">{{category.name}}</li>
+      }
     </ul>
     <p-button
       label="Добавить категорию"

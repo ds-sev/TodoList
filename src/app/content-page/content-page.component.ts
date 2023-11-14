@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
 import { Router, RouterLink, RouterOutlet } from '@angular/router'
+import { ICategory } from '../shared/interfaces'
+import { CATEGORIES } from '../../temp/categories'
 
 @Component({
   selector: 'app-content-page',
@@ -13,10 +15,16 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router'
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
-export class ContentPageComponent {
+export class ContentPageComponent implements OnInit {
+
+  categoriesList: ICategory[]
 
 
   constructor(private authService: AuthService, private router: Router) {
+  }
+
+  ngOnInit() {
+    this.categoriesList = CATEGORIES
   }
 
   logout() {
@@ -28,3 +36,10 @@ export class ContentPageComponent {
 
   }
 }
+
+//TODO: move categories to separate component
+//TODO:
+//TODO:
+//TODO:
+//TODO:
+//TODO: edit styles

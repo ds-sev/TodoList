@@ -4,6 +4,7 @@ export interface IUser {
 }
 
 export interface ICategory {
+  id: string
   name: string
 }
 
@@ -12,7 +13,7 @@ export interface ITask {
   name: string
   complete: boolean
   expiresIn?: Date
-  category?: ICategory | null
+  category?: ICategory
   priority?: 'low' | 'mid' | 'high'
 }
 

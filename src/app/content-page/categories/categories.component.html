@@ -20,7 +20,7 @@
   header="{{ isEditForm ? 'Редактировать' : 'Новая категория:' }}"
   [(visible)]="displayModal"
   [style]="{ width: '50vw' }"
-><form [formGroup]="form" (ngSubmit)="onSubmitForm()">
+><form [formGroup]="categoryForm" (ngSubmit)="onSubmitForm()">
   <input
     formControlName="name"
     id="name"

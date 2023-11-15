@@ -6,7 +6,7 @@
   ></p-checkbox>
 </td>
 <td>{{task.name}}</td>
-<td *ngIf="false">{{task.category}}</td>
+<td *ngIf="true">{{task.category ? task.category.name : ''}}</td>
 <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
 <td>
   <div *ngIf="task.priority === 'low'"

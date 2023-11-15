@@ -10,11 +10,13 @@ import { CalendarModule } from 'primeng/calendar'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { TasksService } from '../../shared/services/tasks.service'
 import { TaskComponent } from '../task/task.component'
+import { CascadeSelectModule } from 'primeng/cascadeselect'
+import { CategoriesService } from '../../shared/services/categories.service'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -33,12 +35,13 @@ export class TasksTableComponent implements OnInit {
   form: FormGroup
 
   tasksService = inject(TasksService)
+  categoriesService = inject(CategoriesService)
 
   isEditForm: boolean = false
 
   minDate: Date = new Date()
 
-  taskToEditId: string
+  taskToEditId: string | null = null
 
 
   // public priority = Priority

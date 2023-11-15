@@ -21,8 +21,6 @@ export class CategoriesComponent implements OnInit {
 
   categoriesService = inject(CategoriesService)
 
-  categoriesList: ICategory[]
-
   displayModal: boolean = false
   categoryForm: FormGroup
   isEditForm: boolean
@@ -31,7 +29,7 @@ export class CategoriesComponent implements OnInit {
     // this.categoriesList = CATEGORIES
     this.categoriesService.getUserCategories()
 
-    this.categoriesList = this.categoriesService.userCategoriesSig()
+    // this.categoriesList = this.categoriesService.userCategoriesSig()
 
     this.categoryForm = new FormGroup<any>({
       name: new FormControl,

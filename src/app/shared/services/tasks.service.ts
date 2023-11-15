@@ -22,7 +22,8 @@ export class TasksService {
       name: newTaskData.name,
       complete: false,
       expiresIn: newTaskData.expiresIn,
-      priority: newTaskData.priority
+      priority: newTaskData.priority,
+      category: newTaskData.category || null
     }
 
     if (this.tasksListSig()) {

@@ -3,7 +3,7 @@
   <li class="menu-list__item">
     <a [routerLink]="['/link']">Все</a>
   </li>
-  @for (category of categoriesList; track category) {
+  @for (category of categoriesService.userCategoriesSig(); track category.id) {
   <li class="menu-list__item"><a [routerLink]="['/link']">{{category.name}}</a></li>
   }
 </ul>

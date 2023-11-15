@@ -11,6 +11,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router'
 })
 export class AuthLayoutComponent {
 
+  
+
   constructor(public router: Router) {
   }
 

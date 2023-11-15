@@ -36,6 +36,6 @@ export class LoginPageComponent implements OnInit {
   }
   onSubmit() {
     this.authService.login(this.form.value)
-    this.router.navigate(['/tasks'])
+    this.router.navigate(['/categories/all'])
   }
 }

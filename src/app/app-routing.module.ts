@@ -18,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: '', canActivate: [AuthGuard], component: ContentPageComponent, children: [
-      {path: 'tasks', component: TasksTableComponent }
+      {path: 'categories/all', component: TasksTableComponent},
+      {path: 'categories/:id', component: TasksTableComponent}
     ]
   }
 ];

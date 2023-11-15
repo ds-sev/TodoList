@@ -12,6 +12,13 @@ export class TasksService {
     this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
   }
 
+  getTasksDataByCategoryId(categoryId: string) {
+    // this.getTasksData()
+    this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
+
+    console.log(this.tasksListSig())
+  }
+
   updateStorageTasks() {
     localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
   }
@@ -41,14 +48,32 @@ export class TasksService {
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
+    console.log(taskEditedData)
+
+    // const storedTasks = JSON.parse(localStorage.getItem('tasks'))
+    // storedTasks.map(task => task.id === taskId ? {
+    //       id: task.id,
+    //       name: taskEditedData.name,
+    //       complete: taskEditedData.complete || false,
+    //       expiresIn: taskEditedData.expiresIn,
+    //       priority: taskEditedData.priority,
+    //       category: taskEditedData.category
+    //     } : task)
+    //
+    // console.log(storedTasks)
+    //
+    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
+    this.getTasksData()
+
     this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
         id: task.id,
         name: taskEditedData.name,
         complete: taskEditedData.complete || false,
         expiresIn: taskEditedData.expiresIn,
-        priority: taskEditedData.priority
+        priority: taskEditedData.priority,
+        category: taskEditedData.category
       } : task)
     )
-    this.updateStorageTasks()
+    // this.updateStorageTasks()
   }
 }

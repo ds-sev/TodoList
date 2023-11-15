@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, } from '@angular/core'
+import { Component, inject, Input, OnInit, signal, } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -12,11 +12,12 @@ import { TasksService } from '../../shared/services/tasks.service'
 import { TaskComponent } from '../task/task.component'
 import { CascadeSelectModule } from 'primeng/cascadeselect'
 import { CategoriesService } from '../../shared/services/categories.service'
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule, RouterOutlet],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -44,10 +45,29 @@ export class TasksTableComponent implements OnInit {
   taskToEditId: string | null = null
 
 
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+  }
   // public priority = Priority
 
+
+
   ngOnInit() {
-    this.tasksService.getTasksData()
+    // this.tasksService.getTasksData()
+
+    this.route.params.subscribe(params => {
+      this.tasksService.getTasksData()
+      if (params.hasOwnProperty('id')) {
+
+        this.tasksService.getTasksDataByCategoryId(params['id'])
+      }
+    })
+
+
 
     this.form = new FormGroup<any>({
       name: new FormControl,

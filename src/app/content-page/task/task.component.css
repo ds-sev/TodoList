@@ -2,16 +2,14 @@ td {
   text-align: center;
 }
 
-tr {
-  border: 1px solid red;
-}
-
 .table {
   width: 100%;
   margin: 10px auto 0;
   border-collapse: collapse;
 }
 .table__column_for-button {
-  border: 1px solid red;
   width: 25px;
+}
+.table__task-priority {
+  margin: 0 auto;
 }

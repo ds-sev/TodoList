@@ -5,8 +5,8 @@
   </li>
 
   @for (category of categoriesService.userCategoriesSig(); track category.id) {
-    <li class="menu-list__item" (onClick)="onCategoryClick(category.id)" routerLinkActive="activebutton">
-      <a class="button" [routerLink]="['/categories', category.id]">
+    <li class="menu-list__item" (onClick)="onCategoryClick(category.id)">
+      <a class="button" [routerLink]="['/categories', category.id]" routerLinkActive="activebutton">
         {{category.name}}
       </a>
     </li>

@@ -2,23 +2,36 @@ td {
   text-align: center;
 }
 
+th {
+  text-align: center;
+}
+
 .table {
   width: 100%;
   margin: 10px auto 0;
   border-collapse: collapse;
 }
-.table__task-container {
-  border: 1px solid red;
-}
 .table__head {
+  font-size: 14px;
   height: 50px;
   background-color: lightgray;
 }
 .table__body {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
 }
 .table__column_for-button {
   width: 25px;
+}
+.table__column-header_done {
+  width: 20px;
+}
+.table__column-header_category {
+  width: 100px;
+}
+.table__column-header_expires {
+  width: 100px;
+}
+.table__column-header_priority {
+  width: 30px;
 }

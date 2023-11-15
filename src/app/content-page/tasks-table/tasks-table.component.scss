@@ -6,6 +6,10 @@ tr {
 
 }
 
+th {
+  text-align: center;
+}
+
 .table {
 
 
@@ -25,25 +29,42 @@ tr {
 
 
   &__task-container {
-    border: 1px solid red;
+
   }
 
   &__head {
-
-
+    font-size: 14px;
     height: 50px;
     background-color: lightgray;
+
+
   }
+
+
 
   &__body {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
   }
 
   &__column {
     &_for-button {
       width: 25px;
+    }
+  }
+
+  &__column-header {
+    &_done {
+      width: 20px;
+    }
+    &_category {
+      width: 100px;
+    }
+    &_expires {
+      width: 100px;
+    }
+    &_priority {
+      width: 30px;
     }
   }
 }

@@ -15,6 +15,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { TasksService } from '../../shared/services/tasks.service'
 import { DialogModule } from 'primeng/dialog'
 import { CalendarModule } from 'primeng/calendar'
+import { Router } from '@angular/router'
 
 @Component({
   selector: '[task-table-row]',
@@ -28,6 +29,10 @@ export class TaskComponent {
   @Output() openEditForm = new EventEmitter<ITask>()
 
   tasksService = inject(TasksService)
+
+  constructor(public router: Router
+  ) {
+  }
 
 
 

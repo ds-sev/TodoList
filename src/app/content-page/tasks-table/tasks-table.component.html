@@ -10,12 +10,12 @@
 <div *ngIf="tasksService.tasksListSig() as tasksList">
   <table class="table" *ngIf="tasksList.length > 0; else empty">
     <thead class="table__head">
-      <tr>
-        <th>Готово</th>
+      <tr class="table__row">
+        <th class="table__column-header_done">Готово</th>
         <th>Задача</th>
-        <th *ngIf="true">Категория</th>
-        <th>Срок</th>
-        <th>Приоритет</th>
+        <th class="table__column-header_category" *ngIf="router.url.endsWith('all')">Категория</th>
+        <th class="table__column-header_expires">Срок</th>
+        <th class="table__column-header_priority">Приоритет</th>
         <th></th>
         <th></th>
       </tr>

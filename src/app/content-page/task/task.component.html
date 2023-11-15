@@ -6,16 +6,16 @@
   ></p-checkbox>
 </td>
 <td>{{task.name}}</td>
-<td *ngIf="true">{{task.category ? task.category.name : ''}}</td>
+<td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
 <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
 <td>
-  <div *ngIf="task.priority === 'low'"
+  <div class="table__task-priority" *ngIf="task.priority === 'low'"
        style="width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
   <div *ngIf="task.priority === 'mid'"
        style="width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
   <div *ngIf="task.priority === 'high'"
        style="width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
-  <div *ngIf="!task.priority"
+  <div class="table__task-priority" *ngIf="!task.priority"
        style="width: 20px; height: 20px; background-color: transparent; border-radius: 20px; border: 1px solid black"></div>
 </td>
 <td class="table__column_for-button">

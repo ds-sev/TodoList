@@ -7,6 +7,7 @@ import { ITask } from '../interfaces'
 export class TasksService {
 
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
+  filteredTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([])
 
   getTasksData() {
     this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
@@ -15,7 +16,6 @@ export class TasksService {
   getTasksDataByCategoryId(categoryId: string) {
     // this.getTasksData()
     this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
-
     console.log(this.tasksListSig())
   }
 
@@ -48,8 +48,6 @@ export class TasksService {
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
-    console.log(taskEditedData)
-
     // const storedTasks = JSON.parse(localStorage.getItem('tasks'))
     // storedTasks.map(task => task.id === taskId ? {
     //       id: task.id,
@@ -63,7 +61,8 @@ export class TasksService {
     // console.log(storedTasks)
     //
     // localStorage.setItem('tasks', JSON.stringify(storedTasks))
-    this.getTasksData()
+    // this.getTasksData()
+
 
     this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
         id: task.id,
@@ -74,6 +73,6 @@ export class TasksService {
         category: taskEditedData.category
       } : task)
     )
-    // this.updateStorageTasks()
+    this.updateStorageTasks()
   }
 }

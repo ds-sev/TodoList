@@ -3,7 +3,7 @@ td {
 }
 
 tr {
-  border: 1px solid red;
+
 }
 
 .table {
@@ -15,8 +15,12 @@ tr {
   border-collapse: collapse;
   &__column {
     &_for-button {
-      border: 1px solid red;
+
       width: 25px;
     }
+  }
+
+  &__task-priority {
+    margin: 0 auto;
   }
 }

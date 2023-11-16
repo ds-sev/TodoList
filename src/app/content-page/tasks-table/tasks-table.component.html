@@ -12,7 +12,7 @@
          *ngIf="tasksService.tasksListSig().length > 0; else empty">
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="done" style="width: 8rem">Готово <p-sortIcon field="done"></p-sortIcon></th>
+      <th pSortableColumn="complete" style="width: 8rem">Готово <p-sortIcon field="complete"></p-sortIcon></th>
       <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
       <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория <p-sortIcon field="category"></p-sortIcon></th>
       <th pSortableColumn="expiresIn" style="width: 8rem">Срок <p-sortIcon field="expiresIn"></p-sortIcon></th>
@@ -30,7 +30,7 @@
           (onChange)="toggleTaskState(task)"
         ></p-checkbox>
       </td>
-      <td>{{task.name}}</td>
+      <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
       <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
       <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
       <td>
@@ -54,6 +54,7 @@
           severity="warning"
           [outlined]="true"
           (onClick)="onEditTaskClick(task)"
+          [disabled]="task.complete"
         ></p-button>
       </td>
       <td

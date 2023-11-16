@@ -28,6 +28,10 @@ td {
   width: 30px;
 }
 
+.cell__name_done {
+  text-decoration: line-through;
+}
+
 .sort-indicator {
   margin-left: 0.5rem;
   width: 0;

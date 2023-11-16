@@ -49,6 +49,21 @@ th {
   }
 }
 
+
+.cell {
+  &__name {
+    &_done {
+      text-decoration:line-through;
+    }
+  }
+}
+
+
+
+
+
+
+
 .sort-indicator {
   margin-left: 0.5rem;
   width: 0;

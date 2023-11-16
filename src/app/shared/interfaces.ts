@@ -12,6 +12,7 @@ export interface ITask {
   id: string
   name: string
   complete: boolean
+  created: string,
   expiresIn?: Date
   category?: ICategory
   priority?: 'low' | 'mid' | 'high'

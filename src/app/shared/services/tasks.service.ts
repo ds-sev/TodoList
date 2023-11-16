@@ -26,37 +26,38 @@ export class TasksService {
     return JSON.parse(localStorage.getItem('tasks'))
   }
 
+  toggleTaskStatus(taskToChangeStatus: ITask) {
+    let storedTasks = this.getStoredTasks()
+    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
+      ...task, complete: !!taskToChangeStatus.complete
+    } : task)
+    localStorage.setItem('tasks', JSON.stringify(storedTasks))
+  }
+
   addTask(newTaskData: ITask) {
+    let storedTasks = this.getStoredTasks()
     const newTask: ITask = {
       id: Math.random().toString(16),
       name: newTaskData.name.charAt(0).toUpperCase() + newTaskData.name.slice(1),
       complete: false,
+      created: new Date().toLocaleDateString(),
       expiresIn: newTaskData.expiresIn,
       priority: newTaskData.priority,
       category: newTaskData.category || null
     }
-
-    if (this.tasksListSig()) {
-      this.tasksListSig.update(v => [...v, newTask])
-      this.updateStoredTasks()
+    if (storedTasks.length) {
+      storedTasks.unshift(newTask)
+      localStorage.setItem('tasks', JSON.stringify(storedTasks))
 
     } else {
       localStorage.setItem('tasks', JSON.stringify([newTask]))
     }
   }
 
-  deleteTask(id: string) {
-    this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
-    this.updateStoredTasks()
-  }
-
   editTask(taskId: string, taskEditedData: ITask) {
-
-
     let storedTasks = this.getStoredTasks()
-
-    console.log(taskId, taskEditedData.name)
     storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
+      ...task,
       id: task.id,
       name: taskEditedData.name,
       complete: taskEditedData.complete || false,
@@ -64,27 +65,11 @@ export class TasksService {
       priority: taskEditedData.priority,
       category: taskEditedData.category
     } : task)
-
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
-    this.getTasksData()
-
-    // this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
-    //     id: task.id,
-    //     name: taskEditedData.name,
-    //     complete: taskEditedData.complete || false,
-    //     expiresIn: taskEditedData.expiresIn,
-    //     priority: taskEditedData.priority,
-    //     category: taskEditedData.category
-    //   } : task)
-    // )
-    // this.updateStorageTasks()
   }
 
-  toggleTaskStatus(taskToChangeStatus: ITask) {
-    let storedTasks = this.getStoredTasks()
-    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
-      ...task, complete: !!taskToChangeStatus.complete
-    } : task)
-    localStorage.setItem('tasks', JSON.stringify(storedTasks))
+  deleteTask(id: string) {
+    this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
+    this.updateStoredTasks()
   }
 }

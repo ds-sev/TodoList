@@ -27,6 +27,7 @@
         <p-checkbox
           [(ngModel)]="task.complete"
           [binary]="true"
+          (onChange)="toggleTaskState(task)"
         ></p-checkbox>
       </td>
       <td>{{task.name}}</td>
@@ -52,6 +53,7 @@
           [rounded]="true"
           severity="warning"
           [outlined]="true"
+          (onClick)="onEditTaskClick(task)"
         ></p-button>
       </td>
       <td
@@ -61,6 +63,7 @@
           [rounded]="true"
           severity="danger"
           [outlined]="true"
+          (onClick)="onDeleteTaskClick(task)"
         ></p-button>
       </td>
 

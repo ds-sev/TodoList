@@ -18,8 +18,12 @@ export class TasksService {
     this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
   }
 
-  updateStorageTasks() {
+  updateStoredTasks() {
     localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
+  }
+
+  getStoredTasks() {
+    return JSON.parse(localStorage.getItem('tasks'))
   }
 
   addTask(newTaskData: ITask) {
@@ -34,7 +38,7 @@ export class TasksService {
 
     if (this.tasksListSig()) {
       this.tasksListSig.update(v => [...v, newTask])
-      this.updateStorageTasks()
+      this.updateStoredTasks()
 
     } else {
       localStorage.setItem('tasks', JSON.stringify([newTask]))
@@ -43,13 +47,13 @@ export class TasksService {
 
   deleteTask(id: string) {
     this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
-    this.updateStorageTasks()
+    this.updateStoredTasks()
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
 
 
-    let storedTasks = JSON.parse(localStorage.getItem('tasks'))
+    let storedTasks = this.getStoredTasks()
 
     console.log(taskId, taskEditedData.name)
     storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
@@ -74,5 +78,13 @@ export class TasksService {
     //   } : task)
     // )
     // this.updateStorageTasks()
+  }
+
+  toggleTaskStatus(taskToChangeStatus: ITask) {
+    let storedTasks = this.getStoredTasks()
+    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
+      ...task, complete: !!taskToChangeStatus.complete
+    } : task)
+    localStorage.setItem('tasks', JSON.stringify(storedTasks))
   }
 }

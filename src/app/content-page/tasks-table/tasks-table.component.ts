@@ -9,7 +9,6 @@ import { DropdownModule } from 'primeng/dropdown'
 import { CalendarModule } from 'primeng/calendar'
 import { RadioButtonModule } from 'primeng/radiobutton'
 import { TasksService } from '../../shared/services/tasks.service'
-import { TaskComponent } from '../task/task.component'
 import { CascadeSelectModule } from 'primeng/cascadeselect'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
@@ -19,7 +18,7 @@ import { RippleModule } from 'primeng/ripple'
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule, RouterOutlet, TableModule, RippleModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -67,6 +66,8 @@ export class TasksTableComponent implements OnInit {
       category: new FormControl,
       priority: new FormControl
     })
+
+    console.log(this.tasksService.tasksListSig())
   }
 
   onAddTaskClick() {
@@ -84,16 +85,25 @@ export class TasksTableComponent implements OnInit {
     this.displayModal = false
   }
 
-  openEditTaskForm(taskData: ITask) {
-    this.taskToEditId = taskData.id
+  onEditTaskClick(taskToEdit: ITask) {
+    console.log(taskToEdit)
+    this.taskToEditId = taskToEdit.id
     this.isEditForm = true
     this.form.setValue({
-      name: taskData.name,
-      expiresIn: taskData.expiresIn ? new Date(taskData.expiresIn) : '',
-      category: taskData.category || null,
-      priority: taskData.priority || null
+      name: taskToEdit.name,
+      expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
+      category: taskToEdit.category || null,
+      priority: taskToEdit.priority || null
     })
     this.displayModal = true
+  }
+
+  toggleTaskState(taskToChangeStatus: ITask) {
+    this.tasksService.toggleTaskStatus(taskToChangeStatus)
+  }
+
+  onDeleteTaskClick(taskToRemove: ITask) {
+    this.tasksService.deleteTask(taskToRemove.id)
   }
 }
 

@@ -28,7 +28,7 @@
     </thead>
     <tr task-table-row
         class="table__task-container"
-        *ngFor="let task of tasksList"
+        *ngFor="let task of sortedTasksSig()"
         [task]="task"
         (openEditForm)="openEditTaskForm($event)"
     ></tr>

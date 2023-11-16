@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal, } from '@angular/core'
+import { Component, inject, Input, OnInit, signal, WritableSignal, } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -44,6 +44,11 @@ export class TasksTableComponent implements OnInit {
 
   taskToEditId: string | null = null
 
+  sortProperty: string = 'id'
+  sortOrder = 1
+  sortedTasks: ITask[] = []
+  sortedTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([])
+
 
 
 
@@ -67,14 +72,15 @@ export class TasksTableComponent implements OnInit {
       }
     })
 
-
-
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
       category: new FormControl,
       priority: new FormControl
     })
+
+    this.sortedTasks = this.tasksService.tasksListSig()
+    this.sortedTasksSig.set(this.tasksService.tasksListSig())
   }
 
   onAddTaskClick() {
@@ -105,16 +111,34 @@ export class TasksTableComponent implements OnInit {
   }
 
   sortBy(columnName: string) {
-    this.tasksService.tasksListSig().sort((a, b) => {
+    this.sortProperty = columnName
+    this.sortOrder = columnName === this.sortProperty ? (this.sortOrder * -1) : 1
+    console.log(this.sortOrder)
+    console.log(this.sortProperty)
+    console.log(columnName)
+
+    this.sortedTasks = [...this.sortedTasks.sort((a, b) => {
+      let result = 0
       if (a[columnName] < b[columnName]) {
-        console.log((a[columnName] < b[columnName]))
-        return -1
+        result = -1
       }
-     if (a[columnName] > b[columnName]) {
-       return 1
-     }
-     return 0
-    })
+      if (a[columnName] > b[columnName]) {
+        result = 1
+      }
+      return result * this.sortOrder
+    })]
+    this.sortedTasksSig.set(this.sortedTasks)
+
+    // this.tasksService.tasksListSig().sort((a, b) => {
+    //   if (a[columnName] < b[columnName]) {
+    //     console.log((a[columnName] < b[columnName]))
+    //     return -1
+    //   }
+    //  if (a[columnName] > b[columnName]) {
+    //    return 1
+    //  }
+    //  return 0
+    // })
   }
 
   isSortedBy(name: string, asc: string) {

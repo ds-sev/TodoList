@@ -16,7 +16,6 @@ export class TasksService {
   getTasksDataByCategoryId(categoryId: string) {
     // this.getTasksData()
     this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
-    console.log(this.tasksListSig())
   }
 
   updateStorageTasks() {
@@ -48,31 +47,32 @@ export class TasksService {
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
-    // const storedTasks = JSON.parse(localStorage.getItem('tasks'))
-    // storedTasks.map(task => task.id === taskId ? {
-    //       id: task.id,
-    //       name: taskEditedData.name,
-    //       complete: taskEditedData.complete || false,
-    //       expiresIn: taskEditedData.expiresIn,
-    //       priority: taskEditedData.priority,
-    //       category: taskEditedData.category
-    //     } : task)
-    //
-    // console.log(storedTasks)
-    //
-    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
-    // this.getTasksData()
 
 
-    this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
-        id: task.id,
-        name: taskEditedData.name,
-        complete: taskEditedData.complete || false,
-        expiresIn: taskEditedData.expiresIn,
-        priority: taskEditedData.priority,
-        category: taskEditedData.category
-      } : task)
-    )
-    this.updateStorageTasks()
+    let storedTasks = JSON.parse(localStorage.getItem('tasks'))
+
+    console.log(taskId, taskEditedData.name)
+    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
+      id: task.id,
+      name: taskEditedData.name,
+      complete: taskEditedData.complete || false,
+      expiresIn: taskEditedData.expiresIn,
+      priority: taskEditedData.priority,
+      category: taskEditedData.category
+    } : task)
+
+    localStorage.setItem('tasks', JSON.stringify(storedTasks))
+    this.getTasksData()
+
+    // this.tasksListSig.update(taskArr => taskArr.map(task => task.id === taskId ? {
+    //     id: task.id,
+    //     name: taskEditedData.name,
+    //     complete: taskEditedData.complete || false,
+    //     expiresIn: taskEditedData.expiresIn,
+    //     priority: taskEditedData.priority,
+    //     category: taskEditedData.category
+    //   } : task)
+    // )
+    // this.updateStorageTasks()
   }
 }

@@ -12,10 +12,16 @@
     <thead class="table__head">
       <tr class="table__row">
         <th class="table__column-header_done">Готово</th>
-        <th>Задача</th>
+        <th
+          (click)="sortBy('name')">
+          Задача
+          <span
+            class="sort-indicator"
+          ></span>
+        </th>
         <th class="table__column-header_category" *ngIf="router.url.endsWith('all')">Категория</th>
-        <th class="table__column-header_expires">Срок</th>
-        <th class="table__column-header_priority">Приоритет</th>
+        <th (click)="sortBy('expiresIn')" class="table__column-header_expires">Срок</th>
+        <th class="table__column-header_priority" (click)="sortBy('priority')">Приоритет</th>
         <th></th>
         <th></th>
       </tr>

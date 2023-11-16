@@ -103,6 +103,23 @@ export class TasksTableComponent implements OnInit {
     })
     this.displayModal = true
   }
+
+  sortBy(columnName: string) {
+    this.tasksService.tasksListSig().sort((a, b) => {
+      if (a[columnName] < b[columnName]) {
+        console.log((a[columnName] < b[columnName]))
+        return -1
+      }
+     if (a[columnName] > b[columnName]) {
+       return 1
+     }
+     return 0
+    })
+  }
+
+  isSortedBy(name: string, asc: string) {
+
+  }
 }
 
 //TODO: view category of task if selected All-view

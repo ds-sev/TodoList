@@ -68,3 +68,19 @@ th {
     }
   }
 }
+
+.sort-indicator {
+  margin-left: 0.5rem;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+.sort-asc {
+  border-bottom: 4px solid #000;
+}
+
+.sort-desc {
+  border-top: 4px solid #000;
+}

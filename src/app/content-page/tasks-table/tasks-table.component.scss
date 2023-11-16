@@ -1,5 +1,6 @@
 td {
   text-align: center;
+  padding: 0;
 }
 
 tr {
@@ -7,31 +8,10 @@ tr {
 }
 
 th {
-  text-align: center;
+  //text-align: center;
 }
 
 .table {
-
-
-
-
-
-  width: 100%;
-
-  margin: 10px auto 0;
-
-
-  border-collapse: collapse;
-
-
-
-
-
-
-  &__task-container {
-
-  }
-
   &__head {
     font-size: 14px;
     height: 50px;
@@ -84,3 +64,4 @@ th {
 .sort-desc {
   border-top: 4px solid #000;
 }
+

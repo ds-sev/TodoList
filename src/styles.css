@@ -25,3 +25,7 @@ li {
 a {
   text-decoration: none;
 }
+
+tr, th {
+  text-align: center;
+}

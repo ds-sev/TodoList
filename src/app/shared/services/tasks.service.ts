@@ -25,7 +25,7 @@ export class TasksService {
   addTask(newTaskData: ITask) {
     const newTask: ITask = {
       id: Math.random().toString(16),
-      name: newTaskData.name,
+      name: newTaskData.name.charAt(0).toUpperCase() + newTaskData.name.slice(1),
       complete: false,
       expiresIn: newTaskData.expiresIn,
       priority: newTaskData.priority,

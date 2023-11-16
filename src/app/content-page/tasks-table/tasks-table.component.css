@@ -1,16 +1,8 @@
 td {
   text-align: center;
+  padding: 0;
 }
 
-th {
-  text-align: center;
-}
-
-.table {
-  width: 100%;
-  margin: 10px auto 0;
-  border-collapse: collapse;
-}
 .table__head {
   font-size: 14px;
   height: 50px;

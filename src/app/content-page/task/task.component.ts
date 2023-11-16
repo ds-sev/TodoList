@@ -18,7 +18,8 @@ import { CalendarModule } from 'primeng/calendar'
 import { Router } from '@angular/router'
 
 @Component({
-  selector: '[task-table-row]',
+  // selector: '[task-table-row]',
+  selector: 'task-table-row',
   standalone: true,
   imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, CalendarModule, ReactiveFormsModule],
   templateUrl: './task.component.html',

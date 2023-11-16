@@ -21,8 +21,7 @@ export class CategoriesService {
 
     const newCategory: ICategory = {
       id: Math.random().toString(16),
-      name: newCategoryData.name
-    }
+      name: newCategoryData.name.charAt(0).toUpperCase() + newCategoryData.name.slice(1)    }
 
     if (this.userCategoriesSig()) {
       this.userCategoriesSig.update(categories => [...categories, newCategory])

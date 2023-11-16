@@ -13,11 +13,13 @@ import { TaskComponent } from '../task/task.component'
 import { CascadeSelectModule } from 'primeng/cascadeselect'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
+import { TableModule } from 'primeng/table'
+import { RippleModule } from 'primeng/ripple'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule, RouterOutlet],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, TaskComponent, CascadeSelectModule, RouterOutlet, TableModule, RippleModule],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -44,26 +46,13 @@ export class TasksTableComponent implements OnInit {
 
   taskToEditId: string | null = null
 
-  sortProperty: string = 'id'
-  sortOrder = 1
-  sortedTasks: ITask[] = []
-  sortedTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([])
-
-
-
-
   constructor(
     private route: ActivatedRoute,
     public router: Router
   ) {
   }
-  // public priority = Priority
-
-
 
   ngOnInit() {
-    // this.tasksService.getTasksData()
-
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData()
       if (params.hasOwnProperty('id')) {
@@ -78,9 +67,6 @@ export class TasksTableComponent implements OnInit {
       category: new FormControl,
       priority: new FormControl
     })
-
-    this.sortedTasks = this.tasksService.tasksListSig()
-    this.sortedTasksSig.set(this.tasksService.tasksListSig())
   }
 
   onAddTaskClick() {
@@ -108,41 +94,6 @@ export class TasksTableComponent implements OnInit {
       priority: taskData.priority || null
     })
     this.displayModal = true
-  }
-
-  sortBy(columnName: string) {
-    this.sortProperty = columnName
-    this.sortOrder = columnName === this.sortProperty ? (this.sortOrder * -1) : 1
-    console.log(this.sortOrder)
-    console.log(this.sortProperty)
-    console.log(columnName)
-
-    this.sortedTasks = [...this.sortedTasks.sort((a, b) => {
-      let result = 0
-      if (a[columnName] < b[columnName]) {
-        result = -1
-      }
-      if (a[columnName] > b[columnName]) {
-        result = 1
-      }
-      return result * this.sortOrder
-    })]
-    this.sortedTasksSig.set(this.sortedTasks)
-
-    // this.tasksService.tasksListSig().sort((a, b) => {
-    //   if (a[columnName] < b[columnName]) {
-    //     console.log((a[columnName] < b[columnName]))
-    //     return -1
-    //   }
-    //  if (a[columnName] > b[columnName]) {
-    //    return 1
-    //  }
-    //  return 0
-    // })
-  }
-
-  isSortedBy(name: string, asc: string) {
-
   }
 }
 

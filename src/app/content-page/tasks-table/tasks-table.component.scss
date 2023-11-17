@@ -12,6 +12,13 @@ th {
 }
 
 .table {
+  &__title-container {
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__head {
     font-size: 14px;
     height: 50px;

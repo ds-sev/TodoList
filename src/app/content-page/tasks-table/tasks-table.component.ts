@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal, WritableSignal, } from '@angular/core'
+import { Component, inject, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -14,7 +14,6 @@ import { CategoriesService } from '../../shared/services/categories.service'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { TableModule } from 'primeng/table'
 import { RippleModule } from 'primeng/ripple'
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
 
 @Component({
   selector: 'app-tasks-table',
@@ -77,7 +76,7 @@ export class TasksTableComponent implements OnInit {
     this.form.reset()
     this.isEditForm = false
     this.displayModal = true
-    if (this.currentCategory.id !== 'all') {
+    if (this.currentCategory && this.currentCategory.id !== 'all') {
       this.form.setValue({
         name: '',
         expiresIn: '',
@@ -91,10 +90,10 @@ export class TasksTableComponent implements OnInit {
     if (this.isEditForm) {
       this.tasksService.editTask(this.taskToEditId, this.form.value)
     } else {
-      this.tasksService.addTask(this.form.value)
+      this.tasksService.addTask(this.form.value, this.currentCategory)
     }
     this.displayModal = false
-    this.currentCategory = null
+    // this.currentCategory = null
   }
 
   onEditTaskClick(taskToEdit: ITask) {
@@ -114,7 +113,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   onDeleteTaskClick(taskToRemove: ITask) {
-    this.tasksService.deleteTask(taskToRemove.id)
+    this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
   }
 }
 

@@ -42,13 +42,8 @@ export class CategoriesComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       if (params.hasOwnProperty('id')) {
-        console.log('lkkjbhjb')
-        // this.tasksService.getTasksDataByCategoryId(params['id'])
       }
-      console.log('llkjlj')
-      // this.tasksService.getTasksData()
     })
-
   }
 
   onCategoryClick(categoryId: string) {

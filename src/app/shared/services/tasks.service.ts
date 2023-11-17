@@ -1,5 +1,5 @@
-import { Injectable, signal, WritableSignal } from '@angular/core'
-import { ITask } from '../interfaces'
+import { computed, Injectable, signal, WritableSignal } from '@angular/core'
+import { ICategory, ITask } from '../interfaces'
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,9 @@ import { ITask } from '../interfaces'
 export class TasksService {
 
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
-  filteredTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([])
+  filteredTasksSig = computed(() => this.tasksListSig)
+
+
 
   getTasksData() {
     this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
@@ -16,10 +18,17 @@ export class TasksService {
   getTasksDataByCategoryId(categoryId: string) {
     // this.getTasksData()
     this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
+
   }
 
-  updateStoredTasks() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
+  updateTasksView(currentCategory: ICategory) {
+    // localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
+    if (currentCategory) {
+      this.getTasksData()
+      this.getTasksDataByCategoryId(currentCategory.id)
+    } else {
+      this.getTasksData()
+    }
   }
 
   getStoredTasks() {
@@ -34,7 +43,7 @@ export class TasksService {
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
   }
 
-  addTask(newTaskData: ITask) {
+  addTask(newTaskData: ITask, currentCategory: ICategory) {
     let storedTasks = this.getStoredTasks()
     const newTask: ITask = {
       id: Math.random().toString(16),
@@ -53,6 +62,7 @@ export class TasksService {
       localStorage.setItem('tasks', JSON.stringify([newTask]))
     }
 
+    this.updateTasksView(currentCategory)
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
@@ -69,9 +79,15 @@ export class TasksService {
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
   }
 
-  deleteTask(id: string) {
-    this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
-    this.updateStoredTasks()
+  deleteTask(id: string, currentCategory: ICategory) {
+    let storedTasks = this.getStoredTasks()
+    storedTasks = storedTasks.filter((task: ITask) => task.id !== id)
+    localStorage.setItem('tasks', JSON.stringify(storedTasks))
+
+    this.updateTasksView(currentCategory)
+
+    // this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
+    // this.updateStoredTasks()
   }
 }
 

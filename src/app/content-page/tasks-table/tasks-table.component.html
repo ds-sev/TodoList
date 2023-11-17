@@ -1,23 +1,35 @@
-<h3 *ngIf="currentCategory && currentCategory.name !== 'all'">У вас {{tasksService.tasksListSig().length}} задачи</h3>
-<p-button
-  class="new-task-button"
-  label="Новая задача"
-  severity="warning"
-  [outlined]="true"
-  [rounded]="true"
-  (click)="onAddTaskClick()"
->
-</p-button>
-
+<div class="table__title-container">
+  <h3 *ngIf="currentCategory && currentCategory.name !== 'all'">У вас {{tasksService.tasksListSig().length}} задачи
+  </h3>
+  <p-button
+    class="new-task-button"
+    label="Новая задача"
+    severity="warning"
+    [outlined]="true"
+    [rounded]="true"
+    (click)="onAddTaskClick()"
+  >
+  </p-button>
+</div>
 <p-table [value]="tasksService.tasksListSig()" dataKey="name" [tableStyle]="{ 'min-width': '30rem' }"
          *ngIf="tasksService.tasksListSig().length > 0; else empty">
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="complete" style="width: 8rem">Готово <p-sortIcon field="complete"></p-sortIcon></th>
-      <th pSortableColumn="name">Задача<p-sortIcon field="name"></p-sortIcon></th>
-      <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория<p-sortIcon field="category"></p-sortIcon></th>
-      <th pSortableColumn="expiresIn" style="width: 8rem">Срок<p-sortIcon field="expiresIn"></p-sortIcon></th>
-      <th pSortableColumn="priority" style="width: 8rem">Приоритет<p-sortIcon field="priority"></p-sortIcon></th>
+      <th pSortableColumn="complete" style="width: 8rem">Готово
+        <p-sortIcon field="complete"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">Задача
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория
+        <p-sortIcon field="category"></p-sortIcon>
+      </th>
+      <th pSortableColumn="expiresIn" style="width: 8rem">Срок
+        <p-sortIcon field="expiresIn"></p-sortIcon>
+      </th>
+      <th pSortableColumn="priority" style="width: 8rem">Приоритет
+        <p-sortIcon field="priority"></p-sortIcon>
+      </th>
       <th></th>
       <th></th>
     </tr>
@@ -68,18 +80,14 @@
           (onClick)="onDeleteTaskClick(task)"
         ></p-button>
       </td>
-
     </tr>
   </ng-template>
 </p-table>
-
 <ng-template #empty>
   <div class="center">
     У вас нет задач
   </div>
 </ng-template>
-
-
 <p-dialog
   header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
   'Новая задача для категории' + ' ' + currentCategory.name}}"
@@ -112,7 +120,7 @@
                 formControlName="category"
                 *ngIf="!currentCategory"
     ></p-dropdown>
-<!--     <label for="float-label">Категория задачи</label> -->
+    <!--     <label for="float-label">Категория задачи</label> -->
     <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
   </form>
 </p-dialog>

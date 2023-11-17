@@ -1,15 +1,8 @@
 <main class="content">
-  <div class="side-menu">
-    <app-categories></app-categories>
-    <p-button
-      label="Выйти"
-      size="small"
-      severity="warning"
-      [outlined]="true"
-      [rounded]="true"
-      (click)="logout()">
-    </p-button>
-  </div>
+  <!--   <div class="side-menu"> -->
+  <app-categories class="categories_visible"></app-categories>
+
+  <!--   </div> -->
   <router-outlet></router-outlet>
 </main>
 

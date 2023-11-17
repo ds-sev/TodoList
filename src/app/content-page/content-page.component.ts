@@ -20,10 +20,7 @@ export class ContentPageComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  logout() {
-    this.authService.logout()
-    this.router.navigate(['/login'])
-  }
+
 }
 
 //TODO: signOut confirmation popup

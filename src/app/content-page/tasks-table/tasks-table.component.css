@@ -53,3 +53,7 @@ td {
 .sort-desc {
   border-top: 4px solid #000;
 }
+
+.tasks {
+  width: 100%;
+}

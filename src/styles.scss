@@ -8,8 +8,10 @@ html {
   background-color: lightgray;
 }
 body {
+  padding: 0 20px;
+  box-sizing: content-box;
   margin: 0 auto;
-  max-width: 1024px;
+  max-width: 1280px;
   height: 100vh;
   text-align: center;
   background-color: white;
@@ -27,6 +29,9 @@ a {
 }
 
 tr, th {
-
   text-align: center;
+}
+
+app-tasks-table {
+  width: 100%;
 }

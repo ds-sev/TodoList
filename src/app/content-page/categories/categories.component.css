@@ -1,5 +1,18 @@
-.categories__category_active {
-  background-color: red;
+.categories-menu {
+  border: 1px solid red;
+}
+@media screen and (max-width: 724px) {
+  .categories-menu {
+    display: none;
+  }
+}
+.categories-menu__thumb {
+  border: 1px solid red;
+  height: 30px;
+  width: 130px;
+  transform: rotate(270deg);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .activebutton {

@@ -1,0 +1,18 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+
+  &__title {
+    margin: 0;
+  }
+
+  &__user-menu-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+}

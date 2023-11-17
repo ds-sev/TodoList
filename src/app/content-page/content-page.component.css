@@ -1,13 +1,6 @@
 .content {
   border: 1px solid red;
-  display: grid;
-  grid-template-columns: 200px 0 auto;
-}
-
-.side-menu {
-  border: 1px solid red;
-  min-width: 200px;
-  height: 100vh;
+  display: flex;
 }
 
 .menu-list {

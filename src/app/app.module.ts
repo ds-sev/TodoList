@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HeaderComponent } from './header/header.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ButtonModule,
     CheckboxModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HeaderComponent
   ],
   providers: [],
   exports: [

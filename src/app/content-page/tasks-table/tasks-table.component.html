@@ -1,96 +1,98 @@
-<div class="table__title-container">
-  <h3 [ngSwitch]="currentCategory !== null && currentCategory.name !== 'all'">
-    <ng-container *ngSwitchCase="false">
-      У вас
-    </ng-container>
-    <ng-container *ngSwitchCase="true">
-      В категории «{{currentCategory.name}}»
-    </ng-container>
-    {{tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length}}
-    {{tasksService.tasksListSig().length | taskWordEnding}}
-  </h3>
-  <p-button
-    class="new-task-button"
-    label="Новая задача"
-    severity="warning"
-    [outlined]="true"
-    [rounded]="true"
-    (click)="onAddTaskClick()"
-  >
-  </p-button>
-</div>
-<p-table [value]="tasksService.tasksListSig()" dataKey="name" [tableStyle]="{ 'min-width': '30rem' }"
-         *ngIf="tasksService.tasksListSig().length > 0; else empty">
-  <ng-template pTemplate="header">
-    <tr>
-      <th pSortableColumn="complete" style="width: 8rem">Готово
-        <p-sortIcon field="complete"></p-sortIcon>
-      </th>
-      <th pSortableColumn="name">Задача
-        <p-sortIcon field="name"></p-sortIcon>
-      </th>
-      <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория
-        <p-sortIcon field="category"></p-sortIcon>
-      </th>
-      <th pSortableColumn="expiresIn" style="width: 8rem">Срок
-        <p-sortIcon field="expiresIn"></p-sortIcon>
-      </th>
-      <th pSortableColumn="priority" style="width: 8rem">Приоритет
-        <p-sortIcon field="priority"></p-sortIcon>
-      </th>
-      <th></th>
-      <th></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-task let-expanded="expanded">
-    <tr>
-      <td>
-        <p-checkbox
-          [(ngModel)]="task.complete"
-          [binary]="true"
-          (onChange)="toggleTaskState(task)"
-        ></p-checkbox>
-      </td>
-      <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
-      <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
-      <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
-      <td>
-        <div class="table__task-priority" *ngIf="task.priority === 'low'"
-             style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
-        <div *ngIf="task.priority === 'mid'"
-             style="margin: 0 auto; width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
-        <div *ngIf="task.priority === 'high'"
-             style="margin: 0 auto; width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
-        <div class="table__task-priority" *ngIf="!task.priority"
-             style="margin: 0 auto; width: 20px; height: 20px; background-color: transparent; border-radius: 20px;
+<section class="tasks-section">
+  <div class="table__title-container">
+    <h3 [ngSwitch]="currentCategory !== null && currentCategory.name !== 'all'">
+      <ng-container *ngSwitchCase="false">
+        У вас
+      </ng-container>
+      <ng-container *ngSwitchCase="true">
+        В категории «{{currentCategory.name}}»
+      </ng-container>
+      {{tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length}}
+      {{tasksService.tasksListSig().length | taskWordEnding}}
+    </h3>
+    <p-button
+      class="new-task-button"
+      label="Новая задача"
+      severity="warning"
+      [outlined]="true"
+      [rounded]="true"
+      (click)="onAddTaskClick()"
+    >
+    </p-button>
+  </div>
+  <p-table [value]="tasksService.tasksListSig()" dataKey="name" [tableStyle]="{ 'min-width': '30rem' }"
+           *ngIf="tasksService.tasksListSig().length > 0; else empty">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="complete" style="width: 8rem">Готово
+          <p-sortIcon field="complete"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name">Задача
+          <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория
+          <p-sortIcon field="category"></p-sortIcon>
+        </th>
+        <th pSortableColumn="expiresIn" style="width: 8rem">Срок
+          <p-sortIcon field="expiresIn"></p-sortIcon>
+        </th>
+        <th pSortableColumn="priority" style="width: 8rem">Приоритет
+          <p-sortIcon field="priority"></p-sortIcon>
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task let-expanded="expanded">
+      <tr>
+        <td>
+          <p-checkbox
+            [(ngModel)]="task.complete"
+            [binary]="true"
+            (onChange)="toggleTaskState(task)"
+          ></p-checkbox>
+        </td>
+        <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
+        <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
+        <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
+        <td>
+          <div class="table__task-priority" *ngIf="task.priority === 'low'"
+               style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
+          <div *ngIf="task.priority === 'mid'"
+               style="margin: 0 auto; width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
+          <div *ngIf="task.priority === 'high'"
+               style="margin: 0 auto; width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
+          <div class="table__task-priority" *ngIf="!task.priority"
+               style="margin: 0 auto; width: 20px; height: 20px; background-color: transparent; border-radius: 20px;
              border: 1px solid
               black"></div>
-      </td>
-      <td class="table__column_for-button">
-        <p-button
-          styleClass="table__button"
-          size="small"
-          icon="pi pi-pencil"
-          [rounded]="true"
-          severity="warning"
-          [outlined]="true"
-          (onClick)="onEditTaskClick(task)"
-          [disabled]="task.complete"
-        ></p-button>
-      </td>
-      <td
-        class="table__column_for-button">
-        <p-button
-          icon="pi pi-times"
-          [rounded]="true"
-          severity="danger"
-          [outlined]="true"
-          (onClick)="onDeleteTaskClick(task)"
-        ></p-button>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+        </td>
+        <td class="table__column_for-button">
+          <p-button
+            styleClass="table__button"
+            size="small"
+            icon="pi pi-pencil"
+            [rounded]="true"
+            severity="warning"
+            [outlined]="true"
+            (onClick)="onEditTaskClick(task)"
+            [disabled]="task.complete"
+          ></p-button>
+        </td>
+        <td
+          class="table__column_for-button">
+          <p-button
+            icon="pi pi-times"
+            [rounded]="true"
+            severity="danger"
+            [outlined]="true"
+            (onClick)="onDeleteTaskClick(task)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>
 <ng-template #empty>
   <div class="center">
     У вас нет задач

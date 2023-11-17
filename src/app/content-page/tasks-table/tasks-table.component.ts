@@ -14,6 +14,7 @@ import { CategoriesService } from '../../shared/services/categories.service'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { TableModule } from 'primeng/table'
 import { RippleModule } from 'primeng/ripple'
+import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
 
 @Component({
   selector: 'app-tasks-table',
@@ -27,10 +28,7 @@ export class TasksTableComponent implements OnInit {
   @Input()
   checked: boolean
 
-  // tasks: Task[]
-  tasksPriority: ITask['priority']
   categories: []
-  selectedCategory: string
 
   displayModal: boolean = false
 
@@ -54,10 +52,11 @@ export class TasksTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.currentCategory)
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData()
       if (params.hasOwnProperty('id')) {
-
+        this.getCurrentCategoryName(params['id'])
         this.tasksService.getTasksDataByCategoryId(params['id'])
       }
     })
@@ -68,16 +67,17 @@ export class TasksTableComponent implements OnInit {
       category: new FormControl,
       priority: new FormControl
     })
-
-    console.log(this.tasksService.tasksListSig())
   }
 
-  onAddTaskClick(currentCategoryId: string) {
+  getCurrentCategoryName(currentCategoryId: string) {
+    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
+  }
+
+  onAddTaskClick() {
     this.form.reset()
     this.isEditForm = false
     this.displayModal = true
-    if (currentCategoryId !== 'all') {
-      this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
+    if (this.currentCategory.id !== 'all') {
       this.form.setValue({
         name: '',
         expiresIn: '',

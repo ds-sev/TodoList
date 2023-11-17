@@ -4,7 +4,7 @@
   severity="warning"
   [outlined]="true"
   [rounded]="true"
-  (click)="onAddTaskClick()"
+  (click)="onAddTaskClick(router.url.split('/').at(2))"
 >
 </p-button>
 
@@ -80,7 +80,8 @@
 
 
 <p-dialog
-  header="{{ isEditForm ? 'Редактировать' : 'Новая задача:' }}"
+  header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
+  'Новая задача для категории' + ' ' + currentCategory.name}}"
   [(visible)]="displayModal"
   [style]="{ width: '50vw' }"
 >
@@ -103,14 +104,14 @@
       <input formControlName="priority" type="radio" value="high">Высокий
     </div>
     <p-dropdown [options]="categoriesService.userCategoriesSig()"
-
                 placeholder="Категория задачи"
                 optionLabel="name"
                 inputId="float-label"
                 appendTo="body"
                 formControlName="category"
+                *ngIf="!currentCategory"
     ></p-dropdown>
-    <label for="float-label">Категория задачи</label>
+<!--     <label for="float-label">Категория задачи</label> -->
     <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
   </form>
 </p-dialog>

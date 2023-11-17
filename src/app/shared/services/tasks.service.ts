@@ -52,6 +52,7 @@ export class TasksService {
     } else {
       localStorage.setItem('tasks', JSON.stringify([newTask]))
     }
+
   }
 
   editTask(taskId: string, taskEditedData: ITask) {
@@ -73,3 +74,9 @@ export class TasksService {
     this.updateStoredTasks()
   }
 }
+
+//TODO: create task for current opened category
+//TODO:
+//TODO:
+//TODO:
+//TODO:

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ITask } from '../../shared/interfaces'
+import { ICategory, ITask } from '../../shared/interfaces'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
 import { CalendarModule } from 'primeng/calendar'
@@ -45,6 +45,8 @@ export class TasksTableComponent implements OnInit {
 
   taskToEditId: string | null = null
 
+  currentCategory: ICategory = null
+
   constructor(
     private route: ActivatedRoute,
     public router: Router
@@ -70,10 +72,19 @@ export class TasksTableComponent implements OnInit {
     console.log(this.tasksService.tasksListSig())
   }
 
-  onAddTaskClick() {
+  onAddTaskClick(currentCategoryId: string) {
     this.form.reset()
     this.isEditForm = false
     this.displayModal = true
+    if (currentCategoryId !== 'all') {
+      this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
+      this.form.setValue({
+        name: '',
+        expiresIn: '',
+        category: this.currentCategory,
+        priority: ''
+      })
+    }
   }
 
   onSubmitForm() {
@@ -83,10 +94,10 @@ export class TasksTableComponent implements OnInit {
       this.tasksService.addTask(this.form.value)
     }
     this.displayModal = false
+    this.currentCategory = null
   }
 
   onEditTaskClick(taskToEdit: ITask) {
-    console.log(taskToEdit)
     this.taskToEditId = taskToEdit.id
     this.isEditForm = true
     this.form.setValue({

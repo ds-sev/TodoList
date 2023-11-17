@@ -1,5 +1,13 @@
 <div class="table__title-container">
-  <h3 *ngIf="currentCategory && currentCategory.name !== 'all'">У вас {{tasksService.tasksListSig().length}} задачи
+  <h3 [ngSwitch]="currentCategory !== null && currentCategory.name !== 'all'">
+    <ng-container *ngSwitchCase="false">
+      У вас
+    </ng-container>
+    <ng-container *ngSwitchCase="true">
+      В категории «{{currentCategory.name}}»
+    </ng-container>
+    {{tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length}}
+    {{tasksService.tasksListSig().length | taskWordEnding}}
   </h3>
   <p-button
     class="new-task-button"

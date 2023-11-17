@@ -14,11 +14,12 @@ import { CategoriesService } from '../../shared/services/categories.service'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { TableModule } from 'primeng/table'
 import { RippleModule } from 'primeng/ripple'
+import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })

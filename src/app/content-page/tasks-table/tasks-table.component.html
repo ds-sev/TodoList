@@ -12,7 +12,7 @@
     </h3>
     <p-button
       class="new-task-button"
-      label="Новая задача"
+      label="Добавить задачу"
       severity="warning"
       [outlined]="true"
       [rounded]="true"
@@ -21,7 +21,7 @@
     </p-button>
   </div>
   <p-table [value]="tasksService.tasksListSig()" dataKey="name" [tableStyle]="{ 'min-width': '30rem' }"
-           *ngIf="tasksService.tasksListSig().length > 0; else empty">
+           *ngIf="tasksService.tasksListSig().length > 0">
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="complete" style="width: 8rem">Готово
@@ -93,11 +93,11 @@
     </ng-template>
   </p-table>
 </section>
-<ng-template #empty>
-  <div class="center">
-    У вас нет задач
-  </div>
-</ng-template>
+<!-- <ng-template #empty> -->
+<!--   <div class="center"> -->
+<!--     У вас нет задач -->
+<!--   </div> -->
+<!-- </ng-template> -->
 <p-dialog
   header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
   'Новая задача для категории' + ' ' + currentCategory.name}}"

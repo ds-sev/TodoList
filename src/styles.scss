@@ -1,13 +1,16 @@
+@import 'assets/vendor/normalize.css';
+@import 'assets/vendor/fonts/fonts.css';
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
 html {
-  margin: 0;
-  padding: 0;
   background-color: lightgray;
+  overflow-x: hidden;
 }
+
 body {
+  position: relative;
   padding: 0 20px;
   box-sizing: content-box;
   margin: 0 auto;
@@ -15,6 +18,9 @@ body {
   height: 100vh;
   text-align: center;
   background-color: white;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 ul,
@@ -32,6 +38,6 @@ tr, th {
   text-align: center;
 }
 
-app-tasks-table {
-  width: 100%;
-}
+
+
+

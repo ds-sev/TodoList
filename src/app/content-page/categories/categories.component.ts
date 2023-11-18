@@ -1,17 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
-import { ICategory } from '../../shared/interfaces'
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router'
-import { CATEGORIES } from '../../../temp/categories'
 import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { TasksService } from '../../shared/services/tasks.service'
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
-import { tap } from 'rxjs'
 
 @Component({
   selector: 'app-categories',
@@ -22,7 +18,6 @@ import { tap } from 'rxjs'
 })
 export class CategoriesComponent implements OnInit {
 
-  tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   route = inject(ActivatedRoute)
 
@@ -30,8 +25,9 @@ export class CategoriesComponent implements OnInit {
   categoryForm: FormGroup
   isEditForm: boolean
 
+  collapsed = true
+
   ngOnInit() {
-    // this.categoriesList = CATEGORIES
     this.categoriesService.getUserCategories()
 
     // this.categoriesList = this.categoriesService.userCategoriesSig()
@@ -44,10 +40,8 @@ export class CategoriesComponent implements OnInit {
       if (params.hasOwnProperty('id')) {
       }
     })
-  }
 
-  onCategoryClick(categoryId: string) {
-    this.tasksService.getTasksDataByCategoryId(categoryId)
+    this.collapseCategoriesMenuIfResize()
   }
 
   onAddCategoryClick() {
@@ -58,5 +52,23 @@ export class CategoriesComponent implements OnInit {
   onSubmitForm() {
     this.categoriesService.createCategory(this.categoryForm.value)
     this.displayModal = false
+  }
+
+  categoriesCollapseToggle() {
+    this.collapsed = !this.collapsed
+  }
+
+  // скрываем меню если пользователь кликает вне его
+  collapseCategoriesMenu() {
+    this.collapsed = true
+  }
+
+  // скрываем меню если размер экрана уменьшается
+  collapseCategoriesMenuIfResize() {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 1024 && this.collapsed === false) {
+        this.collapseCategoriesMenu()
+      }
+    })
   }
 }

@@ -2,11 +2,14 @@
   <h4 class="categories-menu__title">Категории</h4>
   <ul class="categories-menu__list">
     <li class="categories-menu__list-item" (click)="collapseCategoriesMenu()">
-      <a [routerLink]="['/categories/all']" routerLinkActive="categories-menu__list-item_active">Все</a>
+      <a
+        class="categories-menu__list-link"
+        [routerLink]="['/categories/all']"
+        routerLinkActive="categories-menu__list-link_active"
+      >
+        <span class="categories-menu__list-link-text categories-menu__list-link-text_bold">Все</span>
+      </a>
     </li>
-    <!--     @for (category of categoriesService.userCategoriesSig(); track category.id; #cat) { -->
-
-<!--     <ng-template pTemplate="list" let-cat> -->
     <li *ngFor="let category of categoriesService.userCategoriesSig()"
         class="categories-menu__list-item"
         (click)="collapseCategoriesMenu()"
@@ -16,17 +19,17 @@
         (swiperight)="category.isActionButtonsDisplay = false"
     >
       <a
-         [routerLink]="['/categories', category.id]"
-         routerLinkActive="categories-menu__list-item_active">
-        {{category.name}}
+        class="categories-menu__list-link"
+        [routerLink]="['/categories', category.id]"
+        routerLinkActive="categories-menu__list-link_active"
+      >
+        <span class="categories-menu__list-link-text">{{category.name}}</span>
       </a>
       <app-actions-menu
         [ngClass]="category.isActionButtonsDisplay ? 'action-buttons_view' : ''"
         [target]="category"
       ></app-actions-menu>
     </li>
-    <!--     } -->
-<!--     </ng-template> -->
   </ul>
   <p-button
     label="Добавить категорию"

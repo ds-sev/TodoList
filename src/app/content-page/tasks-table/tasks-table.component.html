@@ -77,7 +77,7 @@
 
         <app-actions-menu
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
-          [target]="task"
+          [task]="task"
         ></app-actions-menu>
 
 
@@ -107,39 +107,42 @@
     </ng-template>
   </p-table>
 </section>
-<p-dialog
-  header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
-  'Новая задача для категории' + ' ' + currentCategory.name}}"
-  [(visible)]="displayModal"
-  [style]="{ width: '50vw' }"
->
-  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
-    <input
-      formControlName="name"
-      id="name"
-      type="text"
-    >
-    <p-calendar
-      formControlName="expiresIn"
-      appendTo="body"
-      [minDate]='minDate'
-      dateFormat="dd.mm.yy"
-    >
-    </p-calendar>
-    <div>
-      <input formControlName="priority" type="radio" value="low">Низкий
-      <input formControlName="priority" type="radio" value="mid">Средний
-      <input formControlName="priority" type="radio" value="high">Высокий
-    </div>
-    <p-dropdown [options]="categoriesService.userCategoriesSig()"
-                placeholder="Категория задачи"
-                optionLabel="name"
-                inputId="float-label"
-                appendTo="body"
-                formControlName="category"
-                *ngIf="!currentCategory"
-    ></p-dropdown>
-    <!--     <label for="float-label">Категория задачи</label> -->
-    <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
-  </form>
-</p-dialog>
+
+
+
+<!-- <p-dialog -->
+<!--   header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' : -->
+<!--   'Новая задача для категории' + ' ' + currentCategory.name}}" -->
+<!--   [(visible)]="displayModal" -->
+<!--   [style]="{ width: '50vw' }" -->
+<!-- > -->
+<!--   <form [formGroup]="form" (ngSubmit)="onSubmitForm()"> -->
+<!--     <input -->
+<!--       formControlName="name" -->
+<!--       id="name" -->
+<!--       type="text" -->
+<!--     > -->
+<!--     <p-calendar -->
+<!--       formControlName="expiresIn" -->
+<!--       appendTo="body" -->
+<!--       [minDate]='minDate' -->
+<!--       dateFormat="dd.mm.yy" -->
+<!--     > -->
+<!--     </p-calendar> -->
+<!--     <div> -->
+<!--       <input formControlName="priority" type="radio" value="low">Низкий -->
+<!--       <input formControlName="priority" type="radio" value="mid">Средний -->
+<!--       <input formControlName="priority" type="radio" value="high">Высокий -->
+<!--     </div> -->
+<!--     <p-dropdown [options]="categoriesService.userCategoriesSig()" -->
+<!--                 placeholder="Категория задачи" -->
+<!--                 optionLabel="name" -->
+<!--                 inputId="float-label" -->
+<!--                 appendTo="body" -->
+<!--                 formControlName="category" -->
+<!--                 *ngIf="!currentCategory" -->
+<!--     ></p-dropdown> -->
+<!--     &lt;!&ndash;     <label for="float-label">Категория задачи</label> &ndash;&gt; -->
+<!--     <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button> -->
+<!--   </form> -->
+<!-- </p-dialog> -->

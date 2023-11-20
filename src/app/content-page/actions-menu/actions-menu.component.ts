@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core'
+import { Component, inject, Input } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
 import { ICategory, ITask } from '../../shared/interfaces'
+import { TaskModalService } from '../../shared/services/task-modal.service'
 
 @Component({
   selector: 'app-actions-menu',
@@ -12,17 +13,20 @@ import { ICategory, ITask } from '../../shared/interfaces'
 })
 export class ActionsMenuComponent {
 
-  @Input() target: ITask | ICategory
+  taskModalService = inject(TaskModalService)
+
+  @Input() task: ITask
+  @Input() category: ICategory
 
   isDisplay: boolean
+  isNewTask: boolean = false
 
 
-  onEditClick(target: ITask | ICategory) {
-
-    if ((<ITask>target).created) {
-      console.log('this is task')
-    } else {
-      console.log('this is NOT task')
+  onEditClick() {
+    if (this.task) {
+      console.log(this.task)
+    } else if (this.category) {
+      console.log(this.category)
     }
 
 

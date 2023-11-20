@@ -5,13 +5,13 @@ import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
 import { Router, RouterLink, RouterOutlet } from '@angular/router'
-import { CATEGORIES } from '../../temp/categories'
 import { CategoriesComponent } from './categories/categories.component'
+import { TaskFormComponent } from './task-form/task-form.component'
 
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink, CategoriesComponent],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink, CategoriesComponent, TaskFormComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })

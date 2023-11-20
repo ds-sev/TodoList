@@ -1,32 +1,24 @@
-import { Component, importProvidersFrom, inject, Input, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ButtonModule } from 'primeng/button'
-import { CheckboxModule } from 'primeng/checkbox'
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ICategory, ITask } from '../../shared/interfaces'
+import { Component, inject, Input, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common';
+import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
-import { CalendarModule } from 'primeng/calendar'
-import { RadioButtonModule } from 'primeng/radiobutton'
+import { PaginatorModule } from 'primeng/paginator'
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { TasksService } from '../../shared/services/tasks.service'
-import { CascadeSelectModule } from 'primeng/cascadeselect'
 import { CategoriesService } from '../../shared/services/categories.service'
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
-import { TableModule } from 'primeng/table'
-import { RippleModule } from 'primeng/ripple'
-import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
-import { ContextMenuModule } from 'primeng/contextmenu'
-import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
 import { TaskModalService } from '../../shared/services/task-modal.service'
+import { ICategory, ITask } from '../../shared/interfaces'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
-  selector: 'app-tasks-table',
+  selector: 'app-task-form',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent],
-  templateUrl: './tasks-table.component.html',
-  styleUrl: './tasks-table.component.scss'
+  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, PaginatorModule, ReactiveFormsModule],
+  templateUrl: './task-form.component.html',
+  styleUrl: './task-form.component.scss'
 })
-export class TasksTableComponent implements OnInit {
+export class TaskFormComponent implements OnInit {
 
   @Input()
   checked: boolean
@@ -59,14 +51,6 @@ export class TasksTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.tasksService.getTasksData()
-      if (params.hasOwnProperty('id')) {
-        this.getCurrentCategoryName(params['id'])
-        this.tasksService.getTasksDataByCategoryId(params['id'])
-      }
-    })
-
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
@@ -81,7 +65,6 @@ export class TasksTableComponent implements OnInit {
 
   onAddTaskClick() {
     this.taskModalService.openModal()
-
     // this.form.reset()
     // this.isEditForm = false
     // this.displayModal = true
@@ -101,7 +84,7 @@ export class TasksTableComponent implements OnInit {
     } else {
       this.tasksService.addTask(this.form.value, this.currentCategory)
     }
-    this.displayModal = false
+    this.taskModalService.closeModal()
     // this.currentCategory = null
   }
 
@@ -125,13 +108,6 @@ export class TasksTableComponent implements OnInit {
     this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
   }
 
-  protected readonly console = console
+
+
 }
-
-//TODO: view category of task if selected All-view
-//TODO: create validation for create/edit task form
-//TODO: add colors for date-marked tasks fields
-//TODO: create delete confirmation popup
-//TODO: filter for tasks
-
-

@@ -14,10 +14,6 @@ export class ActionsMenuComponent {
 
   @Input() target: ITask | ICategory
 
-  constructor() {
-    console.log(this.target)
-  }
-
   isDisplay: boolean
 
 

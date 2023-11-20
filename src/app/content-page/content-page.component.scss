@@ -1,41 +1,5 @@
-//.categories {
-//  min-width: 200px;
-//
-//  @media screen and (max-width: 724px) {
-//    position: absolute;
-//    left: -200px;
-//    //display: none;
-//    z-index: 1;
-//    background-color: white;
-//    &_visible {
-//
-//      left: 0;
-//    }
-//  }
-//
-//}
-//
 .content {
-
+  min-height: calc(100% - 60px);
   min-width: 100%;
-  //border: 1px solid red;
-  //display: grid;
-  //grid-template-columns: 200px 0 auto;
   display: flex;
-
 }
-//
-//.side-menu {
-//  border: 1px solid red;
-//  min-width: 200px;
-//  height: 100vh;
-//
-//
-//}
-//
-//
-//.menu-list {
-//  padding: 0 0 0 20px;
-//  list-style: none;
-//  text-align: left;
-//}

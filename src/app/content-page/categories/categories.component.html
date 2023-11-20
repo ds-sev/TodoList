@@ -53,14 +53,21 @@
       <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
     </form>
   </p-dialog>
-  <div [ngClass]="collapsed ? '' : 'categories-menu__overlay'" (click)="collapseCategoriesMenu()"></div>
-  <button
-    class="categories-menu__thumb"
-    (click)="categoriesCollapseToggle()"
-  >
-    Категории
-  </button>
+
 </div>
+
+<div [ngClass]="collapsed ? '' : 'categories-menu__overlay'" (click)="collapseCategoriesMenu()"></div>
+
+
+<button
+  [ngClass]="collapsed ? 'categories-menu__thumb_collapsed' : ''"
+  class="categories-menu__thumb"
+  (click)="categoriesCollapseToggle()"
+>
+  Категории
+</button>
+
+
 
 
 

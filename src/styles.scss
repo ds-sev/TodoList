@@ -7,15 +7,22 @@
 html {
   background-color: lightgray;
   overflow-x: hidden;
+  height: 100%;
+
 }
 
 body {
   position: relative;
-  padding: 0 20px;
+  padding: 0 6px 0 20px;
   box-sizing: content-box;
   margin: 0 auto;
-  max-width: 1280px;
-  height: 100vh;
+  max-width: 1440px;
+
+  //min-height: calc(100% - 60px);
+  height: 100%;
+  //overflow-y: hidden;
+
+
   text-align: center;
   background-color: white;
   font-family: 'Roboto', sans-serif;

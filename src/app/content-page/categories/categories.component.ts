@@ -8,11 +8,13 @@ import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { TasksService } from '../../shared/services/tasks.service'
+import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
+import { ICategory } from '../../shared/interfaces'
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterLink, CalendarModule, DialogModule, PaginatorModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ButtonModule, RouterLink, CalendarModule, DialogModule, PaginatorModule, ReactiveFormsModule, RouterModule, ActionsMenuComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -26,6 +28,8 @@ export class CategoriesComponent implements OnInit {
   isEditForm: boolean
 
   collapsed = true
+
+  isActionButtonsDisplay: boolean = false
 
   ngOnInit() {
     this.categoriesService.getUserCategories()
@@ -64,6 +68,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   // скрываем меню если размер экрана уменьшается
+
   collapseCategoriesMenuIfResize() {
     window.addEventListener('resize', () => {
       if (window.innerWidth < 1024 && this.collapsed === false) {
@@ -71,4 +76,11 @@ export class CategoriesComponent implements OnInit {
       }
     })
   }
+
+
+  toggleActionsMenu(evt) {
+    console.log(evt.target)
+  }
+
+  protected readonly console = console
 }

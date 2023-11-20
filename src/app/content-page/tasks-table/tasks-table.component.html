@@ -43,10 +43,14 @@
 <!--         <th></th> -->
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-task let-expanded="expanded">
+    <ng-template pTemplate="body" let-task>
       <!--suppress AngularUndefinedBinding -->
-      <tr class="table__body-row" (swipeleft)="task.isDisplay = true" (swiperight)="task.isDisplay = false">
-<!--         <div class="bottom_nav" *ngIf="task.isDisplay">2323</div> -->
+      <tr class="table__body-row"
+          (mouseenter)="task.isActionButtonsDisplay = true"
+          (mouseleave)="task.isActionButtonsDisplay = false"
+          (swipeleft)="task.isActionButtonsDisplay = true"
+          (swiperight)="task.isActionButtonsDisplay = false"
+      >
         <td>
           <p-checkbox
             [(ngModel)]="task.complete"
@@ -69,30 +73,36 @@
              border: 1px solid
               black"></div>
         </td>
-<div class="action-buttons" [ngClass]="task.isDisplay ? 'action-buttons_view' : ''">
-<!--         <td class="table__column_for-button"> -->
-          <p-button
-            styleClass="table__button"
-            size="small"
-            icon="pi pi-pencil"
-            [rounded]="true"
-            severity="warning"
-            [outlined]="true"
-            (onClick)="onEditTaskClick(task)"
-            [disabled]="task.complete"
-          ></p-button>
-<!--         </td> -->
-<!--         <td -->
-<!--           class="table__column_for-button"> -->
-          <p-button
-            icon="pi pi-times"
-            [rounded]="true"
-            severity="danger"
-            [outlined]="true"
-            (onClick)="onDeleteTaskClick(task)"
-          ></p-button>
-<!--         </td> -->
-</div>
+
+
+        <app-actions-menu
+          [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
+          [target]="task"
+        ></app-actions-menu>
+
+
+<!-- <div class="action-buttons"  -->
+<!--      [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"> -->
+<!--           <p-button -->
+<!--             styleClass="table__button" -->
+<!--             size="small" -->
+<!--             icon="pi pi-pencil" -->
+<!--             [rounded]="true" -->
+<!--             severity="warning" -->
+<!--             [outlined]="true" -->
+<!--             (onClick)="onEditTaskClick(task)" -->
+<!--             [disabled]="task.complete" -->
+<!--           ></p-button> -->
+<!--           <p-button -->
+<!--             icon="pi pi-times" -->
+<!--             [rounded]="true" -->
+<!--             severity="danger" -->
+<!--             [outlined]="true" -->
+<!--             (onClick)="onDeleteTaskClick(task)" -->
+<!--           ></p-button> -->
+<!-- </div> -->
+
+
       </tr>
     </ng-template>
   </p-table>

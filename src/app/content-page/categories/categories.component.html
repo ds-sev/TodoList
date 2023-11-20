@@ -4,15 +4,29 @@
     <li class="categories-menu__list-item" (click)="collapseCategoriesMenu()">
       <a [routerLink]="['/categories/all']" routerLinkActive="categories-menu__list-item_active">Все</a>
     </li>
-    @for (category of categoriesService.userCategoriesSig(); track category.id) {
-    <li class="categories-menu__list-item" (click)="collapseCategoriesMenu()">
-      <a class="button" [routerLink]="['/categories', category.id]" routerLinkActive="categories-menu__list-item_active">
-    {{category.name}}
-    </a>
-  </li>
-    }
+    <!--     @for (category of categoriesService.userCategoriesSig(); track category.id; #cat) { -->
 
-
+<!--     <ng-template pTemplate="list" let-cat> -->
+    <li *ngFor="let category of categoriesService.userCategoriesSig()"
+        class="categories-menu__list-item"
+        (click)="collapseCategoriesMenu()"
+        (mouseenter)="category.isActionButtonsDisplay = true"
+        (mouseleave)="category.isActionButtonsDisplay = false"
+        (swipeleft)="category.isActionButtonsDisplay = true"
+        (swiperight)="category.isActionButtonsDisplay = false"
+    >
+      <a
+         [routerLink]="['/categories', category.id]"
+         routerLinkActive="categories-menu__list-item_active">
+        {{category.name}}
+      </a>
+      <app-actions-menu
+        [ngClass]="category.isActionButtonsDisplay ? 'action-buttons_view' : ''"
+        [target]="category"
+      ></app-actions-menu>
+    </li>
+    <!--     } -->
+<!--     </ng-template> -->
   </ul>
   <p-button
     label="Добавить категорию"
@@ -36,16 +50,13 @@
       <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
     </form>
   </p-dialog>
-
   <div [ngClass]="collapsed ? '' : 'categories-menu__overlay'" (click)="collapseCategoriesMenu()"></div>
-
-    <button
-      class="categories-menu__thumb"
-      (click)="categoriesCollapseToggle()"
-    >
-      Категории
-    </button>
-
+  <button
+    class="categories-menu__thumb"
+    (click)="categoriesCollapseToggle()"
+  >
+    Категории
+  </button>
 </div>
 
 

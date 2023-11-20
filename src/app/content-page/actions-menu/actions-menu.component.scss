@@ -1,0 +1,11 @@
+:host {
+  background-color: white;
+  display: flex;
+  position: absolute;
+  right: -120px;
+  transition: right .6s ease-in;
+
+  &_view {
+    right: 0;
+  }
+}

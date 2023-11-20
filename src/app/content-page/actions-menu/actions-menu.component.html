@@ -1,0 +1,24 @@
+<div class="action-buttons" [ngClass]="isDisplay ? 'action-buttons_view' : ''">
+  <!--         <td class="table__column_for-button"> -->
+  <p-button
+    styleClass="table__button"
+    size="small"
+    icon="pi pi-pencil"
+    [rounded]="true"
+    severity="warning"
+    [outlined]="true"
+    (onClick)="onEditClick(target)"
+    [disabled]="false"
+  ></p-button>
+  <!--         </td> -->
+  <!--         <td -->
+  <!--           class="table__column_for-button"> -->
+  <p-button
+    icon="pi pi-times"
+    [rounded]="true"
+    severity="danger"
+    [outlined]="true"
+    (onClick)="onDeleteClick('target')"
+  ></p-button>
+  <!--         </td> -->
+</div>

@@ -6,6 +6,7 @@ export interface IUser {
 export interface ICategory {
   id: string
   name: string
+  isActionButtonsDisplay?: boolean
 }
 
 export interface ITask {

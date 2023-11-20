@@ -16,11 +16,12 @@ import { TableModule } from 'primeng/table'
 import { RippleModule } from 'primeng/ripple'
 import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
 import { ContextMenuModule } from 'primeng/contextmenu'
+import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -47,7 +48,7 @@ export class TasksTableComponent implements OnInit {
   currentCategory: ICategory = null
 
 
-  isDisplay: boolean
+  // isActionButtonsDisplay: boolean
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +57,6 @@ export class TasksTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.currentCategory)
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData()
       if (params.hasOwnProperty('id')) {
@@ -121,9 +121,7 @@ export class TasksTableComponent implements OnInit {
     this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
   }
 
-  onSwipe() {
-    console.log('swipe');
-  }
+  protected readonly console = console
 }
 
 //TODO: view category of task if selected All-view

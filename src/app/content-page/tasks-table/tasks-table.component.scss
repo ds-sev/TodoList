@@ -27,15 +27,20 @@ th {
     font-size: 14px;
     height: 50px;
     background-color: lightgray;
-
-
   }
-
 
 
   &__body {
     display: flex;
     flex-direction: column;
+  }
+
+  &__body-row {
+    height: 49px;
+
+    &:hover {
+      //background-color: gray;
+    }
   }
 
   &__column {
@@ -94,5 +99,18 @@ th {
 
 .tasks-section {
 
+}
+
+
+.action-buttons {
+  background-color: white;
+  display: flex;
+  position: absolute;
+  right: -120px;
+  transition: right .6s ease-in;
+
+  &_view {
+    right: 0;
+  }
 }
 

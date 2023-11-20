@@ -39,12 +39,14 @@
         <th pSortableColumn="priority" style="width: 8rem">Приоритет
           <p-sortIcon field="priority"></p-sortIcon>
         </th>
-        <th></th>
-        <th></th>
+<!--         <th></th> -->
+<!--         <th></th> -->
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task let-expanded="expanded">
-      <tr>
+      <!--suppress AngularUndefinedBinding -->
+      <tr class="table__body-row" (swipeleft)="task.isDisplay = true" (swiperight)="task.isDisplay = false">
+<!--         <div class="bottom_nav" *ngIf="task.isDisplay">2323</div> -->
         <td>
           <p-checkbox
             [(ngModel)]="task.complete"
@@ -67,7 +69,8 @@
              border: 1px solid
               black"></div>
         </td>
-        <td class="table__column_for-button">
+<div class="action-buttons" [ngClass]="task.isDisplay ? 'action-buttons_view' : ''">
+<!--         <td class="table__column_for-button"> -->
           <p-button
             styleClass="table__button"
             size="small"
@@ -78,9 +81,9 @@
             (onClick)="onEditTaskClick(task)"
             [disabled]="task.complete"
           ></p-button>
-        </td>
-        <td
-          class="table__column_for-button">
+<!--         </td> -->
+<!--         <td -->
+<!--           class="table__column_for-button"> -->
           <p-button
             icon="pi pi-times"
             [rounded]="true"
@@ -88,16 +91,12 @@
             [outlined]="true"
             (onClick)="onDeleteTaskClick(task)"
           ></p-button>
-        </td>
+<!--         </td> -->
+</div>
       </tr>
     </ng-template>
   </p-table>
 </section>
-<!-- <ng-template #empty> -->
-<!--   <div class="center"> -->
-<!--     У вас нет задач -->
-<!--   </div> -->
-<!-- </ng-template> -->
 <p-dialog
   header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
   'Новая задача для категории' + ' ' + currentCategory.name}}"

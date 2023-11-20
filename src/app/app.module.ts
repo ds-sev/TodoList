@@ -1,14 +1,18 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core'
+import {
+  BrowserModule,
+  HAMMER_GESTURE_CONFIG,
+  HammerModule
+} from '@angular/platform-browser'
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
 import { TableModule } from 'primeng/table'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HeaderComponent } from './header/header.component'
+import { MyHammerConfig } from './shared/classes/my-hammer.config'
 
 @NgModule({
   declarations: [
@@ -22,12 +26,17 @@ import { HeaderComponent } from './header/header.component'
     CheckboxModule,
     FormsModule,
     BrowserAnimationsModule,
-    HeaderComponent
+    HeaderComponent,
+    HammerModule
   ],
-  providers: [],
-  exports: [
-
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

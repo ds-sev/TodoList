@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core'
+import { Component, importProvidersFrom, inject, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -15,11 +15,12 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { TableModule } from 'primeng/table'
 import { RippleModule } from 'primeng/ripple'
 import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
+import { ContextMenuModule } from 'primeng/contextmenu'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -44,6 +45,9 @@ export class TasksTableComponent implements OnInit {
   taskToEditId: string | null = null
 
   currentCategory: ICategory = null
+
+
+  isDisplay: boolean
 
   constructor(
     private route: ActivatedRoute,
@@ -116,6 +120,10 @@ export class TasksTableComponent implements OnInit {
   onDeleteTaskClick(taskToRemove: ITask) {
     this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
   }
+
+  onSwipe() {
+    console.log('swipe');
+  }
 }
 
 //TODO: view category of task if selected All-view
@@ -123,3 +131,5 @@ export class TasksTableComponent implements OnInit {
 //TODO: add colors for date-marked tasks fields
 //TODO: create delete confirmation popup
 //TODO: filter for tasks
+
+

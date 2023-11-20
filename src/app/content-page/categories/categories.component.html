@@ -1,12 +1,12 @@
 <div class="categories-menu" [ngClass]="collapsed ? 'categories-menu_collapsed' : ''">
   <h4 class="categories-menu__title">Категории</h4>
-  <ul class="side-menu__list menu-list">
-    <li class="menu-list__item" (click)="collapseCategoriesMenu()">
-      <a [routerLink]="['/categories/all']" routerLinkActive="activebutton">Все</a>
+  <ul class="categories-menu__list">
+    <li class="categories-menu__list-item" (click)="collapseCategoriesMenu()">
+      <a [routerLink]="['/categories/all']" routerLinkActive="categories-menu__list-item_active">Все</a>
     </li>
     @for (category of categoriesService.userCategoriesSig(); track category.id) {
-    <li class="menu-list__item" (click)="collapseCategoriesMenu()">
-      <a class="button" [routerLink]="['/categories', category.id]" routerLinkActive="activebutton">
+    <li class="categories-menu__list-item" (click)="collapseCategoriesMenu()">
+      <a class="button" [routerLink]="['/categories', category.id]" routerLinkActive="categories-menu__list-item_active">
     {{category.name}}
     </a>
   </li>

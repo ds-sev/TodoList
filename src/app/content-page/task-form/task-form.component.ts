@@ -7,7 +7,7 @@ import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { TasksService } from '../../shared/services/tasks.service'
 import { CategoriesService } from '../../shared/services/categories.service'
-import { TaskModalService } from '../../shared/services/task-modal.service'
+import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask } from '../../shared/interfaces'
 import { ActivatedRoute, Router } from '@angular/router'
 
@@ -31,7 +31,7 @@ export class TaskFormComponent implements OnInit {
 
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
-  taskModalService = inject(TaskModalService)
+  modalService = inject(ModalService)
 
   isEditForm: boolean = false
 
@@ -50,7 +50,11 @@ export class TaskFormComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(task?: ITask) {
+    console.log('init modal')
+    if (task) {
+      console.log('edit')
+    }
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
@@ -59,12 +63,16 @@ export class TaskFormComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+
+  }
+
   getCurrentCategoryName(currentCategoryId: string) {
     this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
   }
 
   onAddTaskClick() {
-    this.taskModalService.openModal()
+    this.modalService.openModal()
     // this.form.reset()
     // this.isEditForm = false
     // this.displayModal = true
@@ -84,7 +92,7 @@ export class TaskFormComponent implements OnInit {
     } else {
       this.tasksService.addTask(this.form.value, this.currentCategory)
     }
-    this.taskModalService.closeModal()
+    this.modalService.closeModal()
     // this.currentCategory = null
   }
 

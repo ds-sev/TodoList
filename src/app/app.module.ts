@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HeaderComponent } from './header/header.component'
 import { MyHammerConfig } from './shared/classes/my-hammer.config'
+import { ToastModule } from 'primeng/toast'
+import { ConfirmPopupComponent } from './content-page/confirm-popup/confirm-popup.component'
 
 @NgModule({
   declarations: [
@@ -27,13 +29,15 @@ import { MyHammerConfig } from './shared/classes/my-hammer.config'
     FormsModule,
     BrowserAnimationsModule,
     HeaderComponent,
-    HammerModule
+    HammerModule,
+    ToastModule,
+    ConfirmPopupComponent,
   ],
   providers: [
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
-    }
+    },
   ],
   exports: [],
   bootstrap: [AppComponent]

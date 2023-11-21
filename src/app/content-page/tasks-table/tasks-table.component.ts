@@ -17,7 +17,7 @@ import { RippleModule } from 'primeng/ripple'
 import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
 import { ContextMenuModule } from 'primeng/contextmenu'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
-import { TaskModalService } from '../../shared/services/task-modal.service'
+import { ModalService } from '../../shared/services/modal.service'
 
 @Component({
   selector: 'app-tasks-table',
@@ -39,7 +39,7 @@ export class TasksTableComponent implements OnInit {
 
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
-  taskModalService = inject(TaskModalService)
+  modalService = inject(ModalService)
 
   isEditForm: boolean = false
 
@@ -80,7 +80,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
-    this.taskModalService.openModal()
+    this.modalService.openModal()
 
     // this.form.reset()
     // this.isEditForm = false
@@ -106,15 +106,16 @@ export class TasksTableComponent implements OnInit {
   }
 
   onEditTaskClick(taskToEdit: ITask) {
-    this.taskToEditId = taskToEdit.id
-    this.isEditForm = true
-    this.form.setValue({
-      name: taskToEdit.name,
-      expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
-      category: taskToEdit.category || null,
-      priority: taskToEdit.priority || null
-    })
-    this.displayModal = true
+    this.modalService.openModal(taskToEdit)
+    // this.taskToEditId = taskToEdit.id
+    // this.isEditForm = true
+    // this.form.setValue({
+    //   name: taskToEdit.name,
+    //   expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
+    //   category: taskToEdit.category || null,
+    //   priority: taskToEdit.priority || null
+    // })
+    // this.displayModal = true
   }
 
   toggleTaskState(taskToChangeStatus: ITask) {

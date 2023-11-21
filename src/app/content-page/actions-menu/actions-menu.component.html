@@ -13,12 +13,14 @@
   <!--         </td> -->
   <!--         <td -->
   <!--           class="table__column_for-button"> -->
+  <p-toast></p-toast>
+  <p-confirmPopup></p-confirmPopup>
   <p-button
     icon="pi pi-times"
     [rounded]="true"
     severity="danger"
     [outlined]="true"
-    (onClick)="onDeleteClick('target')"
+    (onClick)="confirm($event)"
   ></p-button>
   <!--         </td> -->
 </div>

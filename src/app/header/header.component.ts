@@ -21,7 +21,6 @@ export class HeaderComponent {
 
   constructor(public authService: AuthService, private router: Router) {
   }
-
   confirmLogOut(event) {
     this.confirmationService.confirm({
       target: event.target,

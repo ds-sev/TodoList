@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { IUser } from '../interfaces'
-import { Observable } from 'rxjs'
+import { MessageService } from 'primeng/api'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class AuthService {
 
+  messageService = inject(MessageService)
 
   register(user: IUser) {
     localStorage.setItem('user', JSON.stringify(user))
@@ -15,8 +16,20 @@ export class AuthService {
 
   login(user: IUser) {
     if (localStorage.getItem('user') === JSON.stringify(user) ) {
-      console.log('Logged In!')
       localStorage.setItem('authorized', 'yes')
+      this.messageService.add({
+        severity:'success',
+        summary:'Ok',
+        detail:'Успешный вход',
+        key: 'notificationToast'
+      });
+    } else {
+      this.messageService.add({
+        severity:'error',
+        summary:'Ошибка',
+        detail:'Проверьте правильность ввода логина или пароля',
+        key: 'notificationToast'
+      });
     }
   }
 

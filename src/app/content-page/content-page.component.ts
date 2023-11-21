@@ -7,12 +7,11 @@ import { AuthService } from '../shared/services/auth.service'
 import { Router, RouterLink, RouterOutlet } from '@angular/router'
 import { CategoriesComponent } from './categories/categories.component'
 import { TaskFormComponent } from './task-form/task-form.component'
-import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component'
 
 @Component({
   selector: 'app-content-page',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink, CategoriesComponent, TaskFormComponent, ConfirmPopupComponent],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, RouterOutlet, RouterLink, CategoriesComponent, TaskFormComponent],
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss',
 })

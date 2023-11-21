@@ -1,5 +1,4 @@
 <div class="action-buttons" [ngClass]="isDisplay ? 'action-buttons_view' : ''">
-  <!--         <td class="table__column_for-button"> -->
   <p-button
     styleClass="table__button"
     size="small"
@@ -10,11 +9,6 @@
     (onClick)="onEditClick()"
     [disabled]="false"
   ></p-button>
-  <!--         </td> -->
-  <!--         <td -->
-  <!--           class="table__column_for-button"> -->
-
-<!--   <p-toast></p-toast> -->
   <p-confirmPopup></p-confirmPopup>
   <p-button
     icon="pi pi-times"
@@ -23,6 +17,5 @@
     [outlined]="true"
     (onClick)="confirm($event)"
   ></p-button>
-  <!--         </td> -->
 </div>
 

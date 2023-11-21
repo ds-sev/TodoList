@@ -1,14 +1,15 @@
 <header class="header">
   <div></div>
   <h1 class="header__title">ТудулистЪ</h1>
-      <p-button
-        class="header__user-menu-button"
-        label="Выйти"
-        size="small"
-        severity="warning"
-        [outlined]="true"
-        [rounded]="true"
-        (click)="logout()"
-        *ngIf="this.authService.isAuthenticated()"
-      ></p-button>
+  <p-confirmPopup></p-confirmPopup>
+  <p-button
+    class="header__user-menu-button"
+    icon="pi pi-sign-out"
+    size="small"
+    severity="warning"
+    [outlined]="true"
+    [rounded]="true"
+    (onClick)="confirmLogOut($event)"
+    *ngIf="this.authService.isAuthenticated()"
+  ></p-button>
 </header>

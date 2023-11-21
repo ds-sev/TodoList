@@ -71,13 +71,24 @@ export class ActionsMenuComponent {
       acceptLabel: 'Да',
       rejectLabel: 'Отмена',
       accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Задача удалена',
-          key: 'notificationToast'
-          // detail: "You have accepted"
-        })
-        // this.taskService.deleteTask(this.task.id, this.currentCategory)
+        if (this.task) {
+          this.taskService.deleteTask(this.task.id, this.currentCategory)
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Задача удалена',
+            key: 'notificationToast'
+          })
+        } else {
+          this.taskService.deleteTask(this.task.id, this.currentCategory)
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Категория удалена',
+            key: 'notificationToast'
+            // detail: "You have accepted"
+          })
+          // this.taskService.deleteTask(this.task.id, this.currentCategory)
+        }
+
       }
     })
   }

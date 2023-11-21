@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HeaderComponent } from './header/header.component'
 import { MyHammerConfig } from './shared/classes/my-hammer.config'
 import { ToastModule } from 'primeng/toast'
+import { ConfirmationService } from 'primeng/api'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ToastModule } from 'primeng/toast'
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
     },
-    ToastModule
+    ToastModule,
+    ConfirmationService
   ],
   exports: [],
   bootstrap: [AppComponent]

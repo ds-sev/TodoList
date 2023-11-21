@@ -1,6 +1,7 @@
 <p-dialog
-  header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' :
-  'Новая задача для категории' + ' ' + currentCategory.name}}"
+  header="{{ modalService.formOptionsSig().isEditForm ? 'Редактировать' : !modalService.formOptionsSig().currentCategory ?
+  'Новая задача:' :
+  'Новая задача для категории' + ' ' + modalService.formOptionsSig().currentCategory.name}}"
   [(visible)]="modalService.displayModal"
   [style]="{ width: '50vw' }"
 >

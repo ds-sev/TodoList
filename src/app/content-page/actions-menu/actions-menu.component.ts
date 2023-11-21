@@ -23,22 +23,29 @@ export class ActionsMenuComponent {
   messageService = inject(MessageService)
   confirmationService = inject(ConfirmationService)
 
+
+  // @Input() isEditForm: boolean
   @Input() task: ITask
   @Input() currentCategory: ICategory
   @Input() category: ICategory
+
+  // formOptions: {isEditForm: boolean, task: ITask, currentCategory: ICategory}
 
   isDisplay: boolean
   isNewTask: boolean = false
 
   onEditClick() {
     if (this.task) {
-      this.modalService.setFormValue(this.task)
-      console.log(this.task)
+      this.modalService.formOptionsSig.set({isEditForm: true, task: this.task, currentCategory: this.currentCategory})
+      this.modalService.openModal()
+      // this.modalService.setFormValue(this.task)
+      // this.modalService.openModal(this.isEditForm)
+      // console.log(this.task)
     } else if (this.category) {
       console.log(this.category)
     }
 
-    this.modalService.openModal()
+    // this.modalService.openModal(this.isEditForm = true)
 
     // if (target) {
     //   this.taskToEditId = taskToEdit.id

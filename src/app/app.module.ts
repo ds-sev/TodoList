@@ -15,7 +15,6 @@ import { HeaderComponent } from './header/header.component'
 import { MyHammerConfig } from './shared/classes/my-hammer.config'
 import { ToastModule } from 'primeng/toast'
 import { ConfirmationService, MessageService } from 'primeng/api'
-import { AuthService } from './shared/services/auth.service'
 
 @NgModule({
   declarations: [

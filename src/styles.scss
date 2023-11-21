@@ -13,7 +13,7 @@ html {
 
 body {
   position: relative;
-  padding: 0 6px 0 20px;
+  padding: 0 ;
   box-sizing: content-box;
   margin: 0 auto;
   max-width: 1440px;
@@ -27,7 +27,7 @@ body {
   background-color: white;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
-  scrollbar-gutter: stable;
+  //scrollbar-gutter: stable;
 }
 
 ul,

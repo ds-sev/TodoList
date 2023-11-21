@@ -25,7 +25,7 @@ export class HeaderComponent {
     this.confirmationService.confirm({
       target: event.target,
       message: `Выйти из системы?`,
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'pi pi-question-circle',
       acceptLabel: 'Да',
       rejectLabel: 'Отмена',
       accept: () => {

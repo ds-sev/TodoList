@@ -19,11 +19,12 @@ import { ContextMenuModule } from 'primeng/contextmenu'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
 import { ModalService } from '../../shared/services/modal.service'
 import { ToastModule } from 'primeng/toast'
+import { TaskFormComponent } from '../task-form/task-form.component'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent, ToastModule],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent, ToastModule, TaskFormComponent],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -81,7 +82,9 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
+    this.modalService.formOptionsSig.set({currentCategory: this.currentCategory})
     this.modalService.openModal()
+    // this.modalService.openModal()
 
     // this.form.reset()
     // this.isEditForm = false
@@ -107,7 +110,8 @@ export class TasksTableComponent implements OnInit {
   }
 
   onEditTaskClick(taskToEdit: ITask) {
-    this.modalService.openModal(taskToEdit)
+    this.modalService.formOptionsSig.set({isEditForm: false, task: taskToEdit, currentCategory: this.currentCategory})
+    this.modalService.openModal()
     // this.taskToEditId = taskToEdit.id
     // this.isEditForm = true
     // this.form.setValue({

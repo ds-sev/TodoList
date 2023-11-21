@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core'
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { ICategory, ITask } from '../../shared/interfaces'
 import { ModalService } from '../../shared/services/modal.service'
@@ -14,7 +14,7 @@ import { ToastModule } from 'primeng/toast'
   imports: [CommonModule, ButtonModule, ConfirmPopupModule, ToastModule],
   templateUrl: './actions-menu.component.html',
   styleUrl: './actions-menu.component.scss',
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService]
 })
 export class ActionsMenuComponent {
 
@@ -24,12 +24,11 @@ export class ActionsMenuComponent {
   confirmationService = inject(ConfirmationService)
 
   @Input() task: ITask
+  @Input() currentCategory: ICategory
   @Input() category: ICategory
 
   isDisplay: boolean
   isNewTask: boolean = false
-
-
 
   onEditClick() {
     if (this.task) {
@@ -40,7 +39,6 @@ export class ActionsMenuComponent {
     }
 
     this.modalService.openModal()
-
 
     // if (target) {
     //   this.taskToEditId = taskToEdit.id
@@ -68,25 +66,20 @@ export class ActionsMenuComponent {
   confirm(event: Event) {
     this.confirmationService.confirm({
       target: event.target,
-      message: `Вы уверены, что хотите удалить ${this.task ? 'задачу' : 'категорию'}?`,
-      icon: "pi pi-exclamation-triangle",
+      message: `Удалить ${this.task ? 'задачу' : 'категорию и задачи относящиеся к ней'}?`,
+      icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Отмена',
       accept: () => {
         this.messageService.add({
-          severity: "info",
-          summary: "Задача удалена",
+          severity: 'info',
+          summary: 'Задача удалена',
+          key: 'notificationToast'
           // detail: "You have accepted"
-        });
-      },
-      // reject: () => {
-      //   this.messageService.add({
-      //     severity: "error",
-      //     summary: "Rejected",
-      //     detail: "You have rejected"
-      //   });
-      // }
-    });
+        })
+        // this.taskService.deleteTask(this.task.id, this.currentCategory)
+      }
+    })
   }
 
 }

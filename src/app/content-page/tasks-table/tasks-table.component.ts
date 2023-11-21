@@ -18,11 +18,12 @@ import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
 import { ContextMenuModule } from 'primeng/contextmenu'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
 import { ModalService } from '../../shared/services/modal.service'
+import { ToastModule } from 'primeng/toast'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent],
+  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent, ToastModule],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -47,7 +48,7 @@ export class TasksTableComponent implements OnInit {
 
   taskToEditId: string | null = null
 
-  currentCategory: ICategory = null
+  public currentCategory: ICategory = null
 
 
   // isActionButtonsDisplay: boolean

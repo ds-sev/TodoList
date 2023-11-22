@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core'
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { ICategory, ITask } from '../../shared/interfaces'
@@ -7,11 +7,12 @@ import { TasksService } from '../../shared/services/tasks.service'
 import { ConfirmPopupModule } from 'primeng/confirmpopup'
 import { ConfirmationService, MessageService } from 'primeng/api'
 import { ToastModule } from 'primeng/toast'
+import { TaskFormComponent } from '../task-form/task-form.component'
 
 @Component({
   selector: 'app-actions-menu',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ConfirmPopupModule, ToastModule],
+  imports: [CommonModule, ButtonModule, ConfirmPopupModule, ToastModule, TaskFormComponent],
   templateUrl: './actions-menu.component.html',
   styleUrl: './actions-menu.component.scss',
   providers: [ConfirmationService]
@@ -29,14 +30,17 @@ export class ActionsMenuComponent {
   @Input() currentCategory: ICategory
   @Input() category: ICategory
 
+  @Output() dataToEdit = new EventEmitter()
+
   // formOptions: {isEditForm: boolean, task: ITask, currentCategory: ICategory}
 
   isDisplay: boolean
   isNewTask: boolean = false
 
   onEditClick() {
+    this.dataToEdit.emit({isEditForm: true, taskToEdit: this.task, currentCategory: this.currentCategory})
     if (this.task) {
-      this.modalService.formOptionsSig.set({isEditForm: true, task: this.task, currentCategory: this.currentCategory})
+      // this.modalService.formOptionsSig.set({isEditForm: true, task: this.task, currentCategory: this.currentCategory})
       this.modalService.openModal()
       // this.modalService.setFormValue(this.task)
       // this.modalService.openModal(this.isEditForm)

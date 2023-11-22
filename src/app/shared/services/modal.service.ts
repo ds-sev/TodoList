@@ -7,13 +7,10 @@ import { ICategory, ITask } from '../interfaces'
 
 export class ModalService {
 
-  formOptionsSig = signal<{isEditForm?: boolean, task?: ITask, currentCategory?: ICategory}>({})
+  // formOptionsSig = signal<{isEditForm?: boolean, task?: ITask, currentCategory?: ICategory}>({})
 
-  formOptions: {
-    isEditForm: boolean,
-    task: ITask,
-    currentCategory: ICategory
-  }
+
+
 
   displayModal: boolean = false
   // isEditForm: boolean = false
@@ -24,11 +21,9 @@ export class ModalService {
   }
 
   openModal(component?: Component, dataFromComponent?: any) {
-    console.log(component)
-    if (this.formOptionsSig().isEditForm) {
 
-
-    }
+    // if (this.formOptionsSig().isEditForm) {
+    // }
 
     // if (taskToEdit) {
     //   console.log(taskToEdit)

@@ -15,6 +15,7 @@ import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask } from '../../shared/interfaces'
 import { ActivatedRoute, Router } from '@angular/router'
+import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
 
 @Component({
   selector: 'app-task-form',
@@ -29,6 +30,11 @@ export class TaskFormComponent implements OnInit {
   @Input() isEditForm: boolean
   @Input() task: ITask
   @Input() formData: ITask
+  @Input()   formOptions: {
+    isEditForm: boolean,
+    taskToEdit?: ITask,
+    currentCategory?: ICategory
+  }
   checked: boolean
 
   categories: []
@@ -58,23 +64,39 @@ export class TaskFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.modalService.formOptionsSig())
     this.form = new FormGroup<any>({
       name: new FormControl,
       expiresIn: new FormControl,
       category: new FormControl,
       priority: new FormControl
     })
+    if (this.formOptions.isEditForm === false) {
+      // this.form.reset()
+      if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
+        console.log('categ')
+        this.form.setValue({
+          name: '',
+          expiresIn: '',
+          category: this.currentCategory,
+          priority: ''
+        })
+      }
+    } else {
+      this.form.setValue({
+        name: this.formOptions.taskToEdit.name,
+        expiresIn: this.formOptions.taskToEdit.expiresIn ? new Date(this.formOptions.taskToEdit.expiresIn) : '',
+        category: this.formOptions.taskToEdit.category || null,
+        priority: this.formOptions.taskToEdit.priority || null
+      })
+    }
   }
-
-
 
   getCurrentCategoryName(currentCategoryId: string) {
     this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
   }
 
   onAddTaskClick() {
-    this.modalService.formOptionsSig.set({})
+    // this.modalService.formOptionsSig.set({})
     this.modalService.openModal()
     // this.form.reset()
     // this.isEditForm = false

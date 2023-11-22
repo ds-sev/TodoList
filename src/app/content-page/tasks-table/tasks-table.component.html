@@ -79,6 +79,7 @@
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
           [task]="task"
           [currentCategory]="currentCategory"
+          (dataToEdit)="this.dataToEdit = $event"
         ></app-actions-menu>
 
 
@@ -111,7 +112,11 @@
   </p-table>
 </section>
 
-<app-task-form></app-task-form>
+<ng-container *ngIf="modalService.displayModal">
+  <app-task-form [formOptions]="dataToEdit">
+
+  </app-task-form>
+</ng-container>
 
 
 

@@ -43,14 +43,15 @@ export class TasksTableComponent implements OnInit {
   categoriesService = inject(CategoriesService)
   modalService = inject(ModalService)
 
-  isEditForm: boolean = false
+  isEditForm: boolean
+
+  dataToEdit: {isEditForm: boolean, taskToEdit?: ITask, currentCategory?: ICategory}
 
   minDate: Date = new Date()
 
   taskToEditId: string | null = null
 
   public currentCategory: ICategory = null
-
 
   // isActionButtonsDisplay: boolean
 
@@ -82,7 +83,9 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
-    this.modalService.formOptionsSig.set({currentCategory: this.currentCategory})
+    this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
+
+    // this.modalService.formOptionsSig.set({currentCategory: this.currentCategory})
     this.modalService.openModal()
     // this.modalService.openModal()
 
@@ -110,7 +113,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   onEditTaskClick(taskToEdit: ITask) {
-    this.modalService.formOptionsSig.set({isEditForm: false, task: taskToEdit, currentCategory: this.currentCategory})
+    // this.modalService.formOptionsSig.set({isEditForm: false, task: taskToEdit, currentCategory: this.currentCategory})
     this.modalService.openModal()
     // this.taskToEditId = taskToEdit.id
     // this.isEditForm = true

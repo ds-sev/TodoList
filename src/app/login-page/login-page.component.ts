@@ -10,6 +10,7 @@ import {
 } from '@angular/forms'
 import { PasswordModule } from 'primeng/password'
 import { AuthService } from '../shared/services/auth.service'
+import { IAuthFormData } from '../shared/interfaces'
 
 @Component({
   selector: 'app-login-page',
@@ -26,7 +27,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup ({
+    this.form = new FormGroup<IAuthFormData>({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     })

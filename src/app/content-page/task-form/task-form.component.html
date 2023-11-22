@@ -5,34 +5,45 @@
   [(visible)]="modalService.displayModal"
   [style]="{ width: '50vw' }"
 >
-  <form [formGroup]="form" (ngSubmit)="onSubmitForm()">
-    <input
+
+  <form
+    [formGroup]="formGroup"
+    class="task-form"
+    (ngSubmit)="onSubmitForm()">
+    <input pInputText
       formControlName="name"
       id="name"
       type="text"
+           [style]="{ width: '60%' }"
     >
-    <p-calendar
-      formControlName="expiresIn"
-      appendTo="body"
-      [minDate]='minDate'
-      dateFormat="dd.mm.yy"
-    >
-    </p-calendar>
     <div>
-      <input formControlName="priority" type="radio" value="low">Низкий
-      <input formControlName="priority" type="radio" value="mid">Средний
-      <input formControlName="priority" type="radio" value="high">Высокий
+      <p-calendar
+        formControlName="expiresIn"
+        appendTo="body"
+        [minDate]='minDate'
+        dateFormat="dd.mm.yy"
+        placeholder="Выполнить до:"
+      >
+      </p-calendar>
+      <div>
+        <span>Приоритет:</span>
+        <input formControlName="priority" type="radio" value="low">Низкий
+        <input formControlName="priority" type="radio" value="mid">Средний
+        <input formControlName="priority" type="radio" value="high">Высокий
+      </div>
     </div>
+
     <p-dropdown [options]="categoriesService.userCategoriesSig()"
-                placeholder="Категория задачи"
+                placeholder="Категория"
                 optionLabel="name"
                 inputId="float-label"
                 appendTo="body"
                 formControlName="category"
                 *ngIf="!this.formOptions.currentCategory"
+                [style]="{ width: '60%' }"
     ></p-dropdown>
-    <button type="submit">
+    <p-button type="submit">
       {{ formOptions.isEditForm ? 'Сохранить' : 'Создать'}}
-    </button>
+    </p-button>
   </form>
 </p-dialog>

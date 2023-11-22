@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router'
 import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { Observable, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { AuthService } from '../shared/services/auth.service'
+import { IAuthFormData, IUser } from '../shared/interfaces'
 
 @Component({
   selector: 'app-register-page',
@@ -16,13 +17,12 @@ import { AuthService } from '../shared/services/auth.service'
 export class RegisterPageComponent implements OnInit {
 
   form: FormGroup
-  authSub: Subscription
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
+    this.form = new FormGroup<IAuthFormData>({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     })

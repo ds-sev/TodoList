@@ -9,16 +9,17 @@ import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
 import { PaginatorModule } from 'primeng/paginator'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { TasksService } from '../../shared/services/tasks.service'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
-import { ICategory, ITask } from '../../shared/interfaces'
+import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
+import { InputTextModule } from 'primeng/inputtext'
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, PaginatorModule, ReactiveFormsModule],
+  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, PaginatorModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
@@ -30,32 +31,32 @@ export class TaskFormComponent implements OnInit {
     currentCategory?: ICategory
   }
 
-  form: FormGroup
   minDate: Date = new Date()
+  formGroup: FormGroup
 
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   public modalService = inject(ModalService)
+  formBuilder = inject(FormBuilder)
 
   ngOnInit() {
-    this.form = new FormGroup<any>({
-      name: new FormControl,
-      expiresIn: new FormControl,
-      category: new FormControl,
-      priority: new FormControl
+    this.formGroup = this.formBuilder.group<ITaskFormControls>({
+      name: null,
+      expiresIn: null,
+      category: null,
+      priority: null
     })
     if (this.formOptions.isEditForm === false) {
-      // this.form.reset()
       if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
-        this.form.setValue({
-          name: '',
-          expiresIn: '',
+        this.formGroup.setValue({
+          name: null,
+          expiresIn: null,
           category: this.formOptions.currentCategory,
-          priority: ''
+          priority: null
         })
       }
     } else {
-      this.form.setValue({
+      this.formGroup.setValue({
         name: this.formOptions.taskToEdit.name,
         expiresIn: this.formOptions.taskToEdit.expiresIn ? new Date(this.formOptions.taskToEdit.expiresIn) : '',
         category: this.formOptions.taskToEdit.category || null,
@@ -66,13 +67,13 @@ export class TaskFormComponent implements OnInit {
 
   onSubmitForm() {
     if (this.formOptions.isEditForm) {
-      this.tasksService.editTask(this.formOptions.taskToEdit.id, this.form.value)
+      this.tasksService.editTask(this.formOptions.taskToEdit.id, this.formGroup.value)
     } else {
-      this.tasksService.addTask(this.form.value, this.formOptions.currentCategory)
+      this.tasksService.addTask(this.formGroup.value, this.formOptions.currentCategory)
     }
     this.modalService.closeModal()
   }
 }
 
-//TODO: refresh data after edit task
+//TODO: refresh data after edit task!!!
 

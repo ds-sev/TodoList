@@ -2,7 +2,7 @@ import { Component, importProvidersFrom, inject, Input, OnInit } from '@angular/
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ICategory, ITask } from '../../shared/interfaces'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
@@ -65,8 +65,8 @@ export class TasksTableComponent implements OnInit {
   }
 }
 
-//TODO: create validation for create/edit task form
 //TODO: add colors for date-marked tasks fields
+//TODO: remove unused imports!!!
 
 
 

@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl } from '@angular/forms'
+import { AbstractControl } from '@angular/forms'
 
 export interface IUser {
   email: string
@@ -32,9 +32,3 @@ export interface IAuthFormData {
   email: AbstractControl<string>
   password: AbstractControl<string>
 }
-
-
-
-
-
-

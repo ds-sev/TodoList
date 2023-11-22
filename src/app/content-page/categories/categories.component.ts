@@ -7,9 +7,7 @@ import { DialogModule } from 'primeng/dialog'
 import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesService } from '../../shared/services/categories.service'
-import { TasksService } from '../../shared/services/tasks.service'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
-import { ICategory } from '../../shared/interfaces'
 
 @Component({
   selector: 'app-categories',
@@ -81,6 +79,4 @@ export class CategoriesComponent implements OnInit {
   toggleActionsMenu(evt) {
     console.log(evt.target)
   }
-
-  protected readonly console = console
 }

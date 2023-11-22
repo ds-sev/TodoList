@@ -32,17 +32,15 @@ export class ActionsMenuComponent {
   isDisplay: boolean
 
   onEditClick() {
-    this.dataToEdit.emit({
-      isEditForm: true,
-      taskToEdit: this.task,
-      currentCategory: this.currentCategory
-    })
     if (this.task) {
+      this.dataToEdit.emit({
+        isEditForm: true,
+        taskToEdit: this.task,
+        currentCategory: this.currentCategory
+      })
       this.modalService.openModal()
-      // this.modalService.setFormValue(this.task)
-      // this.modalService.openModal(this.isEditForm)
-      // console.log(this.task)
     } else if (this.category) {
+      console.log('category edit')
     }
   }
 

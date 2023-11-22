@@ -3,36 +3,43 @@
   'Новая задача:' :
   'Новая задача для категории' + ' ' + '«' + this.formOptions.currentCategory.name + '»'}}"
   [(visible)]="modalService.displayModal"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '550px', minWidth: '375px' }"
 >
-
   <form
     [formGroup]="formGroup"
     class="task-form"
     (ngSubmit)="onSubmitForm()">
+    <span class="p-float-label task-form__name-input">
     <input pInputText
-      formControlName="name"
-      id="name"
-      type="text"
-           [style]="{ width: '60%' }"
+           formControlName="name"
+           id="name"
+           type="text"
+           [style]="{ width: '100%' }"
     >
-    <div>
-      <p-calendar
-        formControlName="expiresIn"
-        appendTo="body"
-        [minDate]='minDate'
-        dateFormat="dd.mm.yy"
-        placeholder="Выполнить до:"
-      >
-      </p-calendar>
-      <div>
-        <span>Приоритет:</span>
-        <input formControlName="priority" type="radio" value="low">Низкий
-        <input formControlName="priority" type="radio" value="mid">Средний
-        <input formControlName="priority" type="radio" value="high">Высокий
+      <label for="name">Описание</label>
+    </span>
+    <div class="task-form__options-container">
+      <span class="p-float-label">
+        <p-calendar
+          id="calendar"
+          formControlName="expiresIn"
+          appendTo="body"
+          [minDate]='minDate'
+          dateFormat="dd.mm.yy"
+          placeholder="Выполнить до:"
+        >
+        </p-calendar>
+        <label for="calendar">Выполнить до:</label>
+      </span>
+      <div class="task-form__priority priority-block">
+        <label class="priority-block__label _input-field__label">Приоритет: </label>
+        <div class="priority-block__radio-buttons-container">
+          <input formControlName="priority" type="radio" value="low">Низкий
+          <input formControlName="priority" type="radio" value="mid">Средний
+          <input formControlName="priority" type="radio" value="high">Высокий
+        </div>
       </div>
     </div>
-
     <p-dropdown [options]="categoriesService.userCategoriesSig()"
                 placeholder="Категория"
                 optionLabel="name"
@@ -40,7 +47,8 @@
                 appendTo="body"
                 formControlName="category"
                 *ngIf="!this.formOptions.currentCategory"
-                [style]="{ width: '60%' }"
+                [style]="{ width: '100%' }"
+                class="task-form__categories"
     ></p-dropdown>
     <p-button type="submit">
       {{ formOptions.isEditForm ? 'Сохранить' : 'Создать'}}

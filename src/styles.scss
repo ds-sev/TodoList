@@ -46,6 +46,12 @@ tr, th {
   text-align: center;
 }
 
+._input-field {
+  &__label  {
+    color: gray;
+  }
+}
+
 
 
 

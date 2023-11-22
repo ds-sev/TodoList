@@ -17,16 +17,8 @@ import { TaskFormComponent } from './task-form/task-form.component'
 })
 export class ContentPageComponent {
 
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
-
-
-
 }
 
-//TODO: signOut confirmation popup
-//TODO: routing for user-added categories
-//TODO: edit categories names
+//TODO: edit categories
 //TODO: delete category? with all tasks?
 //TODO: edit styles

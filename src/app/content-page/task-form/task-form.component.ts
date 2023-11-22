@@ -14,8 +14,6 @@ import { TasksService } from '../../shared/services/tasks.service'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask } from '../../shared/interfaces'
-import { ActivatedRoute, Router } from '@angular/router'
-import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
 
 @Component({
   selector: 'app-task-form',
@@ -26,42 +24,18 @@ import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
 })
 export class TaskFormComponent implements OnInit {
 
-  // @Input() isEditForm: boolean
-  @Input() isEditForm: boolean
-  @Input() task: ITask
-  @Input() formData: ITask
-  @Input()   formOptions: {
+  @Input() formOptions: {
     isEditForm: boolean,
     taskToEdit?: ITask,
     currentCategory?: ICategory
   }
-  checked: boolean
-
-  categories: []
-
-  displayModal: boolean = false
 
   form: FormGroup
+  minDate: Date = new Date()
 
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   public modalService = inject(ModalService)
-
-  // isEditForm: boolean = false
-
-  minDate: Date = new Date()
-
-  taskToEditId: string | null = null
-
-  currentCategory: ICategory = null
-
-  // isActionButtonsDisplay: boolean
-
-  constructor(
-    private route: ActivatedRoute,
-    public router: Router,
-  ) {
-  }
 
   ngOnInit() {
     this.form = new FormGroup<any>({
@@ -73,11 +47,10 @@ export class TaskFormComponent implements OnInit {
     if (this.formOptions.isEditForm === false) {
       // this.form.reset()
       if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
-        console.log('categ')
         this.form.setValue({
           name: '',
           expiresIn: '',
-          category: this.currentCategory,
+          category: this.formOptions.currentCategory,
           priority: ''
         })
       }
@@ -91,55 +64,13 @@ export class TaskFormComponent implements OnInit {
     }
   }
 
-  getCurrentCategoryName(currentCategoryId: string) {
-    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
-  }
-
-  onAddTaskClick() {
-    // this.modalService.formOptionsSig.set({})
-    this.modalService.openModal()
-    // this.form.reset()
-    // this.isEditForm = false
-    // this.displayModal = true
-    // if (this.currentCategory && this.currentCategory.id !== 'all') {
-    //   this.form.setValue({
-    //     name: '',
-    //     expiresIn: '',
-    //     category: this.currentCategory,
-    //     priority: ''
-    //   })
-    // }
-  }
-
   onSubmitForm() {
-    // if (this.isEditForm) {
-    //   this.tasksService.editTask(this.taskToEditId, this.form.value)
-    // } else {
-    //   this.tasksService.addTask(this.form.value, this.currentCategory)
-    // }
-    // this.modalService.closeModal()
-    // // this.currentCategory = null
+    if (this.formOptions.isEditForm) {
+      this.tasksService.editTask(this.formOptions.taskToEdit.id, this.form.value)
+    } else {
+      this.tasksService.addTask(this.form.value, this.formOptions.currentCategory)
+    }
+    this.modalService.closeModal()
   }
-
-  // onEditTaskClick(taskToEdit: ITask) {
-  //   this.taskToEditId = taskToEdit.id
-  //   this.isEditForm = true
-  //   this.form.setValue({
-  //     name: taskToEdit.name,
-  //     expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
-  //     category: taskToEdit.category || null,
-  //     priority: taskToEdit.priority || null
-  //   })
-  //   this.displayModal = true
-  // }
-
-  toggleTaskState(taskToChangeStatus: ITask) {
-    this.tasksService.toggleTaskStatus(taskToChangeStatus)
-  }
-
-  onDeleteTaskClick(taskToRemove: ITask) {
-    this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
-  }
-
 }
 

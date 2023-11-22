@@ -31,7 +31,8 @@
                 formControlName="category"
                 *ngIf="!this.formOptions.currentCategory"
     ></p-dropdown>
-    <!--     <label for="float-label">Категория задачи</label> -->
-    <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button>
+    <button type="submit">
+      {{ formOptions.isEditForm ? 'Сохранить' : 'Создать'}}
+    </button>
   </form>
 </p-dialog>

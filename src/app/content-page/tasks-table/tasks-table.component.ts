@@ -30,35 +30,15 @@ import { TaskFormComponent } from '../task-form/task-form.component'
 })
 export class TasksTableComponent implements OnInit {
 
-  @Input()
-  checked: boolean
-
-  categories: []
-
-  displayModal: boolean = false
-
-  form: FormGroup
-
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   modalService = inject(ModalService)
 
-  isEditForm: boolean
-
-  dataToEdit: {isEditForm: boolean, taskToEdit?: ITask, currentCategory?: ICategory}
-
-  minDate: Date = new Date()
-
-  taskToEditId: string | null = null
+  dataToEdit: { isEditForm: boolean, taskToEdit?: ITask, currentCategory?: ICategory }
 
   public currentCategory: ICategory = null
 
-  // isActionButtonsDisplay: boolean
-
-  constructor(
-    private route: ActivatedRoute,
-    public router: Router
-  ) {
+  constructor(private route: ActivatedRoute, public router: Router) {
   }
 
   ngOnInit() {
@@ -69,13 +49,6 @@ export class TasksTableComponent implements OnInit {
         this.tasksService.getTasksDataByCategoryId(params['id'])
       }
     })
-
-    this.form = new FormGroup<any>({
-      name: new FormControl,
-      expiresIn: new FormControl,
-      category: new FormControl,
-      priority: new FormControl
-    })
   }
 
   getCurrentCategoryName(currentCategoryId: string) {
@@ -84,63 +57,16 @@ export class TasksTableComponent implements OnInit {
 
   onAddTaskClick() {
     this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
-
-    // this.modalService.formOptionsSig.set({currentCategory: this.currentCategory})
     this.modalService.openModal()
-    // this.modalService.openModal()
-
-    // this.form.reset()
-    // this.isEditForm = false
-    // this.displayModal = true
-    // if (this.currentCategory && this.currentCategory.id !== 'all') {
-    //   this.form.setValue({
-    //     name: '',
-    //     expiresIn: '',
-    //     category: this.currentCategory,
-    //     priority: ''
-    //   })
-    // }
-  }
-
-  onSubmitForm() {
-    if (this.isEditForm) {
-      this.tasksService.editTask(this.taskToEditId, this.form.value)
-    } else {
-      this.tasksService.addTask(this.form.value, this.currentCategory)
-    }
-    this.displayModal = false
-    // this.currentCategory = null
-  }
-
-  onEditTaskClick(taskToEdit: ITask) {
-    // this.modalService.formOptionsSig.set({isEditForm: false, task: taskToEdit, currentCategory: this.currentCategory})
-    this.modalService.openModal()
-    // this.taskToEditId = taskToEdit.id
-    // this.isEditForm = true
-    // this.form.setValue({
-    //   name: taskToEdit.name,
-    //   expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
-    //   category: taskToEdit.category || null,
-    //   priority: taskToEdit.priority || null
-    // })
-    // this.displayModal = true
   }
 
   toggleTaskState(taskToChangeStatus: ITask) {
     this.tasksService.toggleTaskStatus(taskToChangeStatus)
   }
-
-  onDeleteTaskClick(taskToRemove: ITask) {
-    this.tasksService.deleteTask(taskToRemove.id, this.currentCategory)
-  }
-
-  protected readonly console = console
 }
 
-//TODO: view category of task if selected All-view
 //TODO: create validation for create/edit task form
 //TODO: add colors for date-marked tasks fields
-//TODO: create delete confirmation popup
-//TODO: filter for tasks
+
 
 

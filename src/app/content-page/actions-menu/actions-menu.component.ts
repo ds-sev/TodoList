@@ -24,54 +24,26 @@ export class ActionsMenuComponent {
   messageService = inject(MessageService)
   confirmationService = inject(ConfirmationService)
 
-
-  // @Input() isEditForm: boolean
   @Input() task: ITask
   @Input() currentCategory: ICategory
   @Input() category: ICategory
-
   @Output() dataToEdit = new EventEmitter()
 
-  // formOptions: {isEditForm: boolean, task: ITask, currentCategory: ICategory}
-
   isDisplay: boolean
-  isNewTask: boolean = false
 
   onEditClick() {
-    this.dataToEdit.emit({isEditForm: true, taskToEdit: this.task, currentCategory: this.currentCategory})
+    this.dataToEdit.emit({
+      isEditForm: true,
+      taskToEdit: this.task,
+      currentCategory: this.currentCategory
+    })
     if (this.task) {
-      // this.modalService.formOptionsSig.set({isEditForm: true, task: this.task, currentCategory: this.currentCategory})
       this.modalService.openModal()
       // this.modalService.setFormValue(this.task)
       // this.modalService.openModal(this.isEditForm)
       // console.log(this.task)
     } else if (this.category) {
-      console.log(this.category)
     }
-
-    // this.modalService.openModal(this.isEditForm = true)
-
-    // if (target) {
-    //   this.taskToEditId = taskToEdit.id
-    //   this.isEditForm = true
-    //   this.form.setValue({
-    //     name: taskToEdit.name,
-    //     expiresIn: taskToEdit.expiresIn ? new Date(taskToEdit.expiresIn) : '',
-    //     category: taskToEdit.category || null,
-    //     priority: taskToEdit.priority || null
-    //   })
-    //
-    // }
-    //
-    // this.displayModal = true
-  }
-
-  onDeleteClick(target: any) {
-
-  }
-
-  toggleActionsMenu() {
-
   }
 
   confirm(event: Event) {
@@ -95,13 +67,9 @@ export class ActionsMenuComponent {
             severity: 'info',
             summary: 'Категория удалена',
             key: 'notificationToast'
-            // detail: "You have accepted"
           })
-          // this.taskService.deleteTask(this.task.id, this.currentCategory)
         }
-
       }
     })
   }
-
 }

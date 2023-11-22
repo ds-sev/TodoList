@@ -39,12 +39,9 @@
         <th pSortableColumn="priority" style="width: 8rem">Приоритет
           <p-sortIcon field="priority"></p-sortIcon>
         </th>
-<!--         <th></th> -->
-<!--         <th></th> -->
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
-      <!--suppress AngularUndefinedBinding -->
       <tr class="table__body-row"
           (mouseenter)="task.isActionButtonsDisplay = true"
           (mouseleave)="task.isActionButtonsDisplay = false"
@@ -73,86 +70,21 @@
              border: 1px solid
               black"></div>
         </td>
-
-
         <app-actions-menu
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
           [task]="task"
           [currentCategory]="currentCategory"
           (dataToEdit)="this.dataToEdit = $event"
         ></app-actions-menu>
-
-
-
-
-<!-- <div class="action-buttons"  -->
-<!--      [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"> -->
-<!--           <p-button -->
-<!--             styleClass="table__button" -->
-<!--             size="small" -->
-<!--             icon="pi pi-pencil" -->
-<!--             [rounded]="true" -->
-<!--             severity="warning" -->
-<!--             [outlined]="true" -->
-<!--             (onClick)="onEditTaskClick(task)" -->
-<!--             [disabled]="task.complete" -->
-<!--           ></p-button> -->
-<!--           <p-button -->
-<!--             icon="pi pi-times" -->
-<!--             [rounded]="true" -->
-<!--             severity="danger" -->
-<!--             [outlined]="true" -->
-<!--             (onClick)="onDeleteTaskClick(task)" -->
-<!--           ></p-button> -->
-<!-- </div> -->
-
-
       </tr>
     </ng-template>
   </p-table>
 </section>
 
 <ng-container *ngIf="modalService.displayModal">
-  <app-task-form [formOptions]="dataToEdit">
-
-  </app-task-form>
+  <app-task-form [formOptions]="dataToEdit"></app-task-form>
 </ng-container>
 
 
 
-<!-- <p-dialog -->
-<!--   header="{{ isEditForm ? 'Редактировать' : !currentCategory ? 'Новая задача:' : -->
-<!--   'Новая задача для категории' + ' ' + currentCategory.name}}" -->
-<!--   [(visible)]="displayModal" -->
-<!--   [style]="{ width: '50vw' }" -->
-<!-- > -->
-<!--   <form [formGroup]="form" (ngSubmit)="onSubmitForm()"> -->
-<!--     <input -->
-<!--       formControlName="name" -->
-<!--       id="name" -->
-<!--       type="text" -->
-<!--     > -->
-<!--     <p-calendar -->
-<!--       formControlName="expiresIn" -->
-<!--       appendTo="body" -->
-<!--       [minDate]='minDate' -->
-<!--       dateFormat="dd.mm.yy" -->
-<!--     > -->
-<!--     </p-calendar> -->
-<!--     <div> -->
-<!--       <input formControlName="priority" type="radio" value="low">Низкий -->
-<!--       <input formControlName="priority" type="radio" value="mid">Средний -->
-<!--       <input formControlName="priority" type="radio" value="high">Высокий -->
-<!--     </div> -->
-<!--     <p-dropdown [options]="categoriesService.userCategoriesSig()" -->
-<!--                 placeholder="Категория задачи" -->
-<!--                 optionLabel="name" -->
-<!--                 inputId="float-label" -->
-<!--                 appendTo="body" -->
-<!--                 formControlName="category" -->
-<!--                 *ngIf="!currentCategory" -->
-<!--     ></p-dropdown> -->
-<!--     &lt;!&ndash;     <label for="float-label">Категория задачи</label> &ndash;&gt; -->
-<!--     <button type="submit">{{ isEditForm ? 'Сохранить' : 'Создать'}}</button> -->
-<!--   </form> -->
-<!-- </p-dialog> -->
+

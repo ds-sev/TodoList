@@ -20,13 +20,10 @@ import { AuthService } from '../shared/services/auth.service'
 })
 export class LoginPageComponent implements OnInit {
 
-  value: string
   form: FormGroup
 
   constructor(private authService: AuthService, private router: Router) {
   }
-
-
 
   ngOnInit(): void {
     this.form = new FormGroup ({

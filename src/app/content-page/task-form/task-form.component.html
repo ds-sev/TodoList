@@ -4,6 +4,8 @@
   'Новая задача для категории' + ' ' + '«' + this.formOptions.currentCategory.name + '»'}}"
   [(visible)]="modalService.displayModal"
   [style]="{ width: '550px', minWidth: '375px' }"
+  [modal]="true"
+  [dismissableMask]="true"
 >
   <form
     [formGroup]="formGroup"

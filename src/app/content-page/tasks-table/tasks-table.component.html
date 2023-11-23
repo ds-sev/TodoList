@@ -1,11 +1,11 @@
 <section class="tasks-section">
   <div class="table__title-container">
-    <h3 [ngSwitch]="currentCategory !== null && currentCategory.name !== 'all'">
+    <h3 [ngSwitch]="currentCategory && currentCategory.name !== 'all'">
       <ng-container *ngSwitchCase="false">
         У вас
       </ng-container>
       <ng-container *ngSwitchCase="true">
-        В категории «{{currentCategory.name}}»
+        В категории «{{currentCategory ? currentCategory.name : '?'}}»
       </ng-container>
       {{tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length}}
       {{tasksService.tasksListSig().length | taskWordEnding}}

@@ -21,7 +21,7 @@ export class HeaderComponent {
 
   constructor(public authService: AuthService, private router: Router) {
   }
-  confirmLogOut(event) {
+  confirmLogOut(event: any) {
     this.confirmationService.confirm({
       target: event.target,
       message: `Выйти из системы?`,

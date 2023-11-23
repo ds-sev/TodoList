@@ -71,9 +71,4 @@ export class CategoriesComponent implements OnInit {
       }
     })
   }
-
-
-  // toggleActionsMenu(evt) {
-  //   console.log(evt.target)
-  // }
 }

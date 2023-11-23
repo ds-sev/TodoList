@@ -34,9 +34,13 @@ export class TasksTableComponent implements OnInit {
   categoriesService = inject(CategoriesService)
   modalService = inject(ModalService)
 
-  dataToEdit: { isEditForm: boolean, taskToEdit?: ITask, currentCategory?: ICategory }
+  dataToEdit: {
+    isEditForm: boolean,
+    taskToEdit?: ITask,
+    currentCategory?: ICategory
+  } = {isEditForm: false}
 
-  public currentCategory: ICategory = null
+  public currentCategory: ICategory | null = null
 
   constructor(private route: ActivatedRoute, public router: Router) {
   }
@@ -47,16 +51,20 @@ export class TasksTableComponent implements OnInit {
       if (params.hasOwnProperty('id')) {
         this.getCurrentCategoryName(params['id'])
         this.tasksService.getTasksDataByCategoryId(params['id'])
+      } else {
+        this.currentCategory = null
       }
     })
   }
 
   getCurrentCategoryName(currentCategoryId: string) {
-    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId)
+    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId) || null
   }
 
   onAddTaskClick() {
-    this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
+    this.currentCategory
+      ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
+      : this.dataToEdit = {isEditForm: false}
     this.modalService.openModal()
   }
 

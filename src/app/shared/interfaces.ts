@@ -1,5 +1,3 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms'
-
 export interface IUser {
   email: string
   password: string
@@ -26,14 +24,9 @@ export interface ITaskFormControls {
   expiresIn?: Date | string | null
   category?: ICategory | null
   priority?: 'low' | 'mid' | 'high' | null
-
-  // name: AbstractControl<string | null>
-  // expiresIn?: AbstractControl<Date | string>
-  // category?: AbstractControl<ICategory | null>
-  // priority?: AbstractControl<'low' | 'mid' | 'high' | null>
 }
 
-export interface IAuthFormData {
+export interface IAuthFormControls {
   email: string | null
   password: string | null
 }

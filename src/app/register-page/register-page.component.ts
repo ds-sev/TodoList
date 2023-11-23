@@ -9,7 +9,7 @@ import {
   Validators
 } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
-import { IAuthFormData } from '../shared/interfaces'
+import { IAuthFormControls } from '../shared/interfaces'
 
 @Component({
   selector: 'app-register-page',
@@ -27,7 +27,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group<IAuthFormData>({
+    this.form = this.formBuilder.group<IAuthFormControls>({
       email: null,
       password: null,
     });

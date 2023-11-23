@@ -69,7 +69,7 @@ export class TasksService {
     this.updateTasksView(currentCategory)
   }
 
-  editTask(taskId: string, taskEditedData: any) {
+  editTask(taskId: string, taskEditedData: any, currentCategory: ICategory | null) {
     let storedTasks = this.getStoredTasks()
     storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
       ...task,
@@ -81,6 +81,7 @@ export class TasksService {
       category: taskEditedData.category
     } : task)
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
+    this.updateTasksView(currentCategory)
   }
 
   deleteTask(id: string, currentCategory: ICategory | null) {

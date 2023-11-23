@@ -9,7 +9,7 @@ import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
 import { PaginatorModule } from 'primeng/paginator'
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { TasksService } from '../../shared/services/tasks.service'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
@@ -65,18 +65,15 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmitForm() {
-
+    if (!this.formOptions.currentCategory) {
+      this.formOptions.currentCategory = null
+    }
     if (this.formOptions.taskToEdit && this.formOptions.taskToEdit.id) {
-      this.tasksService.editTask(this.formOptions.taskToEdit.id, this.formGroup.value)
+      this.tasksService.editTask(this.formOptions.taskToEdit.id, this.formGroup.value, this.formOptions.currentCategory)
     } else {
-      if (!this.formOptions.currentCategory) {
-        this.formOptions.currentCategory = null
-      }
       this.tasksService.addTask(this.formGroup.value, this.formOptions.currentCategory)
     }
     this.modalService.closeModal()
   }
 }
-
-//TODO: refresh data after edit task!!!
 

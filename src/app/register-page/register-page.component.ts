@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router, RouterLink } from '@angular/router'
 import { PaginatorModule } from 'primeng/paginator'
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
 import { IAuthFormData } from '../shared/interfaces'
 
@@ -15,16 +20,20 @@ import { IAuthFormData } from '../shared/interfaces'
 })
 export class RegisterPageComponent implements OnInit {
 
-  form: FormGroup
+  formBuilder = inject(FormBuilder)
+  form!: FormGroup
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
-    // this.form = new FormGroup<IAuthFormData>({
-    //   email: new FormControl(null, [Validators.required, Validators.email]),
-    //   password: new FormControl(null, [Validators.required, Validators.minLength(6)])
-    // })
+    this.form = this.formBuilder.group<IAuthFormData>({
+      email: null,
+      password: null,
+    });
+    this.form.get('email')?.setValidators([Validators.required, Validators.email])
+    this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)])
+    this.form.updateValueAndValidity()
   }
 
   onSubmit() {

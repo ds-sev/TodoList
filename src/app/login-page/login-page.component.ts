@@ -10,7 +10,7 @@ import {
 } from '@angular/forms'
 import { PasswordModule } from 'primeng/password'
 import { AuthService } from '../shared/services/auth.service'
-import { IUser } from '../shared/interfaces'
+import { IAuthFormData, IUser } from '../shared/interfaces'
 
 @Component({
   selector: 'app-login-page',
@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group<IUser>({
+    this.form = this.formBuilder.group<IAuthFormData>({
       email: null,
       password: null
     });

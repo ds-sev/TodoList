@@ -13,7 +13,8 @@ export class MyHammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
     return new Hammer(element, {
       touchAction: 'auto',
-      inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+      // inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+      inputClass: Hammer.TouchInput,
       recognizers: [
         [
           Hammer.Swipe,

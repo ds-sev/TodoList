@@ -22,8 +22,8 @@ export class CategoriesComponent implements OnInit {
   route = inject(ActivatedRoute)
 
   displayModal: boolean = false
-  categoryForm: FormGroup
-  isEditForm: boolean
+  categoryForm!: FormGroup
+  isEditForm: boolean = false
 
   collapsed = true
 
@@ -31,8 +31,6 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesService.getUserCategories()
-
-    // this.categoriesList = this.categoriesService.userCategoriesSig()
 
     this.categoryForm = new FormGroup<any>({
       name: new FormControl,
@@ -66,17 +64,16 @@ export class CategoriesComponent implements OnInit {
   }
 
   // скрываем меню если размер экрана уменьшается
-
   collapseCategoriesMenuIfResize() {
     window.addEventListener('resize', () => {
-      if (window.innerWidth < 1024 && this.collapsed === false) {
+      if (window.innerWidth < 1024 && !this.collapsed) {
         this.collapseCategoriesMenu()
       }
     })
   }
 
 
-  toggleActionsMenu(evt) {
-    console.log(evt.target)
-  }
+  // toggleActionsMenu(evt) {
+  //   console.log(evt.target)
+  // }
 }

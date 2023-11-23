@@ -1,5 +1,5 @@
 <p-dialog
-  header="{{ this.formOptions.isEditForm ? 'Редактировать' : !this.formOptions.currentCategory ?
+  header="{{ this.formOptions.taskToEdit ? 'Редактировать' : !this.formOptions.currentCategory ?
   'Новая задача:' :
   'Новая задача для категории' + ' ' + '«' + this.formOptions.currentCategory.name + '»'}}"
   [(visible)]="modalService.displayModal"
@@ -51,7 +51,7 @@
                 class="task-form__categories"
     ></p-dropdown>
     <p-button type="submit">
-      {{ formOptions.isEditForm ? 'Сохранить' : 'Создать'}}
+      {{ formOptions.taskToEdit ? 'Сохранить' : 'Создать'}}
     </p-button>
   </form>
 </p-dialog>

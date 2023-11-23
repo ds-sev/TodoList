@@ -10,6 +10,7 @@ export class CategoriesService {
   userCategoriesSig: WritableSignal<ICategory[]> = signal<ICategory[]>([])
 
   getUserCategories() {
+    // @ts-ignore
     this.userCategoriesSig.set(JSON.parse(localStorage.getItem('categories')))
   }
 

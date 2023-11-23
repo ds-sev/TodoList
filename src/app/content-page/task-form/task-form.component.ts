@@ -16,6 +16,8 @@ import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
 import { InputTextModule } from 'primeng/inputtext'
 
+
+
 @Component({
   selector: 'app-task-form',
   standalone: true,
@@ -26,27 +28,26 @@ import { InputTextModule } from 'primeng/inputtext'
 export class TaskFormComponent implements OnInit {
 
   @Input() formOptions: {
-    isEditForm: boolean,
+    // isEditForm: boolean,
     taskToEdit?: ITask,
     currentCategory?: ICategory
-  }
-
-  minDate: Date = new Date()
-  formGroup: FormGroup
+  } = {}
 
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   public modalService = inject(ModalService)
   formBuilder = inject(FormBuilder)
 
+  minDate: Date = new Date()
+  formGroup = this.formBuilder.group<ITaskFormControls>({
+    name: null,
+    expiresIn: null,
+    category: null,
+    priority: null
+  })
+
   ngOnInit() {
-    this.formGroup = this.formBuilder.group<ITaskFormControls>({
-      name: null,
-      expiresIn: null,
-      category: null,
-      priority: null
-    })
-    if (this.formOptions.isEditForm === false) {
+    if (!this.formOptions.taskToEdit) {
       if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
         this.formGroup.setValue({
           name: null,
@@ -55,7 +56,7 @@ export class TaskFormComponent implements OnInit {
           priority: null
         })
       }
-    } else {
+    } else if (this.formOptions.taskToEdit) {
       this.formGroup.setValue({
         name: this.formOptions.taskToEdit.name,
         expiresIn: this.formOptions.taskToEdit.expiresIn ? new Date(this.formOptions.taskToEdit.expiresIn) : '',
@@ -66,9 +67,14 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmitForm() {
-    if (this.formOptions.isEditForm) {
+    console.log(this.formGroup.value)
+    // const editedData: ITask = {data,... {this.formGroup.value}}
+
+    if (this.formOptions.taskToEdit) {
+      // @ts-ignore
       this.tasksService.editTask(this.formOptions.taskToEdit.id, this.formGroup.value)
     } else {
+      // @ts-ignore
       this.tasksService.addTask(this.formGroup.value, this.formOptions.currentCategory)
     }
     this.modalService.closeModal()

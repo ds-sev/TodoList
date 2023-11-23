@@ -1,5 +1,5 @@
 import { computed, Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask } from '../interfaces'
+import { ICategory, ITask, ITaskFormControls } from '../interfaces'
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class TasksService {
 
 
   getTasksData() {
+    // @ts-ignore
     this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
   }
 
@@ -21,7 +22,7 @@ export class TasksService {
 
   }
 
-  updateTasksView(currentCategory: ICategory) {
+  updateTasksView(currentCategory: ICategory | null) {
     // localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
     if (currentCategory) {
       this.getTasksData()
@@ -32,6 +33,7 @@ export class TasksService {
   }
 
   getStoredTasks() {
+    // @ts-ignore
     return JSON.parse(localStorage.getItem('tasks'))
   }
 
@@ -79,7 +81,7 @@ export class TasksService {
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
   }
 
-  deleteTask(id: string, currentCategory: ICategory) {
+  deleteTask(id: string, currentCategory: ICategory | null) {
     let storedTasks = this.getStoredTasks()
     storedTasks = storedTasks.filter((task: ITask) => task.id !== id)
     localStorage.setItem('tasks', JSON.stringify(storedTasks))

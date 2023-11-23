@@ -24,12 +24,12 @@ export class ActionsMenuComponent {
   messageService = inject(MessageService)
   confirmationService = inject(ConfirmationService)
 
-  @Input() task: ITask
-  @Input() currentCategory: ICategory
-  @Input() category: ICategory
+  @Input() task?: ITask
+  @Input() currentCategory: ICategory | null = null
+  @Input() category?: ICategory
   @Output() dataToEdit = new EventEmitter()
 
-  isDisplay: boolean
+  isDisplay: boolean = false
 
   onEditClick() {
     if (this.task) {
@@ -46,13 +46,14 @@ export class ActionsMenuComponent {
 
   confirm(event: Event) {
     this.confirmationService.confirm({
-      target: event.target,
+      target: event.target || undefined,
       message: `Удалить ${this.task ? 'задачу' : 'категорию и задачи относящиеся к ней'}?`,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Да',
       rejectLabel: 'Отмена',
       accept: () => {
         if (this.task) {
+          console.log(this.currentCategory)
           this.taskService.deleteTask(this.task.id, this.currentCategory)
           this.messageService.add({
             severity: 'info',
@@ -60,12 +61,12 @@ export class ActionsMenuComponent {
             key: 'notificationToast'
           })
         } else {
-          this.taskService.deleteTask(this.task.id, this.currentCategory)
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Категория удалена',
-            key: 'notificationToast'
-          })
+          // this.taskService.deleteTask(this.task.id, this.currentCategory)
+          // this.messageService.add({
+          //   severity: 'info',
+          //   summary: 'Категория удалена',
+          //   key: 'notificationToast'
+          // })
         }
       }
     })

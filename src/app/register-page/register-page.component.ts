@@ -21,10 +21,10 @@ export class RegisterPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup<IAuthFormData>({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
-    })
+    // this.form = new FormGroup<IAuthFormData>({
+    //   email: new FormControl(null, [Validators.required, Validators.email]),
+    //   password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+    // })
   }
 
   onSubmit() {

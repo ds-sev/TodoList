@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router'
 import {
-  FormControl,
+  FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -10,7 +10,7 @@ import {
 } from '@angular/forms'
 import { PasswordModule } from 'primeng/password'
 import { AuthService } from '../shared/services/auth.service'
-import { IAuthFormData } from '../shared/interfaces'
+import { IUser } from '../shared/interfaces'
 
 @Component({
   selector: 'app-login-page',
@@ -21,16 +21,20 @@ import { IAuthFormData } from '../shared/interfaces'
 })
 export class LoginPageComponent implements OnInit {
 
-  form: FormGroup
+  formBuilder = inject(FormBuilder)
+  form!: FormGroup
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup<IAuthFormData>({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
-    })
+    this.form = this.formBuilder.group<IUser>({
+      email: null,
+      password: null
+    });
+    this.form.get('email')?.setValidators([Validators.required, Validators.email])
+    this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)])
+    this.form.updateValueAndValidity()
   }
   onSubmit() {
     this.authService.login(this.form.value)

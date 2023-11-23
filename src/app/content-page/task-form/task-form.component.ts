@@ -16,8 +16,6 @@ import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
 import { InputTextModule } from 'primeng/inputtext'
 
-
-
 @Component({
   selector: 'app-task-form',
   standalone: true,
@@ -30,7 +28,7 @@ export class TaskFormComponent implements OnInit {
   @Input() formOptions: {
     // isEditForm: boolean,
     taskToEdit?: ITask,
-    currentCategory?: ICategory
+    currentCategory?: ICategory | null
   } = {}
 
   tasksService = inject(TasksService)
@@ -67,14 +65,13 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmitForm() {
-    console.log(this.formGroup.value)
-    // const editedData: ITask = {data,... {this.formGroup.value}}
 
-    if (this.formOptions.taskToEdit) {
-      // @ts-ignore
+    if (this.formOptions.taskToEdit && this.formOptions.taskToEdit.id) {
       this.tasksService.editTask(this.formOptions.taskToEdit.id, this.formGroup.value)
     } else {
-      // @ts-ignore
+      if (!this.formOptions.currentCategory) {
+        this.formOptions.currentCategory = null
+      }
       this.tasksService.addTask(this.formGroup.value, this.formOptions.currentCategory)
     }
     this.modalService.closeModal()

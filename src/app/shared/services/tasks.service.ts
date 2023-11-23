@@ -9,11 +9,11 @@ export class TasksService {
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
   filteredTasksSig = computed(() => this.tasksListSig)
 
-
-
   getTasksData() {
-    // @ts-ignore
-    this.tasksListSig.set(JSON.parse(localStorage.getItem('tasks')))
+    const tasksData = localStorage.getItem('tasks')
+    if (tasksData) {
+      this.tasksListSig.set(JSON.parse(tasksData))
+    }
   }
 
   getTasksDataByCategoryId(categoryId: string) {
@@ -33,8 +33,10 @@ export class TasksService {
   }
 
   getStoredTasks() {
-    // @ts-ignore
-    return JSON.parse(localStorage.getItem('tasks'))
+    const storedTasks = localStorage.getItem('tasks')
+    if (storedTasks) {
+      return JSON.parse(storedTasks)
+    }
   }
 
   toggleTaskStatus(taskToChangeStatus: ITask) {
@@ -45,7 +47,7 @@ export class TasksService {
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
   }
 
-  addTask(newTaskData: ITask, currentCategory: ICategory) {
+  addTask(newTaskData: any, currentCategory: ICategory | null) {
     let storedTasks = this.getStoredTasks()
     const newTask: ITask = {
       id: Math.random().toString(16),
@@ -67,7 +69,7 @@ export class TasksService {
     this.updateTasksView(currentCategory)
   }
 
-  editTask(taskId: string, taskEditedData: ITask) {
+  editTask(taskId: string, taskEditedData: any) {
     let storedTasks = this.getStoredTasks()
     storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
       ...task,

@@ -1,5 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask } from '../interfaces'
+import { ICategory } from '../interfaces'
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,10 @@ export class CategoriesService {
   userCategoriesSig: WritableSignal<ICategory[]> = signal<ICategory[]>([])
 
   getUserCategories() {
-    // @ts-ignore
-    this.userCategoriesSig.set(JSON.parse(localStorage.getItem('categories')))
+    const userCategories = localStorage.getItem('categories')
+    if (userCategories) {
+      this.userCategoriesSig.set(JSON.parse(userCategories))
+    }
   }
 
   updateStorageTasks() {

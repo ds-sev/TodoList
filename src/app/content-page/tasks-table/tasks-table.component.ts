@@ -1,4 +1,4 @@
-import { Component, importProvidersFrom, inject, Input, OnInit } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'

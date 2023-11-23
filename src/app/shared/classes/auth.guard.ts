@@ -22,14 +22,11 @@ class PermissionService {
         }
       })
       return of(false)
-
     }
-
   }
 }
 
-  export
-  const
+export const
   AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> => {
     return inject(PermissionService).canActivate(route, state)
   }

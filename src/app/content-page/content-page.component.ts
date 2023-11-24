@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
 import { FormsModule } from '@angular/forms'
-import { AuthService } from '../shared/services/auth.service'
-import { Router, RouterLink, RouterOutlet } from '@angular/router'
+import { RouterLink, RouterOutlet } from '@angular/router'
 import { CategoriesComponent } from './categories/categories.component'
 import { TaskFormComponent } from './task-form/task-form.component'
 
@@ -16,7 +15,6 @@ import { TaskFormComponent } from './task-form/task-form.component'
   styleUrl: './content-page.component.scss',
 })
 export class ContentPageComponent {
-
 }
 
 //TODO: edit categories

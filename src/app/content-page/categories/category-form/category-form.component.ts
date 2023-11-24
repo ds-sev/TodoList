@@ -24,16 +24,16 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   @Input() categoryToEdit: ICategory | null = null
 
   ngOnInit() {
-    console.log(this.categoryToEdit)
     this.categoryForm.setValue({
       name: null
     })
-   if (this.categoryToEdit) {
+    if (this.categoryToEdit) {
       this.categoryForm.setValue({
         name: this.categoryToEdit.name
       })
     }
   }
+
   onSubmitForm() {
     // this.categoriesService.createCategory(this.categoryForm.value)
     this.displayModal = false
@@ -42,5 +42,4 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.categoryToEdit = null
   }
-
 }

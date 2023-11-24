@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router'
 import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { PaginatorModule } from 'primeng/paginator'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
 import { InputTextModule } from 'primeng/inputtext'
@@ -22,51 +22,26 @@ import { CategoryFormComponent } from './category-form/category-form.component'
 })
 export class CategoriesComponent implements OnInit {
 
-  // @ViewChild('categoryFormModal', { read: ViewContainerRef })
-  //   modalContainerRef!: ViewContainerRef
-
-
   categoriesService = inject(CategoriesService)
   route = inject(ActivatedRoute)
   modalService = inject(ModalService)
 
   displayModal: boolean = false
-  // categoryForm!: FormGroup
-  isEditForm: boolean = false
-
   collapsed = true
-
   categoryToEdit: ICategory | null = null
 
-  // categoryToEdit: ICategory | null = null
-
-  isActionButtonsDisplay: boolean = false
-
-  categoryForm = new FormGroup({
-    name: new FormControl,
-  })
-
   ngOnInit() {
-    console.log(this.categoryToEdit)
-    // if (!this.formOptions.taskToEdit) {
     this.categoriesService.getUserCategories()
     this.route.params.subscribe(params => {
       if (params.hasOwnProperty('id')) {
       }
     })
-
     this.collapseCategoriesMenuIfResize()
   }
 
   onAddCategoryClick() {
     this.categoryToEdit = null
     this.modalService.open('categoryModal')
-  }
-
-
-  onSubmitForm() {
-    // this.categoriesService.createCategory(this.categoryForm.value)
-    this.displayModal = false
   }
 
   categoriesCollapseToggle() {

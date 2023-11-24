@@ -36,11 +36,14 @@ export class ActionsMenuComponent {
       this.dataToEdit.emit({
         isEditForm: true,
         taskToEdit: this.task,
+
         currentCategory: this.currentCategory
+
       })
       this.modalService.openModal()
     } else if (this.category) {
-      console.log('category edit')
+      console.log('cat')
+      console.log(this.dataToEdit)
     }
   }
 

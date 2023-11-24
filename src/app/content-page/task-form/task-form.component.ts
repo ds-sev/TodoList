@@ -26,7 +26,6 @@ import { InputTextModule } from 'primeng/inputtext'
 export class TaskFormComponent implements OnInit {
 
   @Input() formOptions: {
-    // isEditForm: boolean,
     taskToEdit?: ITask,
     currentCategory?: ICategory | null
   } = {}

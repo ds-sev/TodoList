@@ -4,11 +4,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { DialogModule } from 'primeng/dialog'
 import { ICategory } from '../../../shared/interfaces'
 import { ModalService } from '../../../shared/services/modal.service'
+import { InputTextModule } from 'primeng/inputtext'
+import { ButtonModule } from 'primeng/button'
 
 @Component({
   selector: 'app-category-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, InputTextModule, ButtonModule],
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.scss'
 })

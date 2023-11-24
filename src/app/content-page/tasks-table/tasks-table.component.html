@@ -1,6 +1,6 @@
 <section class="tasks-section">
   <div class="table__title-container">
-    <h3 [ngSwitch]="currentCategory && currentCategory.name !== 'all'">
+    <h3 [ngSwitch]="!!currentCategory">
       <ng-container *ngSwitchCase="false">
         У вас
       </ng-container>

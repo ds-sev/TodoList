@@ -74,14 +74,14 @@
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
           [task]="task"
           [currentCategory]="currentCategory"
-          (dataToEdit)="this.dataToEdit = $event"
+          (dataToEditEmit)="this.dataToEdit = $event"
         ></app-actions-menu>
       </tr>
     </ng-template>
   </p-table>
 </section>
 
-<ng-container *ngIf="modalService.displayModal">
+<ng-container *ngIf="modalService.displayTaskFormModal">
   <app-task-form [formOptions]="dataToEdit"></app-task-form>
 </ng-container>
 

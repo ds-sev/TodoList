@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core'
-import {
-  BrowserModule,
-  HAMMER_GESTURE_CONFIG,
-  HammerModule
-} from '@angular/platform-browser'
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { TableModule } from 'primeng/table'
@@ -39,7 +35,7 @@ import { ConfirmationService, MessageService } from 'primeng/api'
     },
     ToastModule,
     ConfirmationService,
-    MessageService,
+    MessageService
   ],
   exports: [],
   bootstrap: [AppComponent],

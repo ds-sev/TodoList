@@ -1,5 +1,4 @@
-import { Component, Injectable, signal } from '@angular/core'
-import { ICategory, ITask } from '../interfaces'
+import { Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -7,46 +6,36 @@ import { ICategory, ITask } from '../interfaces'
 
 export class ModalService {
 
-  // formOptionsSig = signal<{isEditForm?: boolean, task?: ITask, currentCategory?: ICategory}>({})
+  displayTaskFormModal: boolean = false
+  modalComponent: any
+  modalData: any
+
+  displayCategoryFormModal: boolean = false
 
 
 
+  open(component: string , dataFromComponent?: any) {
+    console.log(component)
+    this.modalComponent = component
+    this.modalData = dataFromComponent
 
-  displayModal: boolean = false
-  // isEditForm: boolean = false
-  private modals: any[] = []
-
-  setFormValue(taskToEditData: ITask) {
-    console.log(taskToEditData)
+    if (component === 'taskModal') {
+      this.displayTaskFormModal = true
+    } else if (component === 'categoryModal') {
+      this.displayCategoryFormModal = true
+    }
   }
 
-  openModal(component?: Component, dataFromComponent?: any) {
 
-    // if (this.formOptionsSig().isEditForm) {
-    // }
-
-    // if (taskToEdit) {
-    //   console.log(taskToEdit)
-    // }
-
-
-    this.displayModal = true
-
-  }
 
   closeModal() {
-    this.displayModal = false
+    this.modalComponent = null
+    this.modalData = null
+
+
+    this.displayTaskFormModal = false
+    // this.isDisplay$.next(false)
   }
-
-  remove(id: string) {
-
-  }
-
-  // dataFromActions(data: any) {
-  //   console.log(`data from actions: ${data}`)
-  // }
-
-
 }
 
 

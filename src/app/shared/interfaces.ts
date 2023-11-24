@@ -32,5 +32,16 @@ export interface IAuthFormControls {
 }
 
 
+export interface ModalMetadata {
+  type: ModalType
+  content: string
+}
+
+enum ModalType {
+  TASK,
+  CATEGORY
+}
+
+
 
 

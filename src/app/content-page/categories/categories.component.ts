@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router'
 import { CalendarModule } from 'primeng/calendar'
@@ -8,34 +8,47 @@ import { PaginatorModule } from 'primeng/paginator'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
+import { InputTextModule } from 'primeng/inputtext'
+import { ICategory } from '../../shared/interfaces'
+import { ModalService } from '../../shared/services/modal.service'
+import { CategoryFormComponent } from './category-form/category-form.component'
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterLink, CalendarModule, DialogModule, PaginatorModule, ReactiveFormsModule, RouterModule, ActionsMenuComponent],
+  imports: [CommonModule, ButtonModule, RouterLink, CalendarModule, DialogModule, PaginatorModule, ReactiveFormsModule, RouterModule, ActionsMenuComponent, InputTextModule, CategoryFormComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
 
+  // @ViewChild('categoryFormModal', { read: ViewContainerRef })
+  //   modalContainerRef!: ViewContainerRef
+
+
   categoriesService = inject(CategoriesService)
   route = inject(ActivatedRoute)
+  modalService = inject(ModalService)
 
   displayModal: boolean = false
-  categoryForm!: FormGroup
+  // categoryForm!: FormGroup
   isEditForm: boolean = false
 
   collapsed = true
 
+  categoryToEdit: {categoryToEdit: ICategory} | null = null
+
+  // categoryToEdit: ICategory | null = null
+
   isActionButtonsDisplay: boolean = false
 
+  categoryForm = new FormGroup({
+    name: new FormControl,
+  })
+
   ngOnInit() {
+    // if (!this.formOptions.taskToEdit) {
     this.categoriesService.getUserCategories()
-
-    this.categoryForm = new FormGroup<any>({
-      name: new FormControl,
-    })
-
     this.route.params.subscribe(params => {
       if (params.hasOwnProperty('id')) {
       }
@@ -44,13 +57,9 @@ export class CategoriesComponent implements OnInit {
     this.collapseCategoriesMenuIfResize()
   }
 
-  onAddCategoryClick() {
-    this.isEditForm = false
-    this.displayModal = true
-  }
 
   onSubmitForm() {
-    this.categoriesService.createCategory(this.categoryForm.value)
+    // this.categoriesService.createCategory(this.categoryForm.value)
     this.displayModal = false
   }
 

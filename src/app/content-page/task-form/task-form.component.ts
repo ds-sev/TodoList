@@ -1,9 +1,4 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core'
+import { Component, inject, Input, OnInit, } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'

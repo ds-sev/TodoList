@@ -2,7 +2,7 @@
   header="{{ this.formOptions.taskToEdit ? 'Редактировать' : !this.formOptions.currentCategory ?
   'Новая задача:' :
   'Новая задача для категории' + ' ' + '«' + this.formOptions.currentCategory.name + '»'}}"
-  [(visible)]="modalService.displayModal"
+  [(visible)]="modalService.displayTaskFormModal"
   [style]="{ width: '550px', minWidth: '375px' }"
   [modal]="true"
   [dismissableMask]="true"

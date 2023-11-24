@@ -1,0 +1,15 @@
+<p-dialog
+  header="{{ categoryToEdit ? 'Редактировать' : 'Новая категория:' }}"
+  [(visible)]="modalService.displayCategoryFormModal"
+  [style]="{ width: '50vw' }"
+>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmitForm()">
+    <input
+      formControlName="name"
+      id="name"
+      type="text"
+    >
+    {{categoryToEdit}}
+    <button type="submit">{{ categoryToEdit ? 'Сохранить' : 'Создать'}}</button>
+  </form>
+</p-dialog>

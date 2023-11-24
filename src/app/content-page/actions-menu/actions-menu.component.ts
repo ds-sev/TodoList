@@ -27,25 +27,28 @@ export class ActionsMenuComponent {
   @Input() task?: ITask
   @Input() currentCategory: ICategory | null = null
   @Input() category?: ICategory
-  @Output() dataToEdit = new EventEmitter()
+  @Output() dataToEditEmit = new EventEmitter()
+  // @Output() categoryToEdit = new EventEmitter()
 
   isDisplay: boolean = false
 
   onEditClick() {
     if (this.task) {
-      this.dataToEdit.emit({
+      this.dataToEditEmit.emit({
         isEditForm: true,
         taskToEdit: this.task,
-
         currentCategory: this.currentCategory
-
       })
-      this.modalService.openModal()
+      this.modalService.open('taskModal')
     } else if (this.category) {
-      console.log('cat')
-      console.log(this.dataToEdit)
+      this.dataToEditEmit.emit({
+        categoryToEdit: this.category
+      })
+      this.modalService.open('categoryModal')
     }
   }
+
+
 
   confirm(event: Event) {
     this.confirmationService.confirm({

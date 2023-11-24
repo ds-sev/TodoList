@@ -65,7 +65,7 @@ export class TasksTableComponent implements OnInit {
     this.currentCategory
       ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
       : this.dataToEdit = {isEditForm: false}
-    this.modalService.openModal()
+    this.modalService.open('taskModal')
   }
 
   toggleTaskState(taskToChangeStatus: ITask) {

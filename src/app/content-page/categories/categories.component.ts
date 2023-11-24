@@ -36,7 +36,7 @@ export class CategoriesComponent implements OnInit {
 
   collapsed = true
 
-  categoryToEdit: {categoryToEdit: ICategory} | null = null
+  categoryToEdit: ICategory | null = null
 
   // categoryToEdit: ICategory | null = null
 
@@ -47,6 +47,7 @@ export class CategoriesComponent implements OnInit {
   })
 
   ngOnInit() {
+    console.log(this.categoryToEdit)
     // if (!this.formOptions.taskToEdit) {
     this.categoriesService.getUserCategories()
     this.route.params.subscribe(params => {
@@ -55,6 +56,11 @@ export class CategoriesComponent implements OnInit {
     })
 
     this.collapseCategoriesMenuIfResize()
+  }
+
+  onAddCategoryClick() {
+    this.categoryToEdit = null
+    this.modalService.open('categoryModal')
   }
 
 

@@ -1,4 +1,12 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { ICategory, ITask } from '../../shared/interfaces'
@@ -17,7 +25,7 @@ import { TaskFormComponent } from '../task-form/task-form.component'
   styleUrl: './actions-menu.component.scss',
   providers: [ConfirmationService]
 })
-export class ActionsMenuComponent {
+export class ActionsMenuComponent implements OnChanges {
 
   modalService = inject(ModalService)
   taskService = inject(TasksService)
@@ -28,9 +36,11 @@ export class ActionsMenuComponent {
   @Input() currentCategory: ICategory | null = null
   @Input() category?: ICategory
   @Output() dataToEditEmit = new EventEmitter()
-  // @Output() categoryToEdit = new EventEmitter()
 
   isDisplay: boolean = false
+
+  ngOnChanges(changes:SimpleChanges) {
+  }
 
   onEditClick() {
     if (this.task) {
@@ -41,14 +51,10 @@ export class ActionsMenuComponent {
       })
       this.modalService.open('taskModal')
     } else if (this.category) {
-      this.dataToEditEmit.emit({
-        categoryToEdit: this.category
-      })
+      this.dataToEditEmit.emit(this.category)
       this.modalService.open('categoryModal')
     }
   }
-
-
 
   confirm(event: Event) {
     this.confirmationService.confirm({

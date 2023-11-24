@@ -38,26 +38,11 @@
         severity="warning"
         [outlined]="true"
         [rounded]="true"
-        (click)="modalService.open('categoryModal')">
+        (click)="onAddCategoryClick()">
       </p-button>
     </li>
   </ul>
-  <!--   <p-dialog -->
-  <!--     #categoryFormModal -->
-  <!--     header="{{ isEditForm ? 'Редактировать' : 'Новая категория:' }}" -->
-  <!--     [(visible)]="modalService.displayCategoryFormModal" -->
-  <!--     [style]="{ width: '50vw' }" -->
-  <!--   > -->
-  <!--     <form [formGroup]="categoryForm" (ngSubmit)="onSubmitForm()"> -->
-  <!--       <input -->
-  <!--         formControlName="name" -->
-  <!--         id="name" -->
-  <!--         type="text" -->
-  <!--       > -->
-  <!--       {{dataToEdit}} -->
-  <!--       <button type="submit">{{ dataToEdit ? 'Сохранить' : 'Создать'}}</button> -->
-  <!--     </form> -->
-  <!--   </p-dialog> -->
+
   <ng-container *ngIf="modalService.displayCategoryFormModal">
     <app-category-form [categoryToEdit]="categoryToEdit"></app-category-form>
   </ng-container>

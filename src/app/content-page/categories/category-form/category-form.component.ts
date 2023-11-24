@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core'
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { DialogModule } from 'primeng/dialog'
@@ -12,7 +12,7 @@ import { ModalService } from '../../../shared/services/modal.service'
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.scss'
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent implements OnInit, OnDestroy {
 
   modalService = inject(ModalService)
 
@@ -20,26 +20,27 @@ export class CategoryFormComponent implements OnInit {
     name: new FormControl,
   })
 
-  isEditForm: boolean = false
   displayModal: boolean = false
-  @Input() categoryToEdit: {categoryToEdit: ICategory} | null = null
+  @Input() categoryToEdit: ICategory | null = null
 
   ngOnInit() {
-    if (this.categoryToEdit) {
-      console.log(this.categoryToEdit.categoryToEdit.name)
+    console.log(this.categoryToEdit)
+    this.categoryForm.setValue({
+      name: null
+    })
+   if (this.categoryToEdit) {
+      this.categoryForm.setValue({
+        name: this.categoryToEdit.name
+      })
     }
-
-   // if (this.categoryToEdit) {
-   //    this.categoryForm.setValue({
-   //      name: this.categoryToEdit.name
-   //    })
-   //  }
   }
-
-
   onSubmitForm() {
     // this.categoriesService.createCategory(this.categoryForm.value)
     this.displayModal = false
+  }
+
+  ngOnDestroy(): void {
+    this.categoryToEdit = null
   }
 
 }

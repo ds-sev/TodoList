@@ -6,19 +6,15 @@ import { Injectable } from '@angular/core'
 
 export class ModalService {
 
-  displayTaskFormModal: boolean = false
-  modalComponent: any
-  modalData: any
 
+  modalComponent: string | null = null
   displayCategoryFormModal: boolean = false
+  displayTaskFormModal: boolean = false
 
 
 
-  open(component: string , dataFromComponent?: any) {
-    console.log(component)
+  open(component: string) {
     this.modalComponent = component
-    this.modalData = dataFromComponent
-
     if (component === 'taskModal') {
       this.displayTaskFormModal = true
     } else if (component === 'categoryModal') {
@@ -26,14 +22,10 @@ export class ModalService {
     }
   }
 
-
-
   closeModal() {
-    this.modalComponent = null
-    this.modalData = null
-
-
-    this.displayTaskFormModal = false
+    // this.modalComponent = null
+    //
+    // this.displayTaskFormModal = false
     // this.isDisplay$.next(false)
   }
 }

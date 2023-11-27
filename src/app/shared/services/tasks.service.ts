@@ -96,19 +96,12 @@ export class TasksService {
   }
 
   deleteTask(id: string, currentCategory: ICategory | null) {
-    let storedTasks = this.getStoredTasks()
-    // storedTasks = storedTasks.filter((task: ITask) => task.id !== id)
-    localStorage.setItem('tasks', JSON.stringify(storedTasks))
-
+    const storedData = this.userService.getStoredCurrentUserData()
+    const currentUserId = this.userService.getCurrentUserId()
+    if (currentUserId) {
+      storedData.tasks = storedData.tasks.filter((task: ITask) => task.id !== id)
+      localStorage.setItem(currentUserId, JSON.stringify(storedData))
+    }
     this.updateTasksView(currentCategory)
-
-    // this.tasksListSig.update(tasks => tasks.filter((task) => task.id !== id))
-    // this.updateStoredTasks()
   }
 }
-
-//TODO: create task for current opened category
-//TODO:
-//TODO:
-//TODO:
-//TODO:

@@ -40,8 +40,6 @@ export class AuthService {
 
   login(user: IUser) {
     const storedData = this.userService.getStoredData(user)
-    // const userDataString = localStorage.getItem(`user_${user.email}`)
-    // const userToAuth: IUser = userDataString ? JSON.parse(userDataString) : null
     if (storedData && storedData.email === user.email && storedData.password === user.password) {
       localStorage.setItem('authorized', `user_${user.email}`)
       this.messageService.add({

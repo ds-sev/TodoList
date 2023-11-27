@@ -35,7 +35,7 @@ export class RegisterPageComponent implements OnInit {
     this.authService.register(this.form.value)
     this.authService.registerSuccess$.subscribe((success) => {
       if (success) {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']).then()
       }
     })
   }

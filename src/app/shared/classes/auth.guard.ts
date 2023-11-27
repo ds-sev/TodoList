@@ -20,7 +20,7 @@ class PermissionService {
         queryParams: {
           accessDenied: true
         }
-      })
+      }).then()
       return of(false)
     }
   }

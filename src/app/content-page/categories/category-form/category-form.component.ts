@@ -38,19 +38,13 @@ export class CategoryFormComponent implements OnInit {
   }
 
   onSubmitForm() {
-    if (!this.categoryToEdit) {
-      if (this.categoryForm.value.name) {
-        this.categoriesService.createCategory(this.categoryForm.value.name)
-      }
-    } else {
-      // this.categoriesService.editCategory()
+    if (!this.categoryToEdit && this.categoryForm.value.name) {
+      this.categoriesService.createCategory(this.categoryForm.value.name)
+
+    } else if (this.categoryToEdit && this.categoryForm.value.name) {
+      this.categoriesService.editCategory(this.categoryToEdit, this.categoryForm.value.name)
     }
 
-
-    // this.modalService.closeModal()
+    this.modalService.closeModal()
   }
-
-  // ngOnDestroy(): void {
-  //   this.categoryToEdit = null
-  // }
 }

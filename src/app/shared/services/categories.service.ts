@@ -20,15 +20,12 @@ export class CategoriesService {
     this.userCategoriesSig.set(this.storedData.categories)
   }
 
-  // updateStorageTasks() {
-  //   localStorage.setItem('categories', JSON.stringify(this.storedData))
-  // }
-
   updateStoredData() {
     const currentUserId = this.userService.getCurrentUserId()
     if (currentUserId) {
       localStorage.setItem(currentUserId, JSON.stringify(this.storedData))
     }
+    this.getUserCategories()
   }
 
   createCategory(newCategoryName: string) {
@@ -37,7 +34,15 @@ export class CategoriesService {
       name: newCategoryName.charAt(0).toUpperCase() + newCategoryName.slice(1)
     }
     this.storedData.categories.push(newCategory)
-    // this.userCategoriesSig.update(categories => [...categories, newCategory])
+    this.updateStoredData()
+  }
+
+  editCategory(categoryToEdit: ICategory, updatedCategoryName: string) {
+    this.storedData.categories = this.storedData.categories.map((category: ICategory) =>
+      category.id === categoryToEdit.id
+        ? {...category, name: updatedCategoryName}
+        : category
+    )
     this.updateStoredData()
   }
 }

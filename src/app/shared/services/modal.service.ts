@@ -25,6 +25,7 @@ export class ModalService {
   closeModal() {
     this.modalComponent = null
     this.displayTaskFormModal = false
+    this.displayCategoryFormModal = false
     //
     // this.displayTaskFormModal = false
     // this.isDisplay$.next(false)

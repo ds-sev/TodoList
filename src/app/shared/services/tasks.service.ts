@@ -1,6 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core'
 import { ICategory, ITask } from '../interfaces'
 import { AuthService } from './auth.service'
+import { UserService } from './user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,17 @@ export class TasksService {
   // filteredTasksSig = computed(() => this.tasksListSig)
 
   authService = inject(AuthService)
+  userService = inject(UserService)
 
-  getStoredUserData() {
-    const currentUserId: string | null = localStorage.getItem('authorized')
-    const currentUserData = currentUserId ? localStorage.getItem(currentUserId) : null
-    return currentUserData ? JSON.parse(currentUserData) : null
-  }
+  // getStoredUserData() {
+  //   const currentUserId: string | null = localStorage.getItem('authorized')
+  //   const currentUserData = currentUserId ? localStorage.getItem(currentUserId) : null
+  //   return currentUserData ? JSON.parse(currentUserData) : null
+  // }
 
   getTasksData() {
-    const userData = this.getStoredUserData()
-    this.tasksListSig.set(userData.tasks)
+    const storedTasks: ITask[] = this.userService.getStoredCurrentUserData().tasks
+    this.tasksListSig.set(storedTasks)
   }
 
   getTasksDataByCategoryId(categoryId: string) {
@@ -40,13 +42,13 @@ export class TasksService {
   }
 
   getStoredTasks() {
-    const storedTasks = localStorage.getItem('tasks')
-    if (storedTasks) {
-      return JSON.parse(storedTasks)
-    }
+    // return this.userService.getStoredCurrentUserData().tasks
+    return this.userService.getStoredCurrentUserData()
   }
 
   addTask(newTaskData: any, currentCategory: ICategory | null) {
+    const storedData = this.userService.getStoredCurrentUserData()
+    const currentUserId = this.userService.getCurrentUserId()
     const newTask: ITask = {
       id: Math.random().toString(16),
       name: newTaskData.name.charAt(0).toUpperCase() + newTaskData.name.slice(1),
@@ -57,49 +59,45 @@ export class TasksService {
       category: newTaskData.category || null
     }
 
-    const userData = this.getStoredUserData()
-    const currentUserId = this.authService.getCurrentUserId()
-
     if (currentUserId) {
-      userData.tasks.unshift(newTask)
-      localStorage.setItem(currentUserId, JSON.stringify(userData))
+      storedData.tasks.unshift(newTask)
+      localStorage.setItem(currentUserId, JSON.stringify(storedData))
     }
     this.updateTasksView(currentCategory)
   }
 
   toggleTaskStatus(taskToChangeStatus: ITask) {
 
-    let userData = this.getStoredTasks()
-    userData.data.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
-      ...task, complete: !!taskToChangeStatus.complete
-    } : task)
-
-    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
-
-    const currentUserId = this.authService.getCurrentUserId()
-    if (currentUserId) {
-      localStorage.setItem(currentUserId, JSON.stringify(userData))
-    }
+    // let userData = this.getStoredTasks()
+    // userData.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
+    //   ...task, complete: !!taskToChangeStatus.complete
+    // } : task)
+    //
+    //
+    // const currentUserId = this.userService.getCurrentUserId()
+    // if (currentUserId) {
+    //   localStorage.setItem(currentUserId, JSON.stringify(userData))
+    // }
   }
 
   editTask(taskId: string, taskEditedData: any, currentCategory: ICategory | null) {
-    let storedTasks = this.getStoredTasks()
-    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
-      ...task,
-      id: task.id,
-      name: taskEditedData.name,
-      complete: taskEditedData.complete || false,
-      expiresIn: taskEditedData.expiresIn,
-      priority: taskEditedData.priority,
-      category: taskEditedData.category
-    } : task)
-    localStorage.setItem('tasks', JSON.stringify(storedTasks))
-    this.updateTasksView(currentCategory)
+    // let storedTasks = this.getStoredTasks()
+    // storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
+    //   ...task,
+    //   id: task.id,
+    //   name: taskEditedData.name,
+    //   complete: taskEditedData.complete || false,
+    //   expiresIn: taskEditedData.expiresIn,
+    //   priority: taskEditedData.priority,
+    //   category: taskEditedData.category
+    // } : task)
+    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
+    // this.updateTasksView(currentCategory)
   }
 
   deleteTask(id: string, currentCategory: ICategory | null) {
     let storedTasks = this.getStoredTasks()
-    storedTasks = storedTasks.filter((task: ITask) => task.id !== id)
+    // storedTasks = storedTasks.filter((task: ITask) => task.id !== id)
     localStorage.setItem('tasks', JSON.stringify(storedTasks))
 
     this.updateTasksView(currentCategory)

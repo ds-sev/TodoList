@@ -59,15 +59,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem('authorized')) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  getCurrentUserId(): string | null {
-    return localStorage.getItem('authorized')
+    return !!localStorage.getItem('authorized')
   }
 
   logout() {

@@ -1,7 +1,7 @@
 export interface IUser {
   email: string
   password: string
-  tasks?: ITask[]
+  tasks: ITask[]
   categories?: ICategory[]
 }
 

@@ -46,7 +46,6 @@ export class TasksTableComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData()
       if (params.hasOwnProperty('id')) {

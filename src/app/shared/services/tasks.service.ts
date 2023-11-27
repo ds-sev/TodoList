@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask } from '../interfaces'
+import { ICategory, ITask, IUser } from '../interfaces'
 import { AuthService } from './auth.service'
 import { UserService } from './user.service'
 
@@ -31,6 +31,13 @@ export class TasksService {
 
   }
 
+  updateStoredData(updatedData: IUser) {
+    const currentUserId = this.userService.getCurrentUserId()
+    if (currentUserId) {
+      localStorage.setItem(currentUserId, JSON.stringify(updatedData))
+    }
+  }
+
   updateTasksView(currentCategory: ICategory | null) {
     // localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
     if (currentCategory) {
@@ -48,7 +55,6 @@ export class TasksService {
 
   addTask(newTaskData: any, currentCategory: ICategory | null) {
     const storedData = this.userService.getStoredCurrentUserData()
-    const currentUserId = this.userService.getCurrentUserId()
     const newTask: ITask = {
       id: Math.random().toString(16),
       name: newTaskData.name.charAt(0).toUpperCase() + newTaskData.name.slice(1),
@@ -58,30 +64,24 @@ export class TasksService {
       priority: newTaskData.priority,
       category: newTaskData.category || null
     }
-
-    if (currentUserId) {
-      storedData.tasks.unshift(newTask)
-      localStorage.setItem(currentUserId, JSON.stringify(storedData))
-    }
+    storedData.tasks.unshift(newTask)
+    this.updateStoredData(storedData)
     this.updateTasksView(currentCategory)
   }
 
   toggleTaskStatus(taskToChangeStatus: ITask) {
-
-    // let userData = this.getStoredTasks()
-    // userData.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
-    //   ...task, complete: !!taskToChangeStatus.complete
-    // } : task)
-    //
-    //
-    // const currentUserId = this.userService.getCurrentUserId()
-    // if (currentUserId) {
-    //   localStorage.setItem(currentUserId, JSON.stringify(userData))
-    // }
+    const storedData = this.userService.getStoredCurrentUserData()
+    storedData.tasks = storedData.tasks.map((task) =>
+      task.id === taskToChangeStatus.id
+        ? {...task, complete: !!taskToChangeStatus.complete}
+        : task)
+    this.updateStoredData(storedData)
   }
 
   editTask(taskId: string, taskEditedData: any, currentCategory: ICategory | null) {
-    // let storedTasks = this.getStoredTasks()
+    // const storedData = this.userService.getStoredCurrentUserData()
+    // const currentUserId = this.userService.getCurrentUserId()
+    // let storedTasks: ITask[] = storedData.tasks
     // storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
     //   ...task,
     //   id: task.id,
@@ -97,11 +97,8 @@ export class TasksService {
 
   deleteTask(id: string, currentCategory: ICategory | null) {
     const storedData = this.userService.getStoredCurrentUserData()
-    const currentUserId = this.userService.getCurrentUserId()
-    if (currentUserId) {
-      storedData.tasks = storedData.tasks.filter((task: ITask) => task.id !== id)
-      localStorage.setItem(currentUserId, JSON.stringify(storedData))
-    }
+    storedData.tasks = storedData.tasks.filter((task: ITask) => task.id !== id)
+    this.updateStoredData(storedData)
     this.updateTasksView(currentCategory)
   }
 }

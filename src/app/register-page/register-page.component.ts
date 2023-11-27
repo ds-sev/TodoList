@@ -2,12 +2,7 @@ import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router, RouterLink } from '@angular/router'
 import { PaginatorModule } from 'primeng/paginator'
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthService } from '../shared/services/auth.service'
 import { IAuthFormControls } from '../shared/interfaces'
 
@@ -38,6 +33,10 @@ export class RegisterPageComponent implements OnInit {
 
   onSubmit() {
     this.authService.register(this.form.value)
-    this.router.navigate(['/login'])
+    this.authService.registerSuccess$.subscribe((success) => {
+      if (success) {
+        this.router.navigate(['/login'])
+      }
+    })
   }
 }

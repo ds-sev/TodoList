@@ -28,7 +28,7 @@
     >
     <span class="auth-form__tip" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
       <span *ngIf="form.get('password')?.errors?.['required']">Пароль не должен быть пустым</span>
-      <span *ngIf="form.get('password')?.errors?.['minlength']['requiredLength']">
+      <span *ngIf="form.get('password')?.errors?.['minlength']">
         Пароль должен быть длиннее
         {{form.get('password')?.errors?.['minlength']['requiredLength']}}
         символов.

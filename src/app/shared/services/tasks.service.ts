@@ -1,6 +1,5 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core'
 import { ICategory, ITask, IUser } from '../interfaces'
-import { AuthService } from './auth.service'
 import { UserService } from './user.service'
 
 @Injectable({
@@ -9,16 +8,8 @@ import { UserService } from './user.service'
 export class TasksService {
 
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
-  // filteredTasksSig = computed(() => this.tasksListSig)
 
-  authService = inject(AuthService)
   userService = inject(UserService)
-
-  // getStoredUserData() {
-  //   const currentUserId: string | null = localStorage.getItem('authorized')
-  //   const currentUserData = currentUserId ? localStorage.getItem(currentUserId) : null
-  //   return currentUserData ? JSON.parse(currentUserData) : null
-  // }
 
   getTasksData() {
     const storedTasks: ITask[] = this.userService.getStoredCurrentUserData().tasks
@@ -26,9 +17,10 @@ export class TasksService {
   }
 
   getTasksDataByCategoryId(categoryId: string) {
-    // this.getTasksData()
-    this.tasksListSig.update(taskArr => taskArr.filter(task => task.category && task.category.id === categoryId))
-
+    this.tasksListSig.update(taskArr =>
+      taskArr.filter(task =>
+        task.category && task.category.id === categoryId)
+    )
   }
 
   updateStoredData(updatedData: IUser) {
@@ -39,18 +31,12 @@ export class TasksService {
   }
 
   updateTasksView(currentCategory: ICategory | null) {
-    // localStorage.setItem('tasks', JSON.stringify(this.tasksListSig()))
     if (currentCategory) {
       this.getTasksData()
       this.getTasksDataByCategoryId(currentCategory.id)
     } else {
       this.getTasksData()
     }
-  }
-
-  getStoredTasks() {
-    // return this.userService.getStoredCurrentUserData().tasks
-    return this.userService.getStoredCurrentUserData()
   }
 
   addTask(newTaskData: any, currentCategory: ICategory | null) {
@@ -79,20 +65,19 @@ export class TasksService {
   }
 
   editTask(taskId: string, taskEditedData: any, currentCategory: ICategory | null) {
-    // const storedData = this.userService.getStoredCurrentUserData()
-    // const currentUserId = this.userService.getCurrentUserId()
-    // let storedTasks: ITask[] = storedData.tasks
-    // storedTasks = storedTasks.map((task: { id: string }) => task.id === taskId ? {
-    //   ...task,
-    //   id: task.id,
-    //   name: taskEditedData.name,
-    //   complete: taskEditedData.complete || false,
-    //   expiresIn: taskEditedData.expiresIn,
-    //   priority: taskEditedData.priority,
-    //   category: taskEditedData.category
-    // } : task)
-    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
-    // this.updateTasksView(currentCategory)
+    const storedData = this.userService.getStoredCurrentUserData()
+    let storedTasks: ITask[] = storedData.tasks
+    storedData.tasks = storedTasks.map((task) => task.id === taskId ? {
+      ...task,
+      id: task.id,
+      name: taskEditedData.name,
+      complete: taskEditedData.complete || false,
+      expiresIn: taskEditedData.expiresIn,
+      priority: taskEditedData.priority,
+      category: taskEditedData.category
+    } : task)
+    this.updateStoredData(storedData)
+    this.updateTasksView(currentCategory)
   }
 
   deleteTask(id: string, currentCategory: ICategory | null) {

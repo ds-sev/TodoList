@@ -12,9 +12,9 @@ export class AuthService {
 
   register(user: IUser) {
     // localStorage.setItem('user', JSON.stringify(user))
-    const newUserData: IUser = {...user, data: [{id: 'lk', name: 'test'}]}
+    const newUserData: IUser = {...user, tasks: [], categories: []}
+    // localStorage.setItem(`user_${user.email}`, JSON.stringify(newUserData))
     localStorage.setItem(`user_${user.email}`, JSON.stringify(newUserData))
-    // localStorage.setItem(`user_${user.email}`, JSON.stringify(user))
   }
 
   login(user: IUser) {
@@ -23,14 +23,17 @@ export class AuthService {
     const userDataString = localStorage.getItem(`user_${user.email}`);
     const userToAuth: IUser = userDataString ? JSON.parse(userDataString) : null;
 
-    console.log(userToAuth.email, userToAuth.password)
 
     if (userToAuth.email === user.email && userToAuth.password === user.password) {
+
+      // this.currentUser = `user_${user.email}`
+      // this.userService.setCurrentUser(user.email)
+
 
 
 
     // if (localStorage.getItem(`user_${user.email}`) === JSON.stringify(user)) {
-      localStorage.setItem('authorized', 'yes')
+      localStorage.setItem('authorized', `user_${user.email}`)
       this.messageService.add({
         severity: 'success',
         summary: 'Ok',
@@ -53,6 +56,10 @@ export class AuthService {
     } else {
       return false
     }
+  }
+
+  getCurrentUserId(): string | null {
+    return localStorage.getItem('authorized')
   }
 
   logout() {

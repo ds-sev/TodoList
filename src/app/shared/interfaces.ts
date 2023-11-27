@@ -1,7 +1,8 @@
 export interface IUser {
   email: string
   password: string
-  data?: ITask[]
+  tasks?: ITask[]
+  categories?: ICategory[]
 }
 
 export interface ICategory {

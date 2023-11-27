@@ -1,5 +1,6 @@
-import { computed, Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask, ITaskFormControls } from '../interfaces'
+import { inject, Injectable, signal, WritableSignal } from '@angular/core'
+import { ICategory, ITask } from '../interfaces'
+import { AuthService } from './auth.service'
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +8,19 @@ import { ICategory, ITask, ITaskFormControls } from '../interfaces'
 export class TasksService {
 
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
-  filteredTasksSig = computed(() => this.tasksListSig)
+  // filteredTasksSig = computed(() => this.tasksListSig)
+
+  authService = inject(AuthService)
+
+  getStoredUserData() {
+    const currentUserId: string | null = localStorage.getItem('authorized')
+    const currentUserData = currentUserId ? localStorage.getItem(currentUserId) : null
+    return currentUserData ? JSON.parse(currentUserData) : null
+  }
 
   getTasksData() {
-    const tasksData = localStorage.getItem('tasks')
-    if (tasksData) {
-      this.tasksListSig.set(JSON.parse(tasksData))
-    }
+    const userData = this.getStoredUserData()
+    this.tasksListSig.set(userData.tasks)
   }
 
   getTasksDataByCategoryId(categoryId: string) {
@@ -39,16 +46,7 @@ export class TasksService {
     }
   }
 
-  toggleTaskStatus(taskToChangeStatus: ITask) {
-    let storedTasks = this.getStoredTasks()
-    storedTasks = storedTasks.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
-      ...task, complete: !!taskToChangeStatus.complete
-    } : task)
-    localStorage.setItem('tasks', JSON.stringify(storedTasks))
-  }
-
   addTask(newTaskData: any, currentCategory: ICategory | null) {
-    let storedTasks = this.getStoredTasks()
     const newTask: ITask = {
       id: Math.random().toString(16),
       name: newTaskData.name.charAt(0).toUpperCase() + newTaskData.name.slice(1),
@@ -58,15 +56,30 @@ export class TasksService {
       priority: newTaskData.priority,
       category: newTaskData.category || null
     }
-    if (storedTasks.length) {
-      storedTasks.unshift(newTask)
-      localStorage.setItem('tasks', JSON.stringify(storedTasks))
 
-    } else {
-      localStorage.setItem('tasks', JSON.stringify([newTask]))
+    const userData = this.getStoredUserData()
+    const currentUserId = this.authService.getCurrentUserId()
+
+    if (currentUserId) {
+      userData.tasks.unshift(newTask)
+      localStorage.setItem(currentUserId, JSON.stringify(userData))
     }
-
     this.updateTasksView(currentCategory)
+  }
+
+  toggleTaskStatus(taskToChangeStatus: ITask) {
+
+    let userData = this.getStoredTasks()
+    userData.data.map((task: { id: string }) => task.id === taskToChangeStatus.id ? {
+      ...task, complete: !!taskToChangeStatus.complete
+    } : task)
+
+    // localStorage.setItem('tasks', JSON.stringify(storedTasks))
+
+    const currentUserId = this.authService.getCurrentUserId()
+    if (currentUserId) {
+      localStorage.setItem(currentUserId, JSON.stringify(userData))
+    }
   }
 
   editTask(taskId: string, taskEditedData: any, currentCategory: ICategory | null) {

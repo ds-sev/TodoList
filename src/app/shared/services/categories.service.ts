@@ -29,7 +29,6 @@ export class CategoriesService {
       localStorage.setItem(currentUserId, JSON.stringify(this.storedData))
     }
     this.getUserCategories()
-
   }
 
   createCategory(newCategoryName: string) {
@@ -42,20 +41,20 @@ export class CategoriesService {
   }
 
   editCategory(categoryToEdit: ICategory, updatedCategoryName: string) {
+    this.storedData = this.userService.getStoredCurrentUserData()
+
     this.storedData.categories = this.storedData.categories.map((category: ICategory) =>
       category.id === categoryToEdit.id
         ? {...category, name: updatedCategoryName}
         : category
     )
     this.updateStoredData()
-    console.log(this.storedData.categories)
-    this.tasksService.editTasksCategoryName(categoryToEdit)
-    // this.tasksService.getTasksData()
+    this.tasksService.editTasksCategoryName(categoryToEdit, updatedCategoryName)
   }
 
   deleteCategory(categoryToDelete: ICategory) {
     this.storedData.categories = this.storedData.categories.filter((category: ICategory) =>
-    category.id !== categoryToDelete.id)
+      category.id !== categoryToDelete.id)
     this.tasksService.deleteTaskByCategory(categoryToDelete)
     this.updateStoredData()
     this.tasksService.getTasksData()

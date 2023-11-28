@@ -26,7 +26,6 @@ export class CategoriesComponent implements OnInit {
   route = inject(ActivatedRoute)
   modalService = inject(ModalService)
 
-  displayModal: boolean = false
   collapsed = true
   categoryToEdit: ICategory | null = null
 

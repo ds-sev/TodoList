@@ -1,6 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core'
 import { ICategory, ITask, IUser } from '../interfaces'
 import { UserService } from './user.service'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,8 @@ export class TasksService {
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([])
   storedData!: IUser
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.storedData = this.userService.getStoredCurrentUserData()
-
   }
 
   getTasksData() {
@@ -95,16 +95,17 @@ export class TasksService {
     this.updateTasksView(null)
   }
 
-  editTasksCategoryName(category: ICategory) {
+  editTasksCategoryName(category: ICategory, updatedCategoryName: string) {
     this.storedData = this.userService.getStoredCurrentUserData()
     this.storedData.tasks = this.storedData.tasks.map((task: ITask) =>
       task.category && task.category.id === category.id ? {
-      ...task,
-      category: category
-    } : task)
-    console.log(this.storedData.tasks)
+        ...task,
+        category: {...category, name: updatedCategoryName}
+      } : task)
     this.updateStoredData()
-    this.updateTasksView(category)
+    if (this.router.url === '/categories/all') {
+      this.updateTasksView(null)
+    }
   }
 }
 

@@ -69,7 +69,6 @@ export class ActionsMenuComponent implements OnChanges {
       rejectLabel: 'Отмена',
       accept: () => {
         if (this.task) {
-          console.log(this.currentCategory)
           this.taskService.deleteTask(this.task.id, this.currentCategory)
           this.messageService.add({
             severity: 'info',
@@ -77,7 +76,6 @@ export class ActionsMenuComponent implements OnChanges {
             key: 'notificationToast'
           })
         } else if (this.category) {
-          console.log(this.category)
           this.categoriesService.deleteCategory(this.category)
           this.router.navigate(['/categories/all']).then()
           this.messageService.add({

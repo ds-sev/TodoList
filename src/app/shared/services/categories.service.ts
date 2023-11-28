@@ -1,5 +1,5 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask, IUser } from '../interfaces'
+import { ICategory, IUser } from '../interfaces'
 import { UserService } from './user.service'
 import { TasksService } from './tasks.service'
 
@@ -29,6 +29,7 @@ export class CategoriesService {
       localStorage.setItem(currentUserId, JSON.stringify(this.storedData))
     }
     this.getUserCategories()
+
   }
 
   createCategory(newCategoryName: string) {
@@ -47,18 +48,16 @@ export class CategoriesService {
         : category
     )
     this.updateStoredData()
+    console.log(this.storedData.categories)
+    this.tasksService.editTasksCategoryName(categoryToEdit)
+    // this.tasksService.getTasksData()
   }
 
-  //TODO: finish delete category method
   deleteCategory(categoryToDelete: ICategory) {
     this.storedData.categories = this.storedData.categories.filter((category: ICategory) =>
     category.id !== categoryToDelete.id)
-    this.storedData.tasks = this.storedData.tasks.filter((task: ITask) =>
-      task.category !== categoryToDelete
-    )
-
+    this.tasksService.deleteTaskByCategory(categoryToDelete)
     this.updateStoredData()
     this.tasksService.getTasksData()
-    // this.tasksService.updateStoredData()
   }
 }

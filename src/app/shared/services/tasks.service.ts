@@ -12,10 +12,13 @@ export class TasksService {
 
   constructor(private userService: UserService) {
     this.storedData = this.userService.getStoredCurrentUserData()
+
   }
 
   getTasksData() {
+    this.storedData = this.userService.getStoredCurrentUserData()
     this.tasksListSig.set(this.storedData.tasks)
+    console.log(this.storedData)
   }
 
   getTasksDataByCategoryId(categoryId: string) {
@@ -83,4 +86,25 @@ export class TasksService {
     this.updateStoredData()
     this.updateTasksView(currentCategory)
   }
+
+  deleteTaskByCategory(category: ICategory) {
+    this.storedData.tasks = this.storedData.tasks.filter((task: ITask) =>
+      task.category !== category
+    )
+    this.updateStoredData()
+    this.updateTasksView(null)
+  }
+
+  editTasksCategoryName(category: ICategory) {
+    this.storedData = this.userService.getStoredCurrentUserData()
+    this.storedData.tasks = this.storedData.tasks.map((task: ITask) =>
+      task.category && task.category.id === category.id ? {
+      ...task,
+      category: category
+    } : task)
+    console.log(this.storedData.tasks)
+    this.updateStoredData()
+    this.updateTasksView(category)
+  }
 }
+

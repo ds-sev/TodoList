@@ -18,14 +18,14 @@ export interface ITask {
   created?: string
   expiresIn?: Date | null
   category?: ICategory | null
-  priority?: 'low' | 'mid' | 'high' | null
+  priority?: '1' | '2' | '3' | null
 }
 
 export interface ITaskFormControls {
   name: string | null
   expiresIn?: Date | string | null
   category?: ICategory | null
-  priority?: 'low' | 'mid' | 'high' | null
+  priority?: '1' | '2' | '3' | null
 }
 
 export interface IAuthFormControls {

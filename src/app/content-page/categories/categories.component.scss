@@ -18,9 +18,6 @@
   flex-direction: column;
   align-items: center;
   width: 240px;
-
-
-  //min-height: calc(100% - 60px);
   min-height: 100%;
 
 
@@ -32,7 +29,7 @@
 
   @media screen and (max-width: 1024px) {
     &_collapsed {
-      left: -220px;
+      left: -240px;
       transition: left .5s ease;
     }
 
@@ -140,7 +137,7 @@
     transition: left .5s ease;
 
     &_collapsed {
-        left: -30px;
+        left: -50px;
         transition: left .5s ease;
     }
 

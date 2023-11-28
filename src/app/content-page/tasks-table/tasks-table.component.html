@@ -59,11 +59,11 @@
         <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
         <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
         <td>
-          <div class="table__task-priority" *ngIf="task.priority === 'low'"
+          <div class="table__task-priority" *ngIf="task.priority === '1'"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
-          <div *ngIf="task.priority === 'mid'"
+          <div *ngIf="task.priority === '2'"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
-          <div *ngIf="task.priority === 'high'"
+          <div *ngIf="task.priority === '3'"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
           <div class="table__task-priority" *ngIf="!task.priority"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: transparent; border-radius: 20px;

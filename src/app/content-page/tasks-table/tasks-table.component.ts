@@ -74,7 +74,6 @@ export class TasksTableComponent implements OnInit {
 }
 
 //TODO: add colors for date-marked tasks fields
-//TODO: remove unused imports!!!
 
 
 

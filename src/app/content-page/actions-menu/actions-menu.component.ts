@@ -16,6 +16,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup'
 import { ConfirmationService, MessageService } from 'primeng/api'
 import { ToastModule } from 'primeng/toast'
 import { TaskFormComponent } from '../task-form/task-form.component'
+import { CategoriesService } from '../../shared/services/categories.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-actions-menu',
@@ -29,8 +31,10 @@ export class ActionsMenuComponent implements OnChanges {
 
   modalService = inject(ModalService)
   taskService = inject(TasksService)
+  categoriesService = inject(CategoriesService)
   messageService = inject(MessageService)
   confirmationService = inject(ConfirmationService)
+  router = inject(Router)
 
   @Input() task?: ITask
   @Input() currentCategory: ICategory | null = null
@@ -72,13 +76,15 @@ export class ActionsMenuComponent implements OnChanges {
             summary: 'Задача удалена',
             key: 'notificationToast'
           })
-        } else {
-          // this.taskService.deleteTask(this.task.id, this.currentCategory)
-          // this.messageService.add({
-          //   severity: 'info',
-          //   summary: 'Категория удалена',
-          //   key: 'notificationToast'
-          // })
+        } else if (this.category) {
+          console.log(this.category)
+          this.categoriesService.deleteCategory(this.category)
+          this.router.navigate(['/categories/all']).then()
+          this.messageService.add({
+            severity: 'info',
+            summary: `Категория «${this.category.name}» удалена`,
+            key: 'notificationToast'
+          })
         }
       }
     })

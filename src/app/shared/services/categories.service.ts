@@ -1,6 +1,7 @@
-import { Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, IUser } from '../interfaces'
+import { inject, Injectable, signal, WritableSignal } from '@angular/core'
+import { ICategory, ITask, IUser } from '../interfaces'
 import { UserService } from './user.service'
+import { TasksService } from './tasks.service'
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import { UserService } from './user.service'
 export class CategoriesService {
 
   userCategoriesSig: WritableSignal<ICategory[]> = signal<ICategory[]>([])
+
+  tasksService = inject(TasksService)
 
   storedData!: IUser
 
@@ -44,5 +47,18 @@ export class CategoriesService {
         : category
     )
     this.updateStoredData()
+  }
+
+  //TODO: finish delete category method
+  deleteCategory(categoryToDelete: ICategory) {
+    this.storedData.categories = this.storedData.categories.filter((category: ICategory) =>
+    category.id !== categoryToDelete.id)
+    this.storedData.tasks = this.storedData.tasks.filter((task: ITask) =>
+      task.category !== categoryToDelete
+    )
+
+    this.updateStoredData()
+    this.tasksService.getTasksData()
+    // this.tasksService.updateStoredData()
   }
 }

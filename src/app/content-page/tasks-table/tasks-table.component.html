@@ -1,6 +1,9 @@
 <section class="tasks-section">
   <div class="table__title-container">
-    <h3 [ngSwitch]="!!currentCategory">
+    <h3
+      [ngSwitch]="!!currentCategory"
+      class="tasks-section__header"
+    >
       <ng-container *ngSwitchCase="false">
         У вас
       </ng-container>
@@ -13,10 +16,19 @@
     <p-button
       class="new-task-button"
       label="Добавить задачу"
-      severity="warning"
-      [outlined]="true"
+      severity="success"
       [rounded]="true"
       (click)="onAddTaskClick()"
+      *ngIf="screenWidth > 676"
+    >
+    </p-button>
+    <p-button
+      class="new-task-button"
+      icon="pi pi-plus"
+      severity="success"
+      [rounded]="true"
+      (click)="onAddTaskClick()"
+      *ngIf="screenWidth < 676"
     >
     </p-button>
   </div>

@@ -20,8 +20,13 @@
     >
     </p-button>
   </div>
-  <p-table [value]="tasksService.tasksListSig()" dataKey="name" [tableStyle]="{ 'min-width': '30rem' }"
-           *ngIf="tasksService.tasksListSig().length > 0">
+  <p-table
+    class="table"
+    [value]="tasksService.tasksListSig()"
+    dataKey="name"
+    [tableStyle]="{ 'min-width': '10rem' }"
+    *ngIf="tasksService.tasksListSig().length > 0"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="complete" style="width: 8rem">Готово
@@ -30,13 +35,25 @@
         <th pSortableColumn="name">Задача
           <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="category" *ngIf="router.url.endsWith('all')">Категория
+        <th
+          pSortableColumn="category"
+          *ngIf="router.url.endsWith('all')"
+          class="table__categories-header"
+        >Категория
           <p-sortIcon field="category"></p-sortIcon>
         </th>
-        <th pSortableColumn="expiresIn" style="width: 8rem">Срок
+        <th
+          class="table__date-cell-header"
+          pSortableColumn="expiresIn"
+          style="width: 8rem"
+        >Срок
           <p-sortIcon field="expiresIn"></p-sortIcon>
         </th>
-        <th pSortableColumn="priority" style="width: 8rem">Приоритет
+        <th
+          class="table__priority-header"
+          pSortableColumn="priority"
+          style="width: 8rem"
+        >Приоритет
           <p-sortIcon field="priority"></p-sortIcon>
         </th>
       </tr>
@@ -55,10 +72,18 @@
             (onChange)="toggleTaskState(task)"
           ></p-checkbox>
         </td>
-        <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
-        <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
-
-        <td class="table__date-cell date-cell">
+        <td
+          class="table__task"
+          [class]="{cell__name_done: task.complete}"
+        >
+          {{task.name}}
+        </td>
+        <td
+          class="table__categories"
+          *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}
+        </td>
+        <td
+          class="table__date-cell date-cell">
           <i
             class="date-cell__warning-icon-container pi pi-exclamation-circle"
             [ngStyle]="{'color' : setExpirationWarningColor(task.expiresIn)}"
@@ -68,8 +93,7 @@
           >{{task.expiresIn | date:
             'dd.MM.yyyy'}}</span>
         </td>
-
-        <td>
+        <td class="table__priority">
           <div class="table__task-priority" *ngIf="task.priority === '1'"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
           <div *ngIf="task.priority === '2'"

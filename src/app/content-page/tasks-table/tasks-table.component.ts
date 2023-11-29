@@ -78,12 +78,16 @@ export class TasksTableComponent implements OnInit {
     const differenceInTime = expirationDate.getTime() - currentDate.getTime()
     const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24))
 
-    if (differenceInDays < 3) {
+    if (!expiresIn) {
+      return 'inherit'
+    } else if (differenceInDays < 0) {
+      return 'gray'
+    } else if (differenceInDays < 3) {
       return 'red'
     } else if (differenceInDays < 6) {
       return 'orange'
     } else {
-      return ''
+      return 'inherit'
     }
   }
 }

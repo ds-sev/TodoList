@@ -58,17 +58,16 @@
         <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
         <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
 
-
-
-        <td class="table__date-cell date__cell">
+        <td class="table__date-cell date-cell">
+          <i
+            class="date-cell__warning-icon-container pi pi-exclamation-circle"
+            [ngStyle]="{'color' : setExpirationWarningColor(task.expiresIn)}"
+            *ngIf="setExpirationWarningColor(task.expiresIn) !== 'inherit'"
+          ></i>
           <span class="date-cell__text"
-                [ngStyle]="{'background-color' : setExpirationWarningColor(task.expiresIn)}">{{task.expiresIn | date:
+          >{{task.expiresIn | date:
             'dd.MM.yyyy'}}</span>
         </td>
-
-
-
-
 
         <td>
           <div class="table__task-priority" *ngIf="task.priority === '1'"
@@ -82,8 +81,6 @@
              border: 1px solid
               black"></div>
         </td>
-
-
         <app-actions-menu
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
           [task]="task"
@@ -94,7 +91,6 @@
     </ng-template>
   </p-table>
 </section>
-
 <ng-container *ngIf="modalService.displayTaskFormModal">
   <app-task-form [formOptions]="dataToEdit"></app-task-form>
 </ng-container>

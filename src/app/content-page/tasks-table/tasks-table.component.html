@@ -19,7 +19,7 @@
       severity="success"
       [rounded]="true"
       (click)="onAddTaskClick()"
-      *ngIf="screenWidth > 676"
+      *ngIf="window.innerWidth > 676"
     >
     </p-button>
     <p-button
@@ -28,7 +28,7 @@
       severity="success"
       [rounded]="true"
       (click)="onAddTaskClick()"
-      *ngIf="screenWidth < 676"
+      *ngIf="window.innerWidth < 676"
     >
     </p-button>
   </div>

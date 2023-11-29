@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -33,15 +33,6 @@ export class TasksTableComponent implements OnInit {
   tasksService = inject(TasksService)
   categoriesService = inject(CategoriesService)
   modalService = inject(ModalService)
-  screenWidth: number = 0
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-
-    this.screenWidth = window.innerWidth
-  }
-
-
 
   dataToEdit: {
     isEditForm: boolean,
@@ -99,4 +90,6 @@ export class TasksTableComponent implements OnInit {
       return 'inherit'
     }
   }
+
+  protected readonly window = window
 }

@@ -2,3 +2,12 @@
   <app-categories></app-categories>
   <router-outlet></router-outlet>
 </main>
+<p-button
+  class="scroll-to-top-button"
+  [ngClass]="showScrollToTopButton ? 'scroll-to-top-button_show' : ''"
+  icon="pi pi-angle-double-up"
+  severity="success"
+  [rounded]="true"
+  (click)="scrollToTop()"
+>
+</p-button>

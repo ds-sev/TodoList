@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonModule } from 'primeng/button'
 import { CheckboxModule } from 'primeng/checkbox'
@@ -15,8 +15,14 @@ import { TaskFormComponent } from './task-form/task-form.component'
   styleUrl: './content-page.component.scss',
 })
 export class ContentPageComponent {
-}
+  showScrollToTopButton: boolean = false
 
-//TODO: edit categories
-//TODO: delete category? with all tasks?
-//TODO: edit styles
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.showScrollToTopButton = window.pageYOffset > 0
+  }
+
+  scrollToTop() {
+    window.scrollTo(({top: 0, behavior: 'smooth'}))
+  }
+}

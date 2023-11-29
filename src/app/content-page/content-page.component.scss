@@ -1,5 +1,25 @@
 .content {
+  overflow-x: hidden;
   min-height: calc(100% - 60px);
   min-width: 100%;
   display: flex;
 }
+
+.scroll-to-top-button {
+  opacity: .6;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &_show {
+    display: block;
+  }
+}
+
+
+

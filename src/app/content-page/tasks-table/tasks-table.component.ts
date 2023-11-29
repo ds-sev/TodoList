@@ -41,6 +41,8 @@ export class TasksTableComponent implements OnInit {
     this.screenWidth = window.innerWidth
   }
 
+
+
   dataToEdit: {
     isEditForm: boolean,
     taskToEdit?: ITask,

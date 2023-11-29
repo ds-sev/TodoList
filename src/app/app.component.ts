@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { Component } from '@angular/core'
 import { ToastModule } from 'primeng/toast'
 import { MessageService } from 'primeng/api'
 import { AuthService } from './shared/services/auth.service'
@@ -11,3 +11,5 @@ import { AuthService } from './shared/services/auth.service'
 })
 export class AppComponent {
 }
+
+

@@ -57,7 +57,19 @@
         </td>
         <td [class]="{cell__name_done: task.complete}">{{task.name}}</td>
         <td *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}</td>
-        <td>{{task.expiresIn | date: 'dd.MM.yyyy'}}</td>
+
+
+
+        <td class="table__date-cell date__cell">
+          <span class="date-cell__text"
+                [ngStyle]="{'background-color' : setExpirationWarningColor(task.expiresIn)}">{{task.expiresIn | date:
+            'dd.MM.yyyy'}}</span>
+        </td>
+
+
+
+
+
         <td>
           <div class="table__task-priority" *ngIf="task.priority === '1'"
                style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
@@ -70,6 +82,8 @@
              border: 1px solid
               black"></div>
         </td>
+
+
         <app-actions-menu
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
           [task]="task"

@@ -67,7 +67,6 @@ export class TaskFormComponent implements OnInit {
     } else {
       this.tasksService.addTask(this.formGroup.value, this.formOptions.currentCategory)
     }
-    console.log('llk')
     this.modalService.closeModal()
   }
 }

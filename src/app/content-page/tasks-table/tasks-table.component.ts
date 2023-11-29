@@ -71,9 +71,19 @@ export class TasksTableComponent implements OnInit {
   toggleTaskState(taskToChangeStatus: ITask) {
     this.tasksService.toggleTaskStatus(taskToChangeStatus)
   }
+
+  setExpirationWarningColor(expiresIn: Date): string {
+    const currentDate = new Date()
+    const expirationDate = new Date(expiresIn)
+    const differenceInTime = expirationDate.getTime() - currentDate.getTime()
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24))
+
+    if (differenceInDays < 3) {
+      return 'red'
+    } else if (differenceInDays < 6) {
+      return 'orange'
+    } else {
+      return ''
+    }
+  }
 }
-
-//TODO: add colors for date-marked tasks fields
-
-
-

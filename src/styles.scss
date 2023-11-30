@@ -1,8 +1,14 @@
 @import 'assets/vendor/normalize.css';
 @import 'assets/vendor/fonts/fonts.css';
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
+@import 'primeng/resources/themes/lara-light-blue/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
+
+
+:root {
+  --bg-light-violet: #e7d7f8;
+  --main-violet: #9d67ec;
+}
 
 html {
   background-image: url(./assets/images/1641462909_22-www-funnyart-club-p-besshovnie-foni-dlya-saitov-22.jpg);
@@ -52,6 +58,36 @@ tr, th {
 ._input-field {
   &__label  {
     color: gray;
+  }
+}
+
+._button {
+  padding: 0 .7rem;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  border: none;
+  border-radius: 30px;
+  outline: transparent;
+  transition: opacity .3s, border .3s;
+
+  @media (hover: hover) and (pointer: fine){
+    &:hover {
+      cursor: pointer;
+      opacity: .9;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      outline: 1px solid;
+      transition: box-shadow .2s, outline .6s;
+    }
+  }
+
+  &:active {
+    box-shadow: none;
+    opacity: 1;
+    transform: scale(.99);
+    transition: transform 0.08s;
   }
 }
 

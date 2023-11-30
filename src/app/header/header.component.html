@@ -1,14 +1,11 @@
 <header class="header">
   <h1 class="header__title">TODOлистЪ</h1>
   <p-confirmPopup></p-confirmPopup>
-  <p-button
-    class="header__logout-button"
-    icon="pi pi-sign-out"
-    size="small"
-    severity="warning"
-    [outlined]="true"
-    [rounded]="true"
-    (onClick)="confirmLogOut($event)"
+  <button
+    class="header__logout-button _button"
+    (click)="confirmLogOut($event)"
     *ngIf="this.authService.isAuthenticated()"
-  ></p-button>
+  >
+    <i class="pi pi-sign-out" style="color: white"></i>
+  </button>
 </header>

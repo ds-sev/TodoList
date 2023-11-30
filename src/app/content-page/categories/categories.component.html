@@ -32,13 +32,12 @@
       ></app-actions-menu>
     </li>
     <li>
-      <p-button
-        label="Добавить категорию"
-        size="small"
-        severity="success"
-        [rounded]="true"
-        (click)="onAddCategoryClick()">
-      </p-button>
+      <button
+        class="categories-menu__add-category-button _button"
+        (click)="onAddCategoryClick()"
+      >
+        Добавить категорию
+      </button>
     </li>
   </ul>
 

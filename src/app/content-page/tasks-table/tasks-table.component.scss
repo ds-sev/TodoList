@@ -8,6 +8,11 @@
       font-size: 16px;
     }
   }
+
+  &__add-task-button {
+    background-color: var(--bg-light-violet);
+    color: var(--main-violet);
+  }
 }
 
 .table {

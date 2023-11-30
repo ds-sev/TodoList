@@ -94,6 +94,12 @@
     }
   }
 
+  &__add-category-button {
+    margin: 0 auto;
+    background-color: var(--bg-light-violet);
+    color: var(--main-violet);
+  }
+
 
   &__overlay {
     position: absolute;

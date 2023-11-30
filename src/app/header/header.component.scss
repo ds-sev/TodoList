@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: center;
   height: 60px;
-
   background-color: transparent;
 
   &__title {
@@ -13,12 +12,17 @@
   }
 
   &__logout-button {
-    &:hover {
-
-    }
     position: absolute;
+    aspect-ratio: 1/1;
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
+    background-color: #e8b55e;
+    color: white;
   }
 }
+
+
+
+
+

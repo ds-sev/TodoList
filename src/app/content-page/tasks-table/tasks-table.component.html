@@ -8,29 +8,27 @@
         У вас
       </ng-container>
       <ng-container *ngSwitchCase="true">
-        В категории «{{currentCategory ? currentCategory.name : '?'}}»
+        В категории «{{ currentCategory ? currentCategory.name : '?' }}»
       </ng-container>
-      {{tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length}}
-      {{tasksService.tasksListSig().length | taskWordEnding}}
+      {{ tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length }}
+      {{ tasksService.tasksListSig().length | taskWordEnding }}
     </h3>
-    <p-button
-      class="new-task-button"
-      label="Добавить задачу"
-      severity="success"
-      [rounded]="true"
-      (click)="onAddTaskClick()"
-      *ngIf="window.innerWidth > 676"
-    >
-    </p-button>
-    <p-button
-      class="new-task-button"
-      icon="pi pi-plus"
-      severity="success"
-      [rounded]="true"
-      (click)="onAddTaskClick()"
-      *ngIf="window.innerWidth < 676"
-    >
-    </p-button>
+    @if (window.innerWidth > 676) {
+      <button
+        class="tasks-section__add-task-button _button"
+        (click)="onAddTaskClick()"
+        *ngIf="window.innerWidth > 676"
+      >
+        Добавить задачу
+      </button>
+    } @else {
+      <button
+        class="tasks-section__add-task-button _button"
+        (click)="onAddTaskClick()"
+      >
+        <i class="pi pi-plus"></i>
+      </button>
+    }
   </div>
   <p-table
     class="table"
@@ -88,11 +86,11 @@
           class="table__task"
           [class]="{cell__name_done: task.complete}"
         >
-          {{task.name}}
+          {{ task.name }}
         </td>
         <td
           class="table__categories"
-          *ngIf="router.url.endsWith('all')">{{task.category ? task.category.name : ''}}
+          *ngIf="router.url.endsWith('all')">{{ task.category ? task.category.name : '' }}
         </td>
         <td
           class="table__date-cell date-cell">
@@ -102,8 +100,10 @@
             *ngIf="setExpirationWarningColor(task.expiresIn) !== 'inherit'"
           ></i>
           <span class="date-cell__text"
-          >{{task.expiresIn | date:
-            'dd.MM.yyyy'}}</span>
+          >{{
+              task.expiresIn | date:
+                'dd.MM.yyyy'
+            }}</span>
         </td>
         <td class="table__priority">
           <div class="table__task-priority" *ngIf="task.priority === '1'"

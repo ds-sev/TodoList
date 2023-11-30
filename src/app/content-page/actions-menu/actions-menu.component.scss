@@ -1,17 +1,17 @@
 :host {
-  background-color: transparent;
-  display: flex;
+  margin: 4px 0;
+  border-radius: 40px;
   position: absolute;
   right: -120px;
   overflow: hidden;
   transition: right .6s ease-in;
-
-  &_view {
-    right: 0;
-  }
+  background-color: white;
 }
 
-.table__button {
-  border: 1px solid red;
-
+.action-buttons {
+  &__button {
+    margin-right: 4px;
+    display: inline;
+    color: white;
+  }
 }

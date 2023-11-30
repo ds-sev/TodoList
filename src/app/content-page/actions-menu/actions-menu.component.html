@@ -1,20 +1,16 @@
 <div class="action-buttons" [ngClass]="isDisplay ? 'action-buttons_view' : ''">
-  <p-button
-    size="small"
-    icon="pi pi-pencil"
-    [rounded]="true"
-    severity="warning"
-    [outlined]="true"
-    (onClick)="onEditClick()"
-    [disabled]="false"
-  ></p-button>
+  <button
+    class="action-buttons__button _button"
+    style="background-color: #e8b55e"
+    (click)="onEditClick()">
+    <i class="pi pi-pencil" style="color: white"></i>
+  </button>
   <p-confirmPopup></p-confirmPopup>
-  <p-button
-    icon="pi pi-times"
-    [rounded]="true"
-    severity="danger"
-    [outlined]="true"
-    (onClick)="confirm($event)"
-  ></p-button>
+  <button
+    class="action-buttons__button _button"
+    style="background-color: red"
+    (click)="confirm($event)">
+    <i class="pi pi-times" style="color: white"></i>
+  </button>
 </div>
 

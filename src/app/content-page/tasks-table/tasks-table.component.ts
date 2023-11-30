@@ -91,10 +91,16 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
-  onActionsClick() {
-    console.log('kjkjk')
+  onActionsMenuViewClick(task: any) {
+    if (!task.isActionButtonsDisplay) {
+      this.tasksService.tasksListSig().forEach((t: any) => {
+        if (t !== task) {
+          t.isActionButtonsDisplay = false
+        }
+      })
+    }
+    task.isActionButtonsDisplay = !task.isActionButtonsDisplay
   }
 
   protected readonly window = window
-  protected readonly onmouseenter = onmouseenter
 }

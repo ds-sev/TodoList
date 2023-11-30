@@ -3,6 +3,8 @@
 }
 
 .tasks-section {
+
+
   &__header {
     @media screen and (max-width: 800px) {
       font-size: 16px;
@@ -63,6 +65,15 @@
       display: none;
     }
   }
+
+  &__task-priority-icon {
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid var(--bg-light-grey);
+  }
 }
 
 .date-cell {
@@ -79,6 +90,11 @@
   }
 }
 
+.pi-chevron-left {
+  color: var(--bg-light-violet);
+  transition: color .3s;
+}
+
 .action-buttons {
   display: flex;
   position: absolute;
@@ -92,7 +108,7 @@
 }
 
 .context-menu-button {
-  visibility: hidden;
+  margin-right: 5px;
   transition: transform .3s;
   box-shadow: none;
 
@@ -104,5 +120,9 @@
     transform: rotate(180deg);
     transition: transform .3s;
   }
-}
 
+  &:hover .pi-chevron-left {
+    color: var(--main-violet);
+    transition: color .3s;
+  }
+}

@@ -70,13 +70,15 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
+<!--      (mouseenter)="task.contextMenuButtonVisible = true"-->
+<!--      (mouseleave)="task.isActionButtonsDisplay-->
+<!--      ? task.contextMenuButtonVisible = true-->
+<!--      : task.contextMenuButtonVisible = false"-->
+<!--      (swipeleft)="task.isActionButtonsDisplay = true"-->
+<!--      (swiperight)="onActionsMenuViewClick(task, false)"-->
       <tr class="table__body-row"
-          (swipeleft)="task.isActionButtonsDisplay = true"
-          (swiperight)="task.isActionButtonsDisplay = false"
-          (mouseenter)="task.contextMenuButtonVisible = true"
-          (mouseleave)="task.isActionButtonsDisplay
-            ? task.contextMenuButtonVisible = true
-            : task.contextMenuButtonVisible = false"
+
+
       >
         <td>
           <p-checkbox
@@ -109,28 +111,23 @@
             }}</span>
         </td>
         <td class="table__priority">
-          <div class="table__task-priority" *ngIf="task.priority === '1'"
-               style="margin: 0 auto; width: 20px; height: 20px; background-color: blue; border-radius: 20px"></div>
-          <div *ngIf="task.priority === '2'"
-               style="margin: 0 auto; width: 20px; height: 20px; background-color: orange; border-radius: 20px"></div>
-          <div *ngIf="task.priority === '3'"
-               style="margin: 0 auto; width: 20px; height: 20px; background-color: red; border-radius: 20px"></div>
-          <div class="table__task-priority" *ngIf="!task.priority"
-               style="margin: 0 auto; width: 20px; height: 20px; background-color: transparent; border-radius: 20px;
-             border: 1px solid
-              black"></div>
+          <div class="table__task-priority-icon" *ngIf="task.priority === '1'"
+               style="background-color: var(--priority-blue)"></div>
+          <div class="table__task-priority-icon" *ngIf="task.priority === '2'"
+               style="background-color: var(--priority-orange)"></div>
+          <div class="table__task-priority-icon" *ngIf="task.priority === '3'"
+               style="background-color: var(--priority-red)"></div>
+          <div class="table__task-priority-icon" *ngIf="!task.priority"></div>
         </td>
         <td>
           <button
             class="context-menu-button _button"
             style="outline: none"
-            (click)="task.isActionButtonsDisplay = !task.isActionButtonsDisplay"
-            [ngClass]="[task.contextMenuButtonVisible ? 'context-menu-button_visible' : '',
-                        task.isActionButtonsDisplay ? 'context-menu-button_rotate' : '']"
+     (click)="onActionsMenuViewClick(task)"
+            [ngClass]="task.isActionButtonsDisplay ? 'context-menu-button_rotate' : ''"
           >
             <i
               class="pi pi-chevron-left"
-              style="color: var(--main-violet)"
             ></i>
           </button>
         </td>

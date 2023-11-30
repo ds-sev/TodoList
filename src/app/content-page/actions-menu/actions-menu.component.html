@@ -1,14 +1,14 @@
 <div class="action-buttons" [ngClass]="isDisplay ? 'action-buttons_view' : ''">
   <button
     class="action-buttons__button _button"
-    style="background-color: #e8b55e"
+    style="background-color: var(--caution-yellow)"
     (click)="onEditClick()">
     <i class="pi pi-pencil" style="color: white"></i>
   </button>
   <p-confirmPopup></p-confirmPopup>
   <button
     class="action-buttons__button _button"
-    style="background-color: red"
+    style="background-color: var(--caution-red)"
     (click)="confirm($event)">
     <i class="pi pi-times" style="color: white"></i>
   </button>

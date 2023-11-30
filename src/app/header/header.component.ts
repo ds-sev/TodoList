@@ -39,4 +39,7 @@ export class HeaderComponent {
       }
     })
   }
+
+  protected readonly onmouseenter = onmouseenter
+  protected readonly onmouseup = onmouseup
 }

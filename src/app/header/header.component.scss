@@ -5,13 +5,17 @@
   align-items: center;
   justify-content: center;
   height: 60px;
-  background-color: lightgrey;
+
+  background-color: transparent;
 
   &__title {
     margin: 0;
   }
 
-  &__user-menu-button {
+  &__logout-button {
+    &:hover {
+
+    }
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

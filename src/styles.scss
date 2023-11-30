@@ -5,7 +5,9 @@
 @import "primeicons/primeicons.css";
 
 html {
-  background-color: lightgray;
+  background-image: url(./assets/images/1641462909_22-www-funnyart-club-p-besshovnie-foni-dlya-saitov-22.jpg);
+
+  //background-color: lightgray;
   //overflow-x: hidden;
   height: 100%;
 
@@ -18,13 +20,14 @@ body {
   margin: 0 auto;
   max-width: 1440px;
 
+  background-color: transparent;
   //min-height: calc(100% - 60px);
   height: 100%;
   //overflow-y: hidden;
 
 
   text-align: center;
-  background-color: white;
+  //background-color: white;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   //scrollbar-gutter: stable;

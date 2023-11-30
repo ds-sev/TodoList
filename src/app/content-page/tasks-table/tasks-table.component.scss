@@ -17,6 +17,9 @@
   }
 
   th {
+    &:last-child {
+      border-top-right-radius: 10px;
+    }
     @media screen and (max-width: 800px) {
       font-size: 14px;
     }
@@ -44,7 +47,7 @@
   }
 
   &__date-cell, &__date-cell-header {
-    @media screen and (max-width: 676px) {
+    @media screen and (max-width: 666px) {
       display: none;
     }
   }

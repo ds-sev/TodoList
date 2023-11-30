@@ -1,5 +1,5 @@
 :host {
-  background-color: white;
+  background-color: transparent;
   display: flex;
   position: absolute;
   right: -120px;
@@ -9,4 +9,9 @@
   &_view {
     right: 0;
   }
+}
+
+.table__button {
+  border: 1px solid red;
+
 }

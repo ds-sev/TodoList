@@ -25,6 +25,7 @@
     &:last-child {
       border-top-right-radius: 10px;
     }
+
     @media screen and (max-width: 800px) {
       font-size: 14px;
     }
@@ -86,7 +87,22 @@
   transition: right .6s ease-in;
 
   &_view {
-    right: 0;
+    right: 36px;
+  }
+}
+
+.context-menu-button {
+  visibility: hidden;
+  transition: transform .3s;
+  box-shadow: none;
+
+  &_visible {
+    visibility: visible;
+  }
+
+  &_rotate {
+    transform: rotate(180deg);
+    transition: transform .3s;
   }
 }
 

@@ -66,14 +66,17 @@
         >Приоритет
           <p-sortIcon field="priority"></p-sortIcon>
         </th>
+        <th style="width: 20px"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
       <tr class="table__body-row"
-          (mouseenter)="task.isActionButtonsDisplay = true"
-          (mouseleave)="task.isActionButtonsDisplay = false"
           (swipeleft)="task.isActionButtonsDisplay = true"
           (swiperight)="task.isActionButtonsDisplay = false"
+          (mouseenter)="task.contextMenuButtonVisible = true"
+          (mouseleave)="task.isActionButtonsDisplay
+            ? task.contextMenuButtonVisible = true
+            : task.contextMenuButtonVisible = false"
       >
         <td>
           <p-checkbox
@@ -116,6 +119,20 @@
                style="margin: 0 auto; width: 20px; height: 20px; background-color: transparent; border-radius: 20px;
              border: 1px solid
               black"></div>
+        </td>
+        <td>
+          <button
+            class="context-menu-button _button"
+            style="outline: none"
+            (click)="task.isActionButtonsDisplay = !task.isActionButtonsDisplay"
+            [ngClass]="[task.contextMenuButtonVisible ? 'context-menu-button_visible' : '',
+                        task.isActionButtonsDisplay ? 'context-menu-button_rotate' : '']"
+          >
+            <i
+              class="pi pi-chevron-left"
+              style="color: var(--main-violet)"
+            ></i>
+          </button>
         </td>
         <app-actions-menu
           [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"

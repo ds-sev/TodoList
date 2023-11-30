@@ -91,5 +91,10 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
+  onActionsClick() {
+    console.log('kjkjk')
+  }
+
   protected readonly window = window
+  protected readonly onmouseenter = onmouseenter
 }

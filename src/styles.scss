@@ -72,12 +72,13 @@ tr, th {
   border-radius: 30px;
   outline: transparent;
   transition: opacity .3s, border .3s;
+  background-color: transparent;
 
   @media (hover: hover) and (pointer: fine){
     &:hover {
       cursor: pointer;
       opacity: .9;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
       outline: 1px solid;
       transition: box-shadow .2s, outline .6s;
     }

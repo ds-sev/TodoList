@@ -1,18 +1,18 @@
 import { Component, inject, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { DialogModule } from 'primeng/dialog'
+import { InputTextModule } from 'primeng/inputtext'
+import { MessageService } from 'primeng/api'
+
 import { ICategory } from '../../../shared/interfaces'
 import { ModalService } from '../../../shared/services/modal.service'
-import { InputTextModule } from 'primeng/inputtext'
-import { ButtonModule } from 'primeng/button'
 import { CategoriesService } from '../../../shared/services/categories.service'
-import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'app-category-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DialogModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, DialogModule, InputTextModule],
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.scss'
 })
@@ -32,6 +32,10 @@ export class CategoryFormComponent implements OnInit {
     this.categoryForm.setValue({
       name: null
     })
+
+    this.categoryForm.get('name')?.setValidators([Validators.required, Validators.minLength(3)])
+    this.categoryForm.updateValueAndValidity()
+
     if (this.categoryToEdit) {
       this.categoryForm.setValue({
         name: this.categoryToEdit.name
@@ -43,7 +47,7 @@ export class CategoryFormComponent implements OnInit {
     if (!this.categoryToEdit && this.categoryForm.value.name) {
       if (this.categoriesService.checkForDuplicate(this.categoryForm.value.name)) {
         this.messageService.add({
-          severity: 'error',
+          severity: 'warn',
           summary: 'Проблемка',
           detail: 'Такая категория уже есть',
           key: 'notificationToast'

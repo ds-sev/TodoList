@@ -1,7 +1,7 @@
 <p-dialog
   header="{{ categoryToEdit ? 'Редактировать' : 'Новая категория:' }}"
   [(visible)]="modalService.displayCategoryFormModal"
-  [style]="{ width: '550px', minWidth: '375px' }"
+  [style]="{ width: '450px', minWidth: '320px' }"
   [modal]="true"
   [dismissableMask]="true"
 >
@@ -9,7 +9,8 @@
         class="category-form"
         (ngSubmit)="onSubmitForm()"
   >
-    <span class="p-float-label category-form__name-input">
+    <div class="form__input-container">
+    <span class="p-float-label form__name-input">
       <input
         pInputText
         formControlName="name"
@@ -20,8 +21,27 @@
       >
       <label for="name">Название</label>
     </span>
-    <p-button type="submit">
-      {{ categoryToEdit ? 'Сохранить' : 'Создать'}}
-    </p-button>
+      <span
+        class="form__tip"
+        *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched"
+      >
+          <span *ngIf="categoryForm.get('name')?.errors?.['required']">
+            Название категории не должно быть пустым
+          </span>
+          <span
+            *ngIf="categoryForm.get('name')?.errors?.['minlength']"
+          >
+            Слишком короткое название
+            {{ categoryForm.get('name')?.errors?.['minlength']['requiredLength'] }}
+          </span>
+        </span>
+    </div>
+    <button
+      class="form__submit-button _button"
+      type="submit"
+      [disabled]="categoryForm.invalid || categoryForm.disabled"
+    >
+      {{ categoryToEdit ? 'Сохранить' : 'Создать' }}
+    </button>
   </form>
 </p-dialog>

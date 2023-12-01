@@ -35,11 +35,8 @@ export class HeaderComponent {
           key: 'notificationToast'
         })
         this.authService.logout()
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']).then()
       }
     })
   }
-
-  protected readonly onmouseenter = onmouseenter
-  protected readonly onmouseup = onmouseup
 }

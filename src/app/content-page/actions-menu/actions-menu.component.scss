@@ -1,5 +1,6 @@
 :host {
-  margin: 4px 0;
+  //margin: 4px 0;
+  padding: 4px;
   border-radius: 40px;
   position: absolute;
   right: -120px;
@@ -10,8 +11,10 @@
 
 .action-buttons {
   &__button {
+    padding-top: 2px;
     margin-right: 4px;
     display: inline;
     color: white;
+    outline: white;
   }
 }

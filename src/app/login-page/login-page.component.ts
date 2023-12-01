@@ -1,22 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { Router, RouterLink } from '@angular/router'
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms'
-import { PasswordModule } from 'primeng/password'
+import { Router } from '@angular/router'
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { InputTextModule } from 'primeng/inputtext'
+
 import { AuthService } from '../shared/services/auth.service'
 import { IAuthFormControls } from '../shared/interfaces'
-import { InputTextModule } from 'primeng/inputtext'
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PasswordModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
 })
@@ -39,6 +33,6 @@ export class LoginPageComponent implements OnInit {
   }
   onSubmit() {
     this.authService.login(this.form.value)
-    this.router.navigate(['/categories/all'])
+    this.router.navigate(['/categories/all']).then()
   }
 }

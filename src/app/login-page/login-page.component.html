@@ -1,4 +1,8 @@
-<form class="auth-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="auth-form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+>
+<!-- EMAIL FIELD-->
   <div class="auth-form__input-container">
     <span class="p-float-label">
     <input pInputText
@@ -24,6 +28,7 @@
       </span>
     </span>
   </div>
+<!--  PASSWORD FIELD-->
   <div class="auth-form__input-container">
     <span class="p-float-label">
     <input pInputText
@@ -54,6 +59,7 @@
       </span>
     </span>
   </div>
+
   <button
     class="auth-form__submit-button _button"
     type="submit"

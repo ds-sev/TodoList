@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { Router, RouterLink } from '@angular/router'
-import { PaginatorModule } from 'primeng/paginator'
+import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { InputTextModule } from 'primeng/inputtext'
+
 import { AuthService } from '../shared/services/auth.service'
 import { IAuthFormControls } from '../shared/interfaces'
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, PaginatorModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss'
 })

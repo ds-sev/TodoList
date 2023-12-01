@@ -21,6 +21,7 @@
 
 html {
   background-image: url(./assets/images/1641462909_22-www-funnyart-club-p-besshovnie-foni-dlya-saitov-22.jpg);
+  background-position: center;
   height: 100%;
 }
 
@@ -100,7 +101,7 @@ label {
   }
 
   &:disabled {
-    color: white!important;
+    color: #939191 !important;
     background-color: rgba(178, 178, 178, 0.46) !important;
     pointer-events: none;
   }

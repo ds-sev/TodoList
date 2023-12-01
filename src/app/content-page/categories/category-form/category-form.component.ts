@@ -7,6 +7,7 @@ import { ModalService } from '../../../shared/services/modal.service'
 import { InputTextModule } from 'primeng/inputtext'
 import { ButtonModule } from 'primeng/button'
 import { CategoriesService } from '../../../shared/services/categories.service'
+import { MessageService } from 'primeng/api'
 
 @Component({
   selector: 'app-category-form',
@@ -19,6 +20,7 @@ export class CategoryFormComponent implements OnInit {
 
   modalService = inject(ModalService)
   categoriesService = inject(CategoriesService)
+  messageService = inject(MessageService)
 
   categoryForm: FormGroup<{ name: FormControl<string | null> }> = new FormGroup({
     name: new FormControl(),
@@ -39,12 +41,20 @@ export class CategoryFormComponent implements OnInit {
 
   onSubmitForm() {
     if (!this.categoryToEdit && this.categoryForm.value.name) {
-      this.categoriesService.createCategory(this.categoryForm.value.name)
-
+      if (this.categoriesService.checkForDuplicate(this.categoryForm.value.name)) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Проблемка',
+          detail: 'Такая категория уже есть',
+          key: 'notificationToast'
+        })
+      } else {
+        this.categoriesService.createCategory(this.categoryForm.value.name)
+        this.modalService.closeModal()
+      }
     } else if (this.categoryToEdit && this.categoryForm.value.name) {
       this.categoriesService.editCategory(this.categoryToEdit, this.categoryForm.value.name)
+      this.modalService.closeModal()
     }
-
-    this.modalService.closeModal()
   }
 }

@@ -6,6 +6,11 @@
 
   &__title {
     margin: 0;
+    font-family: 'Caveat', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    color: rgba(3, 35, 122, 0.73);
+    text-shadow: rgba(98, 95, 95, 0.22) 4px 4px;
   }
 
   &__logout-button {

@@ -59,4 +59,12 @@ export class CategoriesService {
     this.updateStoredData()
     this.tasksService.getTasksData()
   }
+
+  checkForDuplicate(newCategoryName: string):boolean {
+    const duplicateCategory = this.userCategoriesSig().find((category) => {
+      return category.name.toLowerCase().split(' ').join('')
+        === newCategoryName.toLowerCase().split(' ').join('')
+    })
+    return !!duplicateCategory
+  }
 }

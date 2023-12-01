@@ -1,12 +1,28 @@
 .auth {
+  margin: 8vh auto;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  border: 1px solid red;
-  width: 400px;
-
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  max-width: 400px;
+  min-width: 320px;
+  height: 305px;
+  backdrop-filter: blur(1px);
 
   &__title {
-    margin-bottom: 40px;
+    color: var(--main-grey);
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    color: var(--main-violet);
+    font-size: 14px;
+    font-weight: 200;
+    transition: opacity .3s;
+
+    &:hover {
+      opacity: .7;
+      transition: opacity .3s;
+    }
   }
 }

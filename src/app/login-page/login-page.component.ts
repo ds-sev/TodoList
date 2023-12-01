@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
 import { Router, RouterLink } from '@angular/router'
 import {
   FormBuilder,
@@ -10,12 +10,13 @@ import {
 } from '@angular/forms'
 import { PasswordModule } from 'primeng/password'
 import { AuthService } from '../shared/services/auth.service'
-import { IAuthFormControls, IUser } from '../shared/interfaces'
+import { IAuthFormControls } from '../shared/interfaces'
+import { InputTextModule } from 'primeng/inputtext'
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, PasswordModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, PasswordModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
 })

@@ -1,9 +1,12 @@
 <div class="auth">
-  <div class="auth__title">
-    <h3 *ngIf="router.url.includes('/login')">Авторизация</h3>
-    <h3 *ngIf="router.url === '/register'">Создать учетную запись</h3>
-  </div>
+  <h3 class="auth__title" *ngIf="router.url.includes('/login')">Авторизация</h3>
+  <h3 class="auth__title" *ngIf="router.url === '/register'">Создать учетную запись</h3>
   <router-outlet></router-outlet>
-  <div *ngIf="router.url.includes('/login')"><a routerLink="/register">Зарегистрироваться</a></div>
-  <div *ngIf="router.url === '/register'"><span>Уже зарегистрированы?</span><a routerLink="/login">Войти</a></div>
+  <div *ngIf="router.url.includes('/login')">
+    <a class="auth__link" routerLink="/register">Зарегистрироваться</a>
+  </div>
+  <div *ngIf="router.url === '/register'">
+    <span style="font-size: 14px; font-weight: lighter">Уже зарегистрированы? </span>
+    <a class="auth__link" routerLink="/login">Войти</a>
+  </div>
 </div>

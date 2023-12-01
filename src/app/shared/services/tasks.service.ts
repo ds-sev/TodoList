@@ -18,7 +18,6 @@ export class TasksService {
   getTasksData() {
     this.storedData = this.userService.getStoredCurrentUserData()
     this.tasksListSig.set(this.storedData.tasks)
-    console.log(this.storedData)
   }
 
   getTasksDataByCategoryId(categoryId: string) {

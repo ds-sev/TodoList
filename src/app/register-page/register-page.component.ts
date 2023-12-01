@@ -26,18 +26,18 @@ export class RegisterPageComponent implements OnInit {
     this.form = this.formBuilder.group<IAuthFormControls>({
       email: null,
       password: null,
-    });
+    })
     this.form.get('email')?.setValidators([Validators.required, Validators.email])
     this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)])
     this.form.updateValueAndValidity()
   }
 
   onSubmit() {
-    this.authService.register(this.form.value)
     this.authService.registerSuccess$.subscribe((success) => {
       if (success) {
         this.router.navigate(['/login']).then()
       }
     })
+    this.authService.register(this.form.value)
   }
 }

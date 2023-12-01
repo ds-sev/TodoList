@@ -3,9 +3,9 @@
 }
 
 .tasks-section {
-
-
   &__header {
+    font-weight: 400;
+    color: var(--main-grey);
     @media screen and (max-width: 800px) {
       font-size: 16px;
     }

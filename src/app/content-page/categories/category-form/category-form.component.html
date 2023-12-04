@@ -31,8 +31,9 @@
           <span
             *ngIf="categoryForm.get('name')?.errors?.['minlength']"
           >
-            Слишком короткое название
+            Слишком короткое название. Минимум:
             {{ categoryForm.get('name')?.errors?.['minlength']['requiredLength'] }}
+            симв.
           </span>
         </span>
     </div>

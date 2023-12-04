@@ -4,17 +4,18 @@ import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
 import { PaginatorModule } from 'primeng/paginator'
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { TasksService } from '../../shared/services/tasks.service'
 import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
 import { InputTextModule } from 'primeng/inputtext'
+import { RadioButtonModule } from 'primeng/radiobutton'
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, PaginatorModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, PaginatorModule, ReactiveFormsModule, InputTextModule, RadioButtonModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
@@ -39,6 +40,10 @@ export class TaskFormComponent implements OnInit {
   })
 
   ngOnInit() {
+
+    this.formGroup.get('name')?.setValidators([Validators.required, Validators.minLength(3)])
+    this.formGroup.updateValueAndValidity()
+
     if (!this.formOptions.taskToEdit) {
       if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
         this.formGroup.setValue({

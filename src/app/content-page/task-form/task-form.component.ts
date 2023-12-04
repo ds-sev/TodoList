@@ -73,4 +73,3 @@ export class TaskFormComponent implements OnInit {
     this.modalService.closeModal()
   }
 }
-

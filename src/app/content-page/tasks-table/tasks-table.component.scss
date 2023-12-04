@@ -73,6 +73,11 @@
     }
   }
 
+  &__actions {
+    position: relative;
+    width: 88px;
+  }
+
   &__task-priority-icon {
     margin: 0 auto;
     width: 20px;
@@ -100,36 +105,4 @@
 .pi-chevron-left {
   color: rgba(62, 108, 238, 0.33);
   transition: color .3s;
-}
-
-.action-buttons {
-  //display: flex;
-  //position: absolute;
-  //right: -120px;
-  //background-color: white;
-  //transition: right .3s ease-in;
-
-  &_view {
-    right: 36px;
-  }
-}
-
-.context-menu-button {
-  margin-right: 5px;
-  transition: transform .4s;
-  box-shadow: none;
-
-  &_visible {
-    visibility: visible;
-  }
-
-  &_rotate {
-    transform: rotate(180deg);
-    transition: transform .4s;
-  }
-
-  &:hover .pi-chevron-left {
-    color: var(--main-blue);
-    transition: color .3s;
-  }
 }

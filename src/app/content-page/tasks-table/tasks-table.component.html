@@ -70,16 +70,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
-<!--      (mouseenter)="task.contextMenuButtonVisible = true"-->
-<!--      (mouseleave)="task.isActionButtonsDisplay-->
-<!--      ? task.contextMenuButtonVisible = true-->
-<!--      : task.contextMenuButtonVisible = false"-->
-<!--      (swipeleft)="task.isActionButtonsDisplay = true"-->
-<!--      (swiperight)="onActionsMenuViewClick(task, false)"-->
-      <tr class="table__body-row"
-
-
-      >
+      <tr class="table__body-row">
         <td>
           <p-checkbox
             [(ngModel)]="task.complete"
@@ -119,24 +110,13 @@
                style="background-color: var(--priority-red)"></div>
           <div class="table__task-priority-icon" *ngIf="!task.priority"></div>
         </td>
-        <td>
-          <button
-            class="context-menu-button _button"
-            style="outline: none"
-     (click)="onActionsMenuViewClick(task)"
-            [ngClass]="task.isActionButtonsDisplay ? 'context-menu-button_rotate' : ''"
-          >
-            <i
-              class="pi pi-chevron-left"
-            ></i>
-          </button>
+        <td class="table__actions">
+          <app-actions-menu
+            [task]="task"
+            [currentCategory]="currentCategory"
+            (dataToEditEmit)="this.dataToEdit = $event"
+          ></app-actions-menu>
         </td>
-        <app-actions-menu
-          [ngClass]="task.isActionButtonsDisplay ? 'action-buttons_view' : ''"
-          [task]="task"
-          [currentCategory]="currentCategory"
-          (dataToEditEmit)="this.dataToEdit = $event"
-        ></app-actions-menu>
       </tr>
     </ng-template>
   </p-table>

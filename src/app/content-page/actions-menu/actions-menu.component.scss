@@ -1,20 +1,27 @@
 :host {
-  //margin: 4px 0;
   padding: 4px;
   border-radius: 40px;
-  position: absolute;
-  right: -120px;
-  overflow: hidden;
-  transition: right .4s ease-in;
   background-color: transparent;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .action-buttons {
+  display: flex;
+
   &__button {
-    padding-top: 2px;
-    margin-right: 4px;
-    display: inline;
-    color: white;
     outline: white;
+    transition: background-color .2s;
+
+    &_edit:hover {
+      background-color: rgba(231, 231, 150, 0.47);
+      transition: background-color .2s;
+    }
+
+    &_delete:hover {
+      background-color: rgba(248, 161, 161, 0.41);
+    }
   }
 }

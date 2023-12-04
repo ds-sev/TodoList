@@ -11,6 +11,7 @@
   --main-violet: #9d67ec;
   --main-light-blue: #9bb0ee;
   --main-blue: #3e6cee;
+  --main-light-grey: rgba(80, 80, 80, 0.45);
   --main-grey: #4b4a4a;
   --caution-yellow: rgba(236, 210, 91, 0.58);
   --caution-red: #ff2c2c;
@@ -97,7 +98,7 @@ label {
   &:active {
     box-shadow: none;
     opacity: 1;
-    transform: scale(.99);
+    transform: scale(.97);
     transition: transform 0.08s;
   }
 

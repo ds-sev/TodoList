@@ -1,5 +1,4 @@
 import { Component, inject, Input, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { DialogModule } from 'primeng/dialog'
 import { InputTextModule } from 'primeng/inputtext'
@@ -8,6 +7,8 @@ import { MessageService } from 'primeng/api'
 import { ICategory } from '../../../shared/interfaces'
 import { ModalService } from '../../../shared/services/modal.service'
 import { CategoriesService } from '../../../shared/services/categories.service'
+import { Router } from '@angular/router'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-category-form',
@@ -21,6 +22,7 @@ export class CategoryFormComponent implements OnInit {
   modalService = inject(ModalService)
   categoriesService = inject(CategoriesService)
   messageService = inject(MessageService)
+  router = inject(Router)
 
   categoryForm: FormGroup<{ name: FormControl<string | null> }> = new FormGroup({
     name: new FormControl(),
@@ -53,8 +55,9 @@ export class CategoryFormComponent implements OnInit {
           key: 'notificationToast'
         })
       } else {
-        this.categoriesService.createCategory(this.categoryForm.value.name)
+        const newCategoryId = this.categoriesService.createCategory(this.categoryForm.value.name)
         this.modalService.closeModal()
+        this.router.navigate([`/categories/${newCategoryId}`]).then()
       }
     } else if (this.categoryToEdit && this.categoryForm.value.name) {
       this.categoriesService.editCategory(this.categoryToEdit, this.categoryForm.value.name)

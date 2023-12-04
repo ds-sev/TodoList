@@ -8,11 +8,12 @@ import { CategoriesService } from '../../shared/services/categories.service'
 import { ModalService } from '../../shared/services/modal.service'
 import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
 import { InputTextModule } from 'primeng/inputtext'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [CalendarModule, DialogModule, DropdownModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })

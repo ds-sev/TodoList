@@ -38,6 +38,7 @@ export class CategoriesService {
     }
     this.storedData.categories.push(newCategory)
     this.updateStoredData()
+    return newCategory.id
   }
 
   editCategory(categoryToEdit: ICategory, updatedCategoryName: string) {

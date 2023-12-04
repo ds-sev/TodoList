@@ -11,9 +11,6 @@
     [formGroup]="formGroup"
     class="task-form"
     (ngSubmit)="onSubmitForm()">
-
-
-
     <div class="form__input-container">
     <span class="p-float-label task-form__name-input">
     <input pInputText
@@ -25,10 +22,10 @@
     >
       <label for="name">Описание</label>
     </span>
-    <span
-      class="form__tip"
-      *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
-    >
+      <span
+        class="form__tip"
+        *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
+      >
           <span *ngIf="formGroup.get('name')?.errors?.['required']">
             Название задачи не должно быть пустым
           </span>
@@ -41,8 +38,6 @@
           </span>
         </span>
     </div>
-
-
     <div class="task-form__options-container">
       <span class="p-float-label">
         <p-calendar
@@ -59,16 +54,33 @@
       <div class="task-form__priority priority-block">
         <label class="priority-block__label _input-field__label">Приоритет: </label>
         <div class="priority-block__radio-buttons-container">
-          <label class="radio-button__container" for="low-priority">
-            <input class="checkbox__input" formControlName="priority" type="radio" value="1" id="low-priority">Низкий
+          <label class="custom-radiobutton" for="low-priority">
+            <input class="custom-radiobutton__input"
+                   formControlName="priority"
+                   type="radio"
+                   value="1"
+                   id="low-priority">
+            <span class="custom-radiobutton__priority_low">Низкий</span>
           </label>
-          <input formControlName="priority" type="radio" value="2" id="mid-priority">Средний
-          <input formControlName="priority" type="radio" value="3" id="high-priority">Высокий
+          <label class="custom-radiobutton" for="mid-priority">
+            <input class="custom-radiobutton__input"
+                   formControlName="priority"
+                   type="radio"
+                   value="2"
+                   id="mid-priority">
+            <span class="custom-radiobutton__priority_mid">Средний</span>
+          </label>
+          <label class="custom-radiobutton" for="high-priority">
+            <input class="custom-radiobutton__input"
+                   formControlName="priority"
+                   type="radio"
+                   value="3"
+                   id="high-priority">
+            <span class="custom-radiobutton__priority_high">Высокий</span>
+          </label>
         </div>
       </div>
     </div>
-
-
     <p-dropdown [options]="categoriesService.userCategoriesSig()"
                 placeholder="Категория"
                 optionLabel="name"
@@ -79,15 +91,12 @@
                 [style]="{ width: '100%' }"
                 class="task-form__categories"
     ></p-dropdown>
-
     <button
       class="form__submit-button _button"
       type="submit"
       [disabled]="formGroup.invalid || formGroup.disabled"
     >
-      {{ formOptions.taskToEdit ? 'Сохранить' : 'Создать'}}
+      {{ formOptions.taskToEdit ? 'Сохранить' : 'Создать' }}
     </button>
-
-
   </form>
 </p-dialog>

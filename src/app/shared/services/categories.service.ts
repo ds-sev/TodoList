@@ -1,7 +1,7 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask, IUser } from '../interfaces'
-import { UserService } from './user.service'
-import { TasksService } from './tasks.service'
+import {inject, Injectable, signal, WritableSignal} from '@angular/core'
+import {ICategory, ITask, IUser} from '../interfaces'
+import {UserService} from './user.service'
+import {TasksService} from './tasks.service'
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,8 @@ export class CategoriesService {
   }
 
   createCategory(newCategoryName: string) {
+    this.storedData = this.userService.getStoredCurrentUserData()
+
     const newCategory: ICategory = {
       id: Math.random().toString(16),
       name: newCategoryName.charAt(0).toUpperCase() + newCategoryName.slice(1)

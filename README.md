@@ -1,27 +1,54 @@
 # TodoList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+[GitHub-pages Deploy](https://ds-sev.github.io/TodoList/)
 
-## Development server
+## Project description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project is a task list application with extended functionality. Upon first entry, the user is directed to the registration page where they can create an account to store their data. The authentication forms have validation to prevent input errors and disable the submit button when the data is invalid. If there are input errors, the user sees a message indicating the mistake. After successful registration, the user is redirected to the login page where they need to enter the email and password for the previously created account. After logging in, the user is redirected to the main page of the application. Here, they have access to tools such as creating task and categories, editing it, and marking them as complete. Features such as visual display of tasks with approaching deadlines, priority, deadline's date, and deletion are available. A confirmation popup is provided to prevent accidental deletion of tasks and categories. All data is stored in local storage without a separate backend server using.
+<p align="center"><img src="https://github.com/ds-sev/TodoList/assets/99210830/623652a6-4e01-4ad2-b3a4-83d9088202d9" width="700px"></p>
 
-## Code scaffolding
+## Tech's:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ - Angular 17
+ - TypeScript
+ - Standalone Components
+ - Reactive Typed Forms
+ - Angular Signals
+ - RxJS
+ - PrimeNg v17
+ - SCSS
+ - Local Storage
+ - BEM-naming
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Features:
 
-## Running unit tests
+- Validation for input fields
+- Editing for tasks and categories
+- Confirmation request before delete task or category
+- Filter tasks by name, category, deadline-date, readiness and priority
+- Minimalistic design
+- Adaptive page-view for different devices
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Project setup:
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  1. Clone this repository to your local folder:
+```
+git clone https://github.com/ds-sev/TodoList.git
+```
+  2. Navigate to the project directory:
+```
+cd TodoList
+```
+  3. Install project dependencies:
+```
+npm install
+```
+  4. Start the development server:
+```
+ng serve
+```
+  5. Open browser and go to:
+```
+http://localhost:4200
+```

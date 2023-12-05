@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng build --configuration production --base-href=https://ds-sev.github.io/TodoList/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

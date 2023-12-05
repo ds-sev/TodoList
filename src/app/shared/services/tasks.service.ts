@@ -1,7 +1,7 @@
-import { Injectable, signal, WritableSignal } from '@angular/core'
-import { ICategory, ITask, IUser } from '../interfaces'
-import { UserService } from './user.service'
-import { Router } from '@angular/router'
+import {Injectable, signal, WritableSignal} from '@angular/core'
+import {ICategory, ITask, IUser} from '../interfaces'
+import {UserService} from './user.service'
+import {Router} from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,6 @@ export class TasksService {
   getTasksData() {
     this.storedData = this.userService.getStoredCurrentUserData()
     this.tasksListSig.set(this.storedData.tasks)
-    console.log(this.storedData.tasks.length)
   }
 
   getTasksDataByCategoryId(categoryId: string) {
@@ -100,4 +99,3 @@ export class TasksService {
     }
   }
 }
-

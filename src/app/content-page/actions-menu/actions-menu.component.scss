@@ -1,11 +1,11 @@
 :host {
-  padding: 4px;
-  border-radius: 40px;
-  background-color: transparent;
   display: flex;
+  padding: 4px;
   position: absolute;
   top: 0;
   right: 0;
+  border-radius: 40px;
+  background-color: transparent;
 }
 
 .action-buttons {

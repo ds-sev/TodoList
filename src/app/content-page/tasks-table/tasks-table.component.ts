@@ -1,30 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ButtonModule } from 'primeng/button'
-import { CheckboxModule } from 'primeng/checkbox'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ICategory, ITask } from '../../shared/interfaces'
-import { DialogModule } from 'primeng/dialog'
-import { DropdownModule } from 'primeng/dropdown'
-import { CalendarModule } from 'primeng/calendar'
-import { RadioButtonModule } from 'primeng/radiobutton'
-import { TasksService } from '../../shared/services/tasks.service'
-import { CascadeSelectModule } from 'primeng/cascadeselect'
-import { CategoriesService } from '../../shared/services/categories.service'
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
-import { TableModule } from 'primeng/table'
-import { RippleModule } from 'primeng/ripple'
-import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
-import { ContextMenuModule } from 'primeng/contextmenu'
-import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
-import { ModalService } from '../../shared/services/modal.service'
-import { ToastModule } from 'primeng/toast'
-import { TaskFormComponent } from '../task-form/task-form.component'
+import {Component, inject, OnInit} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {ActivatedRoute, Router} from '@angular/router'
+import {CheckboxModule} from 'primeng/checkbox'
+import {FormsModule} from '@angular/forms'
+import {TableModule} from 'primeng/table'
+
+import {ICategory, ITask} from '../../shared/interfaces'
+import {TaskWordEndingPipe} from '../../shared/pipes/task-word-ending.pipe'
+import {TasksService} from '../../shared/services/tasks.service'
+import {ModalService} from '../../shared/services/modal.service'
+import {CategoriesService} from '../../shared/services/categories.service'
+import {ActionsMenuComponent} from '../actions-menu/actions-menu.component'
+import {TaskFormComponent} from '../task-form/task-form.component'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CheckboxModule, FormsModule, DialogModule, DropdownModule, ReactiveFormsModule, CalendarModule, RadioButtonModule, CascadeSelectModule, RouterOutlet, TableModule, RippleModule, TaskWordEndingPipe, ContextMenuModule, ActionsMenuComponent, ToastModule, TaskFormComponent],
+  imports: [CommonModule, CheckboxModule, FormsModule, TableModule, TaskWordEndingPipe, ActionsMenuComponent, TaskFormComponent],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })

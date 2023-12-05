@@ -12,16 +12,16 @@
   }
 
   &__add-task-button {
-    background-color: var(--main-light-blue);
-    color: white;
     outline: var(--main-violet);
+    color: white;
+    background-color: var(--main-light-blue);
   }
 }
 
 .table {
   td {
-    text-align: center;
     padding: 0;
+    text-align: center;
   }
 
   th {

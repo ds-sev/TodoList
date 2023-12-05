@@ -11,8 +11,8 @@
 
 ul,
 li {
-  padding: 0;
   margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -27,10 +27,10 @@ li {
   overflow: hidden;
   transition: all .5s ease;
   z-index: 2;
-  background-color: #f5f4fa;
   box-shadow: 0.06rem 0 1.25rem 0 gray;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  background-color: #f5f4fa;
 
   @media screen and (max-width: 1024px) {
     &_collapsed {
@@ -39,14 +39,18 @@ li {
     }
   }
 
+  &__list {
+    margin-bottom: 12px;
+  }
+
   &__title {
     color: gray;
   }
 
   &__list-item {
     position: relative;
-    padding: 0 10px;
     display: flex;
+    padding: 0 10px;
     width: 280px;
     height: 48px;
     color: gray;
@@ -73,16 +77,16 @@ li {
 
   }
   &__list-link-text {
+    position: absolute;
+    top: 50%;
+    left: 15px;
     max-height: 20px;
     max-width: calc(100% - 23px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 400;
-    position: absolute;
     transform: translateY(-50%);
-    left: 15px;
-    top: 50%;
 
     &_bold {
       height: 28px;
@@ -96,9 +100,10 @@ li {
 
   &__add-category-button {
     margin: 0 auto;
-    background-color: var(--main-light-blue);
+    border:  red;
     color: white;
     outline: var(--main-violet);
+    background-color: var(--main-light-blue);
   }
 
   &__overlay {

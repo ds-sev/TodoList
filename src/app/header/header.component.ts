@@ -1,16 +1,15 @@
-import { Component, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { CategoriesComponent } from '../content-page/categories/categories.component'
-import { ButtonModule } from 'primeng/button'
-import { AuthService } from '../shared/services/auth.service'
-import { Router } from '@angular/router'
-import { ConfirmationService, MessageService } from 'primeng/api'
-import { ConfirmPopupModule } from 'primeng/confirmpopup'
+import {Component, inject} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {Router} from '@angular/router'
+import {ConfirmationService, MessageService} from 'primeng/api'
+import {ConfirmPopupModule} from 'primeng/confirmpopup'
+
+import {AuthService} from '../shared/services/auth.service'
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, CategoriesComponent, ButtonModule, ConfirmPopupModule],
+  imports: [CommonModule, ConfirmPopupModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

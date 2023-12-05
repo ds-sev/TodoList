@@ -6,9 +6,9 @@
 
   &__title {
     margin: 0;
-    font-family: 'Caveat', sans-serif;
     font-weight: 700;
     font-size: 40px;
+    font-family: 'Caveat', sans-serif;
     color: rgba(3, 35, 122, 0.73);
     text-shadow: rgba(98, 95, 95, 0.22) 4px 4px;
   }
@@ -19,14 +19,14 @@
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
-    background-color: #e8b55e;
     color: white;
+    background-color: #e8b55e;
   }
 }
 
 :host.popup {
-    background-color: green;
     color: white!important;
+    background-color: green;
 }
 
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import {Injectable} from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -6,12 +6,9 @@ import { Injectable } from '@angular/core'
 
 export class ModalService {
 
-
   modalComponent: string | null = null
   displayCategoryFormModal: boolean = false
   displayTaskFormModal: boolean = false
-
-
 
   open(component: string) {
     this.modalComponent = component
@@ -26,9 +23,6 @@ export class ModalService {
     this.modalComponent = null
     this.displayTaskFormModal = false
     this.displayCategoryFormModal = false
-    //
-    // this.displayTaskFormModal = false
-    // this.isDisplay$.next(false)
   }
 }
 

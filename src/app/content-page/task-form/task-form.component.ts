@@ -1,14 +1,15 @@
-import { Component, inject, Input, OnInit, } from '@angular/core'
-import { CalendarModule } from 'primeng/calendar'
-import { DialogModule } from 'primeng/dialog'
-import { DropdownModule } from 'primeng/dropdown'
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { TasksService } from '../../shared/services/tasks.service'
-import { CategoriesService } from '../../shared/services/categories.service'
-import { ModalService } from '../../shared/services/modal.service'
-import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
-import { InputTextModule } from 'primeng/inputtext'
-import { CommonModule } from '@angular/common'
+import {Component, inject, Input, OnInit,} from '@angular/core'
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms'
+import {CommonModule} from '@angular/common'
+import {CalendarModule} from 'primeng/calendar'
+import {DialogModule} from 'primeng/dialog'
+import {DropdownModule} from 'primeng/dropdown'
+import {InputTextModule} from 'primeng/inputtext'
+
+import {ICategory, ITask, ITaskFormControls} from '../../shared/interfaces'
+import {TasksService} from '../../shared/services/tasks.service'
+import {CategoriesService} from '../../shared/services/categories.service'
+import {ModalService} from '../../shared/services/modal.service'
 
 @Component({
   selector: 'app-task-form',

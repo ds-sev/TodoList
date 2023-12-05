@@ -1,22 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ButtonModule } from 'primeng/button'
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router'
-import { CalendarModule } from 'primeng/calendar'
-import { DialogModule } from 'primeng/dialog'
-import { PaginatorModule } from 'primeng/paginator'
-import { ReactiveFormsModule } from '@angular/forms'
-import { CategoriesService } from '../../shared/services/categories.service'
-import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
-import { InputTextModule } from 'primeng/inputtext'
-import { ICategory } from '../../shared/interfaces'
-import { ModalService } from '../../shared/services/modal.service'
-import { CategoryFormComponent } from './category-form/category-form.component'
+import {Component, inject, OnInit} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {ActivatedRoute, RouterModule} from '@angular/router'
+
+import {ICategory} from '../../shared/interfaces'
+import {ModalService} from '../../shared/services/modal.service'
+import {CategoriesService} from '../../shared/services/categories.service'
+import {CategoryFormComponent} from './category-form/category-form.component'
+import {ActionsMenuComponent} from '../actions-menu/actions-menu.component'
+
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterLink, CalendarModule, DialogModule, PaginatorModule, ReactiveFormsModule, RouterModule, ActionsMenuComponent, InputTextModule, CategoryFormComponent],
+  imports: [CommonModule, RouterModule, ActionsMenuComponent, CategoryFormComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })

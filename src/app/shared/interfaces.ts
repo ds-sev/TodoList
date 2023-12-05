@@ -8,7 +8,6 @@ export interface IUser {
 export interface ICategory {
   id: string
   name: string
-  isActionButtonsDisplay?: boolean
 }
 
 export interface ITask {
@@ -32,18 +31,3 @@ export interface IAuthFormControls {
   email: string | null
   password: string | null
 }
-
-
-export interface ModalMetadata {
-  type: ModalType
-  content: string
-}
-
-enum ModalType {
-  TASK,
-  CATEGORY
-}
-
-
-
-

@@ -13,10 +13,6 @@
     <li *ngFor="let category of categoriesService.userCategoriesSig()"
         class="categories-menu__list-item"
         (click)="collapseCategoriesMenu()"
-        (mouseenter)="category.isActionButtonsDisplay = true"
-        (mouseleave)="category.isActionButtonsDisplay = false"
-        (swipeleft)="category.isActionButtonsDisplay = true"
-        (swiperight)="category.isActionButtonsDisplay = false"
     >
       <a
         class="categories-menu__list-link"
@@ -30,15 +26,13 @@
         (dataToEditEmit)="this.categoryToEdit = $event"
       ></app-actions-menu>
     </li>
-    <li>
-      <button
-        class="categories-menu__add-category-button _button"
-        (click)="onAddCategoryClick()"
-      >
-        Добавить категорию
-      </button>
-    </li>
   </ul>
+  <button
+    class="categories-menu__add-category-button _button"
+    (click)="onAddCategoryClick()"
+  >
+    Добавить категорию
+  </button>
 
   <ng-container *ngIf="modalService.displayCategoryFormModal">
     <app-category-form [categoryToEdit]="categoryToEdit"></app-category-form>
@@ -53,13 +47,3 @@
 >
   Категории
 </button>
-
-
-
-
-
-
-
-
-
-

@@ -2,23 +2,23 @@
   margin: 8vh auto;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
   max-width: 400px;
   min-width: 320px;
   height: 305px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(1px);
 
   &__title {
-    color: var(--main-grey);
     margin-bottom: 20px;
+    color: var(--main-grey);
   }
 
   &__link {
-    color: var(--main-blue);
     font-size: 14px;
     font-weight: 200;
     transition: opacity .3s;
+    color: var(--main-blue);
 
     &:hover {
       opacity: .7;

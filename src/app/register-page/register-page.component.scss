@@ -3,12 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: left;
   width: 70%;
+  text-align: left;
 
   &__input-container {
-    width: 100%;
     padding-top: 20px;
+    width: 100%;
     height: 80px;
   }
 
@@ -30,10 +30,10 @@
 
   &__submit-button {
     margin-top: 12px;
-    background-color: var(--main-light-blue);
-    color: white;
-    outline: var(--main-violet);
-    font-weight: 200;
     width: 180px;
+    font-weight: 200;
+    outline: var(--main-violet);
+    color: white;
+    background-color: var(--main-light-blue);
   }
 }

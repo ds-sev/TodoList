@@ -59,12 +59,12 @@
       </span>
     </span>
   </div>
-
   <button
     class="auth-form__submit-button _button"
     type="submit"
-    [disabled]="form.invalid || form.disabled"
+    [disabled]="form.invalid || form.disabled || isLoading"
   >
-    Войти
+    {{!isLoading ? 'Войти' : ''}}
+    <app-loader class="loader" *ngIf="isLoading"></app-loader>
   </button>
 </form>

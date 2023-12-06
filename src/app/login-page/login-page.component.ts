@@ -19,7 +19,6 @@ export class LoginPageComponent implements OnInit {
 
   formBuilder = inject(FormBuilder)
   form!: FormGroup
-
   isLoading: boolean = false
 
   constructor(private authService: AuthService, private router: Router) {

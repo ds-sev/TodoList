@@ -6,11 +6,12 @@ import { InputTextModule } from 'primeng/inputtext'
 
 import { AuthService } from '../shared/services/auth.service'
 import { IAuthFormControls } from '../shared/interfaces'
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, LoaderComponent],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss'
 })
@@ -18,6 +19,7 @@ export class RegisterPageComponent implements OnInit {
 
   formBuilder = inject(FormBuilder)
   form!: FormGroup
+  isLoading: boolean = false
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -33,10 +35,12 @@ export class RegisterPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.registerSuccess$.subscribe((success) => {
-      if (success) {
+    this.isLoading = true
+    this.authService.register(this.form.value).subscribe((isSuccess) => {
+      if (isSuccess) {
         this.router.navigate(['/login']).then()
       }
+      this.isLoading = false
     })
     this.authService.register(this.form.value)
   }

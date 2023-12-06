@@ -51,8 +51,9 @@
   <button
     class="auth-form__submit-button _button"
     type="submit"
-    [disabled]="form.invalid || form.disabled"
+    [disabled]="form.invalid || form.disabled || isLoading"
   >
-    Регистрация
+    {{!isLoading ? 'Регистрация' : ''}}
+    <app-loader class="loader" *ngIf="isLoading"></app-loader>
   </button>
 </form>

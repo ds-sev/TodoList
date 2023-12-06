@@ -1,15 +1,15 @@
-import {Component, inject, Input, OnInit,} from '@angular/core'
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms'
-import {CommonModule} from '@angular/common'
-import {CalendarModule} from 'primeng/calendar'
-import {DialogModule} from 'primeng/dialog'
-import {DropdownModule} from 'primeng/dropdown'
-import {InputTextModule} from 'primeng/inputtext'
+import { Component, inject, Input, OnInit, } from '@angular/core'
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { CommonModule } from '@angular/common'
+import { CalendarModule } from 'primeng/calendar'
+import { DialogModule } from 'primeng/dialog'
+import { DropdownModule } from 'primeng/dropdown'
+import { InputTextModule } from 'primeng/inputtext'
 
-import {ICategory, ITask, ITaskFormControls} from '../../shared/interfaces'
-import {TasksService} from '../../shared/services/tasks.service'
-import {CategoriesService} from '../../shared/services/categories.service'
-import {ModalService} from '../../shared/services/modal.service'
+import { ICategory, ITask, ITaskFormControls } from '../../shared/interfaces'
+import { TasksService } from '../../shared/services/tasks.service'
+import { CategoriesService } from '../../shared/services/categories.service'
+import { ModalService } from '../../shared/services/modal.service'
 
 @Component({
   selector: 'app-task-form',
@@ -30,6 +30,7 @@ export class TaskFormComponent implements OnInit {
   public modalService = inject(ModalService)
   formBuilder = inject(FormBuilder)
 
+
   minDate: Date = new Date()
   formGroup = this.formBuilder.group<ITaskFormControls>({
     name: null,
@@ -37,6 +38,7 @@ export class TaskFormComponent implements OnInit {
     category: null,
     priority: null
   })
+
 
   ngOnInit() {
 
@@ -61,6 +63,8 @@ export class TaskFormComponent implements OnInit {
       })
     }
   }
+
+
 
   onSubmitForm() {
     if (!this.formOptions.currentCategory) {

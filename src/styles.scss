@@ -24,7 +24,6 @@ html {
   height: 100%;
   background-image: url(./assets/images/background.jpg);
   background-position: center;
-  //scrollbar-gutter: stable;
 }
 
 body {
@@ -72,7 +71,7 @@ label {
   border: none;
   border-radius: 30px;
   outline: transparent;
-  transition: opacity .3s, border .3s;
+  transition: opacity .3s, border .3s, background-color .3s;
   font-weight: 200;
   background-color: transparent;
 
@@ -81,7 +80,6 @@ label {
       cursor: pointer;
       opacity: .9;
       box-shadow: 0 0 7px rgba(0, 0, 0, 0.4);
-      outline: 1px solid;
       transition: box-shadow .2s, outline .6s;
     }
   }
@@ -96,6 +94,7 @@ label {
   &:disabled {
     color: #939191 !important;
     background-color: rgba(178, 178, 178, 0.46) !important;
+    transition: background-color .4s;
     pointer-events: none;
   }
 }
@@ -134,8 +133,8 @@ label {
     margin-top: 12px;
     width: 180px;
     font-weight: 200;
-    outline: var(--main-violet);
+    outline: none;
     color: white;
-    background-color: var(--main-light-blue);
+    background-color: var(--main-blue);
   }
 }

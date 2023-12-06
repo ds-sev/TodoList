@@ -1,12 +1,5 @@
 :host {
-  position: relative;
-  min-width: 280px;
-  min-height: calc(100% - 60px);
-
-  @media screen and (max-width: 1024px) {
-    position: absolute;
-    left: 0;
-  }
+  z-index: 1;
 }
 
 ul,
@@ -18,10 +11,8 @@ li {
 
 .categories-menu {
   display: flex;
-  position: absolute;
   flex-direction: column;
   align-items: center;
-  left: 0;
   width: 280px;
   min-height: 100%;
   overflow: hidden;
@@ -29,10 +20,13 @@ li {
   z-index: 2;
   box-shadow: 0.06rem 0 1.25rem 0 gray;
   border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
   background-color: #f5f4fa;
 
   @media screen and (max-width: 1024px) {
+    position: absolute;
+    min-height: calc(100% - 60px);
+    left: 0;
+
     &_collapsed {
       left: -280px;
       transition: left .5s ease;
@@ -99,11 +93,9 @@ li {
   }
 
   &__add-category-button {
-    margin: 0 auto;
-    border:  red;
+    margin: 0 auto 20px;
     color: white;
-    outline: var(--main-violet);
-    background-color: var(--main-light-blue);
+    background-color: var(--main-blue);
   }
 
   &__overlay {

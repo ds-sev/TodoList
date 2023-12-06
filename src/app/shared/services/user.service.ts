@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { IUser } from '../interfaces'
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,15 @@ export class UserService {
     return localStorage.getItem('authorized')
   }
 
-  getStoredData(user: IUser): IUser {
-    const storedData = localStorage.getItem(`user_${user.email}`)
-    return storedData ? JSON.parse(storedData) : null
+  getStoredData(user: IUser): Observable<IUser | null> {
+    return new Observable<IUser | null>(observer => {
+      const storedData = localStorage.getItem(`user_${user.email}`)
+      if (storedData) {
+        observer.next(JSON.parse(storedData))
+      } else {
+        observer.next(null)
+      }
+    })
   }
 
   getStoredCurrentUserData(): IUser {

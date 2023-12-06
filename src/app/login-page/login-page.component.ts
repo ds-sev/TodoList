@@ -27,12 +27,16 @@ export class LoginPageComponent implements OnInit {
       email: null,
       password: null
     });
+    
     this.form.get('email')?.setValidators([Validators.required, Validators.email])
     this.form.get('password')?.setValidators([Validators.required, Validators.minLength(6)])
     this.form.updateValueAndValidity()
   }
   onSubmit() {
-    this.authService.login(this.form.value)
-    this.router.navigate(['/categories/all']).then()
+    this.authService.login(this.form.value).subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['/categories/all']).then()
+      }
+    })
   }
 }

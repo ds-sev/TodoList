@@ -12,6 +12,7 @@
       </ng-container>
       {{ tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length }}
       {{ tasksService.tasksListSig().length | taskWordEnding }}
+      <app-search-bar></app-search-bar>
     </h3>
     @if (window.innerWidth > 676) {
       <button

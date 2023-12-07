@@ -1,22 +1,23 @@
-import {Component, inject, OnInit} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {ActivatedRoute, Router} from '@angular/router'
-import {CheckboxModule} from 'primeng/checkbox'
-import {FormsModule} from '@angular/forms'
-import {TableModule} from 'primeng/table'
+import { Component, inject, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { ActivatedRoute, Router } from '@angular/router'
+import { CheckboxModule } from 'primeng/checkbox'
+import { FormsModule } from '@angular/forms'
+import { TableModule } from 'primeng/table'
 
-import {ICategory, ITask} from '../../shared/interfaces'
-import {TaskWordEndingPipe} from '../../shared/pipes/task-word-ending.pipe'
-import {TasksService} from '../../shared/services/tasks.service'
-import {ModalService} from '../../shared/services/modal.service'
-import {CategoriesService} from '../../shared/services/categories.service'
-import {ActionsMenuComponent} from '../actions-menu/actions-menu.component'
-import {TaskFormComponent} from '../task-form/task-form.component'
+import { ICategory, ITask } from '../../shared/interfaces'
+import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
+import { TasksService } from '../../shared/services/tasks.service'
+import { ModalService } from '../../shared/services/modal.service'
+import { CategoriesService } from '../../shared/services/categories.service'
+import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
+import { TaskFormComponent } from '../task-form/task-form.component'
+import { SearchBarComponent } from '../search-bar/search-bar.component'
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, CheckboxModule, FormsModule, TableModule, TaskWordEndingPipe, ActionsMenuComponent, TaskFormComponent],
+  imports: [CommonModule, CheckboxModule, FormsModule, TableModule, TaskWordEndingPipe, ActionsMenuComponent, TaskFormComponent, SearchBarComponent],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })

@@ -20,7 +20,7 @@ li {
   z-index: 2;
   box-shadow: 0.06rem 0 1.25rem 0 gray;
   border-top-right-radius: 10px;
-  background-color: #f5f4fa;
+  background-color: var(--bg-light-violet);
 
   @media screen and (max-width: 1024px) {
     position: absolute;

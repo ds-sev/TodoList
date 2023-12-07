@@ -1,11 +1,20 @@
 <header class="header">
   <h1 class="header__title">TODO.<b style="font-weight: 400">листЪ</b></h1>
-  <p-confirmPopup></p-confirmPopup>
-  <button
-    class="header__logout-button _button"
-    (click)="confirmLogOut($event)"
-    *ngIf="this.authService.isAuthenticated()"
-  >
-    <i class="pi pi-sign-out" style="color: white"></i>
-  </button>
+  <div class="header__user-options user-options">
+    @if (window.innerWidth > 676) {
+      <span class="user-options__email"
+            *ngIf="this.authService.isAuthenticated()"
+      >
+      {{ userService.getStoredCurrentUserData().email }}
+    </span>
+    }
+    <p-confirmPopup></p-confirmPopup>
+    <button
+      class="user-options__logout-button _button"
+      (click)="confirmLogOut($event)"
+      *ngIf="this.authService.isAuthenticated()"
+    >
+      <i class="pi pi-sign-out" style="color: white"></i>
+    </button>
+  </div>
 </header>

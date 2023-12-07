@@ -1,10 +1,11 @@
-import {Component, inject} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {Router} from '@angular/router'
-import {ConfirmationService, MessageService} from 'primeng/api'
-import {ConfirmPopupModule} from 'primeng/confirmpopup'
+import { Component, inject } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Router } from '@angular/router'
+import { ConfirmationService, MessageService } from 'primeng/api'
+import { ConfirmPopupModule } from 'primeng/confirmpopup'
 
-import {AuthService} from '../shared/services/auth.service'
+import { AuthService } from '../shared/services/auth.service'
+import { UserService } from '../shared/services/user.service'
 
 @Component({
   selector: 'app-header',
@@ -18,8 +19,9 @@ export class HeaderComponent {
   confirmationService = inject(ConfirmationService)
   messageService = inject(MessageService)
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, public userService: UserService, private router: Router) {
   }
+
   confirmLogOut(event: any) {
     this.confirmationService.confirm({
       target: event.target,
@@ -38,4 +40,6 @@ export class HeaderComponent {
       }
     })
   }
+
+  protected readonly window = window
 }

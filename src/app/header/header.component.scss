@@ -6,20 +6,35 @@
 
   &__title {
     margin: 0;
+    pointer-events: none;
     font-weight: 700;
     font-size: 40px;
     font-family: 'Caveat', sans-serif;
     color: rgba(3, 35, 122, 0.73);
     text-shadow: rgba(98, 95, 95, 0.22) 4px 4px;
   }
+}
+
+.user-options {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 38px;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+
+  &__email {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    font-weight: 200;
+    color: var(--main-grey);
+  }
 
   &__logout-button {
-    position: absolute;
-    width: 38px;
-    height: 38px;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
     color: white;
     background-color: #e8b55e;
   }

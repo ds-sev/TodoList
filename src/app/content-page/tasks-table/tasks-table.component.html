@@ -46,11 +46,11 @@
           <p-sortIcon field="name"></p-sortIcon>
         </th>
         <th
-          pSortableColumn="category"
+          pSortableColumn="category.name"
           *ngIf="router.url.endsWith('all')"
           class="table__categories-header"
         >Категория
-          <p-sortIcon field="category"></p-sortIcon>
+          <p-sortIcon field="category.name"></p-sortIcon>
         </th>
         <th
           class="table__date-cell-header"
@@ -86,7 +86,9 @@
         </td>
         <td
           class="table__categories"
-          *ngIf="router.url.endsWith('all')">{{ task.category ? task.category.name : '' }}
+          *ngIf="router.url.endsWith('all')"
+        >
+          {{ task.category ? task.category.name : null }}
         </td>
         <td
           class="table__date-cell date-cell">

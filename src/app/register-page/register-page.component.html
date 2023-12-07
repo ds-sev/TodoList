@@ -11,6 +11,7 @@
            formControlName="email"
            id="email"
            type="email"
+           maxlength="30"
            autocomplete="off"
            [ngClass]="{'auth-form__input-field_invalid'
            : form.get('email')?.invalid && form.get('email')?.touched}"
@@ -30,6 +31,7 @@
            formControlName="password"
            id="password"
            type="password"
+           maxlength="10"
            autocomplete="off"
            [ngClass]="{'auth-form__input-field_invalid'
              : form.get('password')?.invalid && form.get('password')?.touched }"

@@ -1,15 +1,25 @@
 <div class="search-bar">
-  <form class="search-bar__input" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+  <form class="search-bar__input"
+        [formGroup]="searchForm"
+        (ngSubmit)="onSearchSubmit()"
+  >
     <input class="search-bar__input"
            type="text"
            placeholder="Искать задачу..."
            formControlName="searchValue">
   </form>
-  <ul class="search-bar__suggestions-list">
-    @if (searchForm.get('searchValue')?.value !== '' && autocompleteSuggestionsSig().length > 0) {
-      <li *ngFor="let suggestion of autocompleteSuggestionsSig() as autocompleteSuggestions"> {{ suggestion.name }}</li>
-    } @else if (searchForm.get('searchValue')?.value !== '' && searchForm.get('searchValue')?.dirty) {
-      <li>совпадения не найдены</li>
+  <ul class="search-bar__suggestions-list"
+      *ngIf="autocompleteVisible"
+  >
+    @if (autocompleteSuggestionsSig().length > 0) {
+      <li class="search-bar__suggestions-list-item"
+          *ngFor="let suggestion of autocompleteSuggestionsSig()">
+        {{ suggestion.name }}
+      </li>
+    } @else {
+      <li class="search-bar__suggestions-list-item">
+        совпадений не найдено
+      </li>
     }
   </ul>
 </div>

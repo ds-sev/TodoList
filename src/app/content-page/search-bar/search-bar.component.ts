@@ -10,13 +10,12 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms'
-import { NgSelectModule } from '@ng-select/ng-select'
-import { debounceTime } from 'rxjs'
+import { debounceTime, distinctUntilChanged } from 'rxjs'
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgSelectModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })
@@ -24,6 +23,7 @@ export class SearchBarComponent implements OnInit {
 
   searchForm!: FormGroup
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([])
+  autocompleteVisible: boolean = false;
 
   // selectedTask: number | null = null
 
@@ -31,18 +31,26 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.tasksService.getTasksData()
-
     this.searchForm = new FormGroup({
       searchValue: new FormControl(null, Validators.required)
     })
 
     this.searchForm.get('searchValue')?.valueChanges
-    .pipe(debounceTime(500))
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
     .subscribe(value => {
-      this.autocompleteSuggestionsSig.set(this.tasksService.tasksListSig().filter(task => {
+      const suggestions = this.tasksService.tasksListSig().filter(task => {
         return task.name.toLowerCase().includes(value.toLowerCase())
-      }))
+      })
+      if (value) {
+        this.autocompleteSuggestionsSig.set(suggestions)
+        this.autocompleteVisible = true
+      } else {
+        this.autocompleteSuggestionsSig.set([])
+        this.autocompleteVisible = false
+      }
     })
   }
 

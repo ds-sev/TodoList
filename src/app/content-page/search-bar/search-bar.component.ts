@@ -1,9 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, signal, WritableSignal } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { TasksService } from '../../shared/services/tasks.service'
-import { ITask } from '../../shared/interfaces'
 import {
-  FormBuilder,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  signal,
+  WritableSignal
+} from '@angular/core'
+import { CommonModule } from '@angular/common'
+import {
   FormControl,
   FormGroup,
   FormsModule,
@@ -12,6 +20,9 @@ import {
 } from '@angular/forms'
 import { debounceTime, distinctUntilChanged } from 'rxjs'
 
+import { TasksService } from '../../shared/services/tasks.service'
+import { ITask } from '../../shared/interfaces'
+
 @Component({
   selector: 'app-search-bar',
   standalone: true,
@@ -19,46 +30,87 @@ import { debounceTime, distinctUntilChanged } from 'rxjs'
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchForm!: FormGroup
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([])
   autocompleteVisible: boolean = false
 
+  //отслеживаем клики вне инпута
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: any) {
+    const clickedInside = this.el.nativeElement.contains(event.target)
+    if (!clickedInside) {
+      this.closeSuggestionsList()
+    }
+  }
+
   @Output() foundTasks = new EventEmitter<ITask[]>()
   @Output() searchPerformed = new EventEmitter<boolean>(false)
 
-  constructor(public tasksService: TasksService, private formBuilder: FormBuilder) {
+  constructor(public tasksService: TasksService,
+    private renderer: Renderer2,
+    private el: ElementRef) {
   }
 
   ngOnInit() {
+    //добавляем слушатель событий к документу, в случае клика вне инпута закрываем список а-комплита
+    this.renderer.listen('document', 'click', (event: any) => {
+      const clickedInside = this.el.nativeElement.contains(event.target)
+      if (!clickedInside) {
+        this.closeSuggestionsList()
+        this.searchForm.reset()
+      }
+    })
+
     this.searchForm = new FormGroup({
       searchValue: new FormControl(null, Validators.required)
     })
 
     this.searchForm.get('searchValue')?.valueChanges
     .pipe(
+      //небольшая задержка, если пользователь быстро вводит данные
       debounceTime(100),
+      //отфильтровываем повторные потоки
       distinctUntilChanged()
     )
     .subscribe(value => {
+      //получаем отфильтрованный список на основе введенных данных
       const suggestions = this.tasksService.tasksListSig().filter(task => {
-        return task.name.toLowerCase().includes(value.toLowerCase())
+        if (task && task.name && value !== null) {
+          return task.name.toLowerCase().includes(value.toLowerCase())
+        } else {
+          return false
+        }
       })
       if (value) {
         this.autocompleteSuggestionsSig.set(suggestions)
         this.autocompleteVisible = true
       } else {
         this.autocompleteSuggestionsSig.set([])
-        this.autocompleteVisible = false
+        this.closeSuggestionsList()
       }
     })
   }
 
+  //удаляем слушатель события после завершения работы компонента
+  ngOnDestroy() {
+    this.renderer.destroy()
+  }
+
+  //закрытие списка автокомплита
+  closeSuggestionsList() {
+    this.autocompleteVisible = false
+  }
+
+  //отправляем сигнал со списком найденных задач; фиксируем, что был произведен поиск
   onSearchSubmit() {
-    if (!!this.searchForm.get('searchValue')?.value) {
-      this.foundTasks.emit(this.autocompleteSuggestionsSig())
-      this.searchPerformed.emit(true)
-    }
+    this.foundTasks.emit(this.autocompleteSuggestionsSig())
+    this.searchPerformed.emit(true)
+    this.closeSuggestionsList()
+    //сбрасываем значение инпута
+    this.searchForm.reset()
+    //убираем фокус с инпута
+    this.renderer.selectRootElement('.search-bar__input').blur();
   }
 }

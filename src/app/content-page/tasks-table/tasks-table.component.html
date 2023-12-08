@@ -5,8 +5,9 @@
         По вашему запросу
         {{ foundedTasks.length > 0 ? 'найдено:' : 'ничего не найдено' }}
       </h3>
-    }
-    @else {
+    } @else if (isSelectSingleTask) {
+      <h3 class="tasks-section__header">Найденная задача:</h3>
+    } @else {
       <h3
         [ngSwitch]="!!currentCategory"
         class="tasks-section__header"
@@ -21,17 +22,22 @@
         {{ tasksService.tasksListSig().length | taskWordEnding }}
       </h3>
     }
-    <app-search-bar (foundTasks)="searchResult($event)"
-                    (searchPerformed)="getSearchStatus($event)">
-    </app-search-bar>
     @if (window.innerWidth > 676) {
-      <button
-        class="tasks-section__add-task-button _button"
-        (click)="onAddTaskClick()"
-        *ngIf="window.innerWidth > 676"
-      >
-        Добавить задачу
-      </button>
+      <div class="tasks-section__buttons-container">
+        <app-search-bar (foundTasks)="searchResult($event)"
+                        (selectedTaskFromSuggestionsList)="getFoundedTask($event)"
+                        (searchPerformed)="getSearchStatus($event)"
+                        (singleTaskSelected)="getSingleTaskSelectedStatus($event)"
+        >
+        </app-search-bar>
+        <button
+          class="tasks-section__add-task-button _button"
+          (click)="onAddTaskClick()"
+          *ngIf="window.innerWidth > 676"
+        >
+          Добавить задачу
+        </button>
+      </div>
     } @else {
       <button
         class="tasks-section__add-task-button _button"
@@ -43,7 +49,7 @@
   </div>
   <p-table
     class="table"
-    [value]="isSearchPerformed ? this.foundedTasks : tasksService.tasksListSig()"
+    [value]="getTasksForView()"
     dataKey="name"
     [tableStyle]="{ 'min-width': '10rem' }"
     *ngIf="isSearchPerformed ? this.foundedTasks.length > 0 : tasksService.tasksListSig().length > 0 "

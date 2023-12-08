@@ -4,22 +4,25 @@
 >
   <input class="search-bar__input"
          type="text"
-         placeholder="Искать задачу..."
+         placeholder="Поиск в категории..."
          formControlName="searchValue">
   <button
     class="search-bar__search-button"
     type="submit"
     [disabled]="searchForm.invalid"
   >
-    <i class="pi pi-search" style="color: white"></i>
+    <i class="pi pi-search" style="color: white; margin-top: 3px; margin-right: 3px"></i>
   </button>
 </form>
+
 <ul class="search-bar__suggestions-list"
     *ngIf="autocompleteVisible"
 >
   @if (autocompleteSuggestionsSig().length > 0) {
     <li class="search-bar__suggestions-list-item"
-        *ngFor="let suggestion of autocompleteSuggestionsSig()">
+        *ngFor="let suggestion of autocompleteSuggestionsSig()"
+        (click)="navigateToTask(suggestion)"
+    >
       {{ suggestion.name }}
     </li>
   } @else {
@@ -28,3 +31,4 @@
     </li>
   }
 </ul>
+

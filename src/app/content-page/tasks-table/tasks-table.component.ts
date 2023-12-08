@@ -28,13 +28,25 @@ export class TasksTableComponent implements OnInit {
   modalService = inject(ModalService)
 
   foundedTasks: ITask[] = []
+
   isSearchPerformed: boolean = false
+  isSelectSingleTask: boolean = false
+
   searchResult(value: ITask[]) {
     this.foundedTasks = value
   }
 
+  getFoundedTask(task: ITask) {
+    this.foundedTasks = []
+    this.foundedTasks.push(task)
+  }
+
   getSearchStatus(value: boolean) {
     this.isSearchPerformed = value
+  }
+
+  getSingleTaskSelectedStatus(value: boolean) {
+    this.isSelectSingleTask = value
   }
 
   dataToEdit: {
@@ -91,6 +103,14 @@ export class TasksTableComponent implements OnInit {
       return 'orange'
     } else {
       return 'inherit'
+    }
+  }
+
+  getTasksForView(): any {
+    if (this.isSearchPerformed || this.isSelectSingleTask) {
+      return this.foundedTasks
+    } else {
+      return this.tasksService.tasksListSig()
     }
   }
 

@@ -11,6 +11,12 @@
     }
   }
 
+  &__buttons-container {
+    min-width: 383px;
+    display: flex;
+    gap: 15px;
+  }
+
   &__add-task-button {
     outline: var(--main-violet);
     color: white;

@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
-  OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -30,7 +29,7 @@ import { ITask } from '../../shared/interfaces'
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
+export class SearchBarComponent implements OnInit {
 
   searchForm!: FormGroup
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([])
@@ -46,7 +45,9 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   @Output() foundTasks = new EventEmitter<ITask[]>()
+  @Output() selectedTaskFromSuggestionsList = new EventEmitter<ITask>
   @Output() searchPerformed = new EventEmitter<boolean>(false)
+  @Output() singleTaskSelected = new EventEmitter<boolean>(false)
 
   constructor(public tasksService: TasksService,
     private renderer: Renderer2,
@@ -93,11 +94,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     })
   }
 
-  //удаляем слушатель события после завершения работы компонента
-  ngOnDestroy() {
-    this.renderer.destroy()
-  }
-
   //закрытие списка автокомплита
   closeSuggestionsList() {
     this.autocompleteVisible = false
@@ -106,11 +102,20 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   //отправляем сигнал со списком найденных задач; фиксируем, что был произведен поиск
   onSearchSubmit() {
     this.foundTasks.emit(this.autocompleteSuggestionsSig())
+    this.singleTaskSelected.emit(false)
     this.searchPerformed.emit(true)
     this.closeSuggestionsList()
     //сбрасываем значение инпута
     this.searchForm.reset()
     //убираем фокус с инпута
     this.renderer.selectRootElement('.search-bar__input').blur();
+  }
+
+  //навигация к задаче из списка а-комплита
+  navigateToTask(task: ITask) {
+    this.searchPerformed.emit(false)
+    this.singleTaskSelected.emit(true)
+    this.selectedTaskFromSuggestionsList.emit(task)
+    this.closeSuggestionsList()
   }
 }

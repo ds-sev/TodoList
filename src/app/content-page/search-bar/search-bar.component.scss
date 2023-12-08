@@ -13,6 +13,10 @@
     backdrop-filter: blur(1px);
     transition: background-color .3s;
 
+    &::placeholder {
+      font-weight: 200;
+    }
+
     &:focus {
       background-color: white;
       transition: background-color .3s;
@@ -40,6 +44,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 10px 0;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .8;
+    }
   }
 
   &__search-button {

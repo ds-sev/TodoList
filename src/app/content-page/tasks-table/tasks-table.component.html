@@ -1,19 +1,29 @@
 <section class="tasks-section">
   <div class="table__title-container">
-    <h3
-      [ngSwitch]="!!currentCategory"
-      class="tasks-section__header"
-    >
-      <ng-container *ngSwitchCase="false">
-        У вас
-      </ng-container>
-      <ng-container *ngSwitchCase="true">
-        В категории «{{ currentCategory ? currentCategory.name : '?' }}»
-      </ng-container>
-      {{ tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length }}
-      {{ tasksService.tasksListSig().length | taskWordEnding }}
-      <app-search-bar></app-search-bar>
-    </h3>
+    @if (isSearchPerformed) {
+      <h3 class="tasks-section__header">
+        По вашему запросу
+        {{ foundedTasks.length > 0 ? 'найдено:' : 'ничего не найдено' }}
+      </h3>
+    }
+    @else {
+      <h3
+        [ngSwitch]="!!currentCategory"
+        class="tasks-section__header"
+      >
+        <ng-container *ngSwitchCase="false">
+          У вас
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          В категории «{{ currentCategory ? currentCategory.name : '?' }}»
+        </ng-container>
+        {{ tasksService.tasksListSig().length === 0 ? 'нет' : tasksService.tasksListSig().length }}
+        {{ tasksService.tasksListSig().length | taskWordEnding }}
+      </h3>
+    }
+    <app-search-bar (foundTasks)="searchResult($event)"
+                    (searchPerformed)="getSearchStatus($event)">
+    </app-search-bar>
     @if (window.innerWidth > 676) {
       <button
         class="tasks-section__add-task-button _button"
@@ -33,10 +43,10 @@
   </div>
   <p-table
     class="table"
-    [value]="tasksService.tasksListSig()"
+    [value]="isSearchPerformed ? this.foundedTasks : tasksService.tasksListSig()"
     dataKey="name"
     [tableStyle]="{ 'min-width': '10rem' }"
-    *ngIf="tasksService.tasksListSig().length > 0"
+    *ngIf="isSearchPerformed ? this.foundedTasks.length > 0 : tasksService.tasksListSig().length > 0 "
   >
     <ng-template pTemplate="header">
       <tr>

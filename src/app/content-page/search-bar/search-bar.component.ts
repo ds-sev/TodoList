@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output, signal, WritableSignal } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { TasksService } from '../../shared/services/tasks.service'
 import { ITask } from '../../shared/interfaces'
@@ -23,9 +23,10 @@ export class SearchBarComponent implements OnInit {
 
   searchForm!: FormGroup
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([])
-  autocompleteVisible: boolean = false;
+  autocompleteVisible: boolean = false
 
-  // selectedTask: number | null = null
+  @Output() foundTasks = new EventEmitter<ITask[]>()
+  @Output() searchPerformed = new EventEmitter<boolean>(false)
 
   constructor(public tasksService: TasksService, private formBuilder: FormBuilder) {
   }
@@ -37,7 +38,7 @@ export class SearchBarComponent implements OnInit {
 
     this.searchForm.get('searchValue')?.valueChanges
     .pipe(
-      debounceTime(500),
+      debounceTime(100),
       distinctUntilChanged()
     )
     .subscribe(value => {
@@ -55,8 +56,9 @@ export class SearchBarComponent implements OnInit {
   }
 
   onSearchSubmit() {
-    // this.searchValue = this.searchForm.value.searchValue ?? ''
-    // this.getData()
+    if (!!this.searchForm.get('searchValue')?.value) {
+      this.foundTasks.emit(this.autocompleteSuggestionsSig())
+      this.searchPerformed.emit(true)
+    }
   }
-
 }

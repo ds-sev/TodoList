@@ -27,6 +27,16 @@ export class TasksTableComponent implements OnInit {
   categoriesService = inject(CategoriesService)
   modalService = inject(ModalService)
 
+  foundedTasks: ITask[] = []
+  isSearchPerformed: boolean = false
+  searchResult(value: ITask[]) {
+    this.foundedTasks = value
+  }
+
+  getSearchStatus(value: boolean) {
+    this.isSearchPerformed = value
+  }
+
   dataToEdit: {
     isEditForm: boolean,
     taskToEdit?: ITask,
@@ -82,17 +92,6 @@ export class TasksTableComponent implements OnInit {
     } else {
       return 'inherit'
     }
-  }
-
-  onActionsMenuViewClick(task: any) {
-    if (!task.isActionButtonsDisplay) {
-      this.tasksService.tasksListSig().forEach((t: any) => {
-        if (t !== task) {
-          t.isActionButtonsDisplay = false
-        }
-      })
-    }
-    task.isActionButtonsDisplay = !task.isActionButtonsDisplay
   }
 
   protected readonly window = window

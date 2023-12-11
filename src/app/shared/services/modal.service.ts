@@ -9,6 +9,7 @@ export class ModalService {
   modalComponent: string | null = null;
   displayCategoryFormModal: boolean = false;
   displayTaskFormModal: boolean = false;
+  displayFilterModal: boolean = false;
 
   open(component: string) {
     this.modalComponent = component;
@@ -16,6 +17,8 @@ export class ModalService {
       this.displayTaskFormModal = true;
     } else if (component === 'categoryModal') {
       this.displayCategoryFormModal = true;
+    } else if (component === 'filterModal') {
+      this.displayFilterModal = true;
     }
   }
 

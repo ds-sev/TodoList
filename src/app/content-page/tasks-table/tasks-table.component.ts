@@ -13,11 +13,12 @@ import { CategoriesService } from '../../shared/services/categories.service';
 import { ActionsMenuComponent } from '../actions-menu/actions-menu.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-tasks-table',
   standalone: true,
-  imports: [CommonModule, CheckboxModule, FormsModule, TableModule, TaskWordEndingPipe, ActionsMenuComponent, TaskFormComponent, SearchBarComponent],
+  imports: [CommonModule, CheckboxModule, FormsModule, TableModule, TaskWordEndingPipe, ActionsMenuComponent, TaskFormComponent, SearchBarComponent, FilterComponent],
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
@@ -57,6 +58,17 @@ export class TasksTableComponent implements OnInit {
     });
   }
 
+  onAddTaskClick() {
+    this.currentCategory
+      ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
+      : this.dataToEdit = {isEditForm: false};
+    this.modalService.open('taskModal');
+  }
+
+  onShowFilterClick() {
+    this.modalService.open('filterModal')
+  }
+
   searchResult(value: ITask[]) {
     this.foundedTasks = value;
   }
@@ -76,13 +88,6 @@ export class TasksTableComponent implements OnInit {
 
   getCurrentCategoryName(currentCategoryId: string) {
     this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId) || null;
-  }
-
-  onAddTaskClick() {
-    this.currentCategory
-      ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
-      : this.dataToEdit = {isEditForm: false};
-    this.modalService.open('taskModal');
   }
 
   toggleTaskState(taskToChangeStatus: ITask) {

@@ -31,6 +31,12 @@
         >
         </app-search-bar>
         <button
+          class="tasks-section__filter-button _button"
+        (click)="onShowFilterClick()"
+        >
+          <i class="pi pi-filter"></i>
+        </button>
+        <button
           class="tasks-section__add-task-button _button"
           (click)="onAddTaskClick()"
           *ngIf="window.innerWidth > 676"
@@ -47,6 +53,7 @@
       </button>
     }
   </div>
+  <app-filter></app-filter>
   <p-table
     class="table"
     [value]="getTasksForView()"

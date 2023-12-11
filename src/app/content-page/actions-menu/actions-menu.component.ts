@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ICategory, ITask } from '../../shared/interfaces';
@@ -21,17 +21,20 @@ import { Router } from '@angular/router';
 })
 export class ActionsMenuComponent {
 
-  modalService = inject(ModalService);
-  taskService = inject(TasksService);
-  categoriesService = inject(CategoriesService);
-  messageService = inject(MessageService);
-  confirmationService = inject(ConfirmationService);
-  router = inject(Router);
-
   @Input() task?: ITask;
   @Input() currentCategory: ICategory | null = null;
   @Input() category?: ICategory;
   @Output() dataToEditEmit = new EventEmitter();
+
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private modalService: ModalService,
+    private taskService: TasksService,
+    private categoriesService: CategoriesService,
+  ) {
+  }
 
   onEditClick() {
     if (this.task) {

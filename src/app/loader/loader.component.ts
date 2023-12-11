@@ -9,5 +9,4 @@ import { CommonModule } from '@angular/common';
   styleUrl: './loader.component.scss'
 })
 export class LoaderComponent {
-
 }

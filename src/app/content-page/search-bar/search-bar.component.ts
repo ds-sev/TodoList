@@ -49,9 +49,11 @@ export class SearchBarComponent implements OnInit {
   @Output() searchPerformed = new EventEmitter<boolean>(false);
   @Output() singleTaskSelected = new EventEmitter<boolean>(false);
 
-  constructor(public tasksService: TasksService,
+  constructor(
+    public tasksService: TasksService,
     private renderer: Renderer2,
-    private el: ElementRef) {
+    private el: ElementRef
+  ) {
   }
 
   ngOnInit() {

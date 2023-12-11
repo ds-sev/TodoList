@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -23,14 +23,39 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 })
 export class TasksTableComponent implements OnInit {
 
-  tasksService = inject(TasksService);
-  categoriesService = inject(CategoriesService);
-  modalService = inject(ModalService);
+  protected readonly window = window;
 
   foundedTasks: ITask[] = [];
-
+  dataToEdit: {
+    isEditForm: boolean,
+    taskToEdit?: ITask,
+    currentCategory?: ICategory
+  } = {isEditForm: false};
   isSearchPerformed: boolean = false;
   isSelectSingleTask: boolean = false;
+
+  currentCategory: ICategory | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    public router: Router,
+    public tasksService: TasksService,
+    private categoriesService: CategoriesService,
+    public modalService: ModalService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.tasksService.getTasksData();
+      if (params.hasOwnProperty('id')) {
+        this.getCurrentCategoryName(params['id']);
+        this.tasksService.getTasksDataByCategoryId(params['id']);
+      } else {
+        this.currentCategory = null;
+      }
+    });
+  }
 
   searchResult(value: ITask[]) {
     this.foundedTasks = value;
@@ -47,29 +72,6 @@ export class TasksTableComponent implements OnInit {
 
   getSingleTaskSelectedStatus(value: boolean) {
     this.isSelectSingleTask = value;
-  }
-
-  dataToEdit: {
-    isEditForm: boolean,
-    taskToEdit?: ITask,
-    currentCategory?: ICategory
-  } = {isEditForm: false};
-
-  public currentCategory: ICategory | null = null;
-
-  constructor(private route: ActivatedRoute, public router: Router) {
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.tasksService.getTasksData();
-      if (params.hasOwnProperty('id')) {
-        this.getCurrentCategoryName(params['id']);
-        this.tasksService.getTasksDataByCategoryId(params['id']);
-      } else {
-        this.currentCategory = null;
-      }
-    });
   }
 
   getCurrentCategoryName(currentCategoryId: string) {
@@ -113,6 +115,4 @@ export class TasksTableComponent implements OnInit {
       return this.tasksService.tasksListSig();
     }
   }
-
-  protected readonly window = window;
 }

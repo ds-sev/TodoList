@@ -11,7 +11,7 @@ export class TasksService {
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
   storedData!: IUser;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     this.storedData = this.userService.getStoredCurrentUserData();
   }
 

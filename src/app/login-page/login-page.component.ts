@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -17,11 +17,14 @@ import { LoaderComponent } from '../loader/loader.component';
 })
 export class LoginPageComponent implements OnInit {
 
-  formBuilder = inject(FormBuilder);
   form!: FormGroup;
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {

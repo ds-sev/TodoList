@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,16 +19,19 @@ import { CommonModule } from '@angular/common';
 })
 export class CategoryFormComponent implements OnInit {
 
-  modalService = inject(ModalService);
-  categoriesService = inject(CategoriesService);
-  messageService = inject(MessageService);
-  router = inject(Router);
-
   categoryForm: FormGroup<{ name: FormControl<string | null> }> = new FormGroup({
     name: new FormControl(),
   });
 
   @Input() categoryToEdit: ICategory | null = null;
+
+  constructor(
+    public modalService: ModalService,
+    private categoriesService: CategoriesService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit() {
     this.categoryForm.setValue({

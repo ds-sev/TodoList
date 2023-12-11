@@ -1,4 +1,4 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { ICategory, ITask, IUser } from '../interfaces';
 import { UserService } from './user.service';
 import { TasksService } from './tasks.service';
@@ -11,11 +11,9 @@ export class CategoriesService {
 
   userCategoriesSig: WritableSignal<ICategory[]> = signal<ICategory[]>([]);
 
-  tasksService = inject(TasksService);
-
   storedData!: IUser;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private tasksService: TasksService) {
     this.storedData = this.userService.getStoredCurrentUserData();
   }
 

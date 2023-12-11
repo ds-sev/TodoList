@@ -10,8 +10,8 @@ import { catchError, map, Observable, of } from 'rxjs';
 
 export class AuthService {
 
-  messageService = inject(MessageService);
-  userService = inject(UserService);
+  private messageService = inject(MessageService);
+  private userService = inject(UserService);
 
   register(user: IUser): Observable<boolean> {
     return this.userService.getStoredData(user).pipe(

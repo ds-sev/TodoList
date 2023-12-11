@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -16,10 +16,15 @@ import { UserService } from '../shared/services/user.service';
 })
 export class HeaderComponent {
 
-  confirmationService = inject(ConfirmationService);
-  messageService = inject(MessageService);
+  protected readonly window = window;
 
-  constructor(public authService: AuthService, public userService: UserService, private router: Router) {
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    public authService: AuthService,
+    public userService: UserService
+  ) {
   }
 
   confirmLogOut(event: any) {
@@ -40,6 +45,4 @@ export class HeaderComponent {
       }
     });
   }
-
-  protected readonly window = window;
 }

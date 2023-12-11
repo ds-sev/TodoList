@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
@@ -17,12 +17,15 @@ import { ActionsMenuComponent } from '../actions-menu/actions-menu.component';
 })
 export class CategoriesComponent implements OnInit {
 
-  categoriesService = inject(CategoriesService);
-  route = inject(ActivatedRoute);
-  modalService = inject(ModalService);
-
   collapsed = true;
   categoryToEdit: ICategory | null = null;
+
+  constructor(
+    public categoriesService: CategoriesService,
+    private route: ActivatedRoute,
+    public modalService: ModalService
+  ) {
+  }
 
   ngOnInit() {
     this.categoriesService.getUserCategories();

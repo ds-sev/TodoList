@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ICategory, ITask } from '../../shared/interfaces';
@@ -27,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrl: './actions-menu.component.scss',
   providers: [ConfirmationService]
 })
-export class ActionsMenuComponent implements OnChanges {
+export class ActionsMenuComponent {
 
   modalService = inject(ModalService);
   taskService = inject(TasksService);
@@ -40,11 +32,6 @@ export class ActionsMenuComponent implements OnChanges {
   @Input() currentCategory: ICategory | null = null;
   @Input() category?: ICategory;
   @Output() dataToEditEmit = new EventEmitter();
-
-  isDisplay: boolean = false;
-
-  ngOnChanges(changes: SimpleChanges) {
-  }
 
   onEditClick() {
     if (this.task) {

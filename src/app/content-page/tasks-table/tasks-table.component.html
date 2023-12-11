@@ -56,11 +56,25 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="complete" style="width: 8rem">Готово
-          <p-sortIcon field="complete"></p-sortIcon>
+        <th
+          class="table__header"
+          pSortableColumn="complete"
+          style="width: 8rem"
+          [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
+        >
+          Готово
+          <p-sortIcon  class="table__header-sort-icon"
+                       field="complete"
+                       *ngIf="getTasksForView().length > 1"
+          ></p-sortIcon>
         </th>
-        <th pSortableColumn="name">Задача
-          <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="name"
+            [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
+        >
+          Задача
+          <p-sortIcon field="name"
+                      *ngIf="getTasksForView().length > 1"
+          ></p-sortIcon>
         </th>
         <th
           pSortableColumn="category.name"

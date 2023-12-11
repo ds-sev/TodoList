@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core'
-import { IUser } from '../interfaces'
-import { MessageService } from 'primeng/api'
-import { UserService } from './user.service'
-import { catchError, map, Observable, of } from 'rxjs'
+import { inject, Injectable } from '@angular/core';
+import { IUser } from '../interfaces';
+import { MessageService } from 'primeng/api';
+import { UserService } from './user.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,8 @@ import { catchError, map, Observable, of } from 'rxjs'
 
 export class AuthService {
 
-  messageService = inject(MessageService)
-  userService = inject(UserService)
+  messageService = inject(MessageService);
+  userService = inject(UserService);
 
   register(user: IUser): Observable<boolean> {
     return this.userService.getStoredData(user).pipe(
@@ -22,61 +22,61 @@ export class AuthService {
             summary: 'Ошибка',
             detail: 'Пользователь с таким email уже существует',
             key: 'notificationToast'
-          })
-          return false
+          });
+          return false;
         } else {
-          const newUserData: IUser = {...user, tasks: [], categories: []}
-          localStorage.setItem(`user_${user.email}`, JSON.stringify(newUserData))
+          const newUserData: IUser = {...user, tasks: [], categories: []};
+          localStorage.setItem(`user_${user.email}`, JSON.stringify(newUserData));
           this.messageService.add({
             severity: 'success',
             summary: 'Ok',
             detail: 'Успешная регистрация',
             key: 'notificationToast'
-          })
-          return true
+          });
+          return true;
         }
       }),
       catchError(error => {
-        console.error('Произошла ошибка:', error)
-        return of(false)
+        console.error('Произошла ошибка:', error);
+        return of(false);
       })
-    )
+    );
   }
 
   login(user: IUser): Observable<boolean> {
     return this.userService.getStoredData(user).pipe(
       map(storedData => {
         if (storedData && storedData.email === user.email && storedData.password === user.password) {
-          localStorage.setItem('authorized', `user_${user.email}`)
+          localStorage.setItem('authorized', `user_${user.email}`);
           this.messageService.add({
             severity: 'success',
             summary: 'Ok',
             detail: 'Успешный вход',
             key: 'notificationToast'
-          })
-          return true
+          });
+          return true;
         } else {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
             detail: 'Проверьте правильность ввода логина или пароля',
             key: 'notificationToast'
-          })
-          return false
+          });
+          return false;
         }
       }),
       catchError(error => {
-        console.error('Произошла ошибка:', error)
-        return of(false)
+        console.error('Произошла ошибка:', error);
+        return of(false);
       })
-    )
+    );
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('authorized')
+    return !!localStorage.getItem('authorized');
   }
 
   logout() {
-    localStorage.removeItem('authorized')
+    localStorage.removeItem('authorized');
   }
 }

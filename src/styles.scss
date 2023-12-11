@@ -4,7 +4,6 @@
 @import 'primeng/resources/primeng.css';
 @import 'primeicons/primeicons.css';
 
-
 :root {
   --bg-light-grey: rgba(93, 140, 187, 0.3);
   --bg-light-violet: #f5f4fa;
@@ -52,7 +51,7 @@ tr, th {
 }
 
 ._input-field {
-  &__label  {
+  &__label {
     color: gray;
   }
 }
@@ -75,7 +74,7 @@ label {
   font-weight: 200;
   background-color: transparent;
 
-  @media (hover: hover) and (pointer: fine){
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       cursor: pointer;
       opacity: .9;

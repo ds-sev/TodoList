@@ -70,6 +70,7 @@ li {
     }
 
   }
+
   &__list-link-text {
     position: absolute;
     top: 50%;
@@ -124,8 +125,8 @@ li {
     transition: left .5s ease;
 
     &_collapsed {
-        left: -50px;
-        transition: left .5s ease;
+      left: -50px;
+      transition: left .5s ease;
     }
 
     @media screen and (min-width: 1024px) {

@@ -1,18 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { ActivatedRoute, Router } from '@angular/router'
-import { CheckboxModule } from 'primeng/checkbox'
-import { FormsModule } from '@angular/forms'
-import { TableModule } from 'primeng/table'
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
-import { ICategory, ITask } from '../../shared/interfaces'
-import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe'
-import { TasksService } from '../../shared/services/tasks.service'
-import { ModalService } from '../../shared/services/modal.service'
-import { CategoriesService } from '../../shared/services/categories.service'
-import { ActionsMenuComponent } from '../actions-menu/actions-menu.component'
-import { TaskFormComponent } from '../task-form/task-form.component'
-import { SearchBarComponent } from '../search-bar/search-bar.component'
+import { ICategory, ITask } from '../../shared/interfaces';
+import { TaskWordEndingPipe } from '../../shared/pipes/task-word-ending.pipe';
+import { TasksService } from '../../shared/services/tasks.service';
+import { ModalService } from '../../shared/services/modal.service';
+import { CategoriesService } from '../../shared/services/categories.service';
+import { ActionsMenuComponent } from '../actions-menu/actions-menu.component';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-tasks-table',
@@ -23,96 +23,96 @@ import { SearchBarComponent } from '../search-bar/search-bar.component'
 })
 export class TasksTableComponent implements OnInit {
 
-  tasksService = inject(TasksService)
-  categoriesService = inject(CategoriesService)
-  modalService = inject(ModalService)
+  tasksService = inject(TasksService);
+  categoriesService = inject(CategoriesService);
+  modalService = inject(ModalService);
 
-  foundedTasks: ITask[] = []
+  foundedTasks: ITask[] = [];
 
-  isSearchPerformed: boolean = false
-  isSelectSingleTask: boolean = false
+  isSearchPerformed: boolean = false;
+  isSelectSingleTask: boolean = false;
 
   searchResult(value: ITask[]) {
-    this.foundedTasks = value
+    this.foundedTasks = value;
   }
 
   getFoundedTask(task: ITask) {
-    this.foundedTasks = []
-    this.foundedTasks.push(task)
+    this.foundedTasks = [];
+    this.foundedTasks.push(task);
   }
 
   getSearchStatus(value: boolean) {
-    this.isSearchPerformed = value
+    this.isSearchPerformed = value;
   }
 
   getSingleTaskSelectedStatus(value: boolean) {
-    this.isSelectSingleTask = value
+    this.isSelectSingleTask = value;
   }
 
   dataToEdit: {
     isEditForm: boolean,
     taskToEdit?: ITask,
     currentCategory?: ICategory
-  } = {isEditForm: false}
+  } = {isEditForm: false};
 
-  public currentCategory: ICategory | null = null
+  public currentCategory: ICategory | null = null;
 
   constructor(private route: ActivatedRoute, public router: Router) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.tasksService.getTasksData()
+      this.tasksService.getTasksData();
       if (params.hasOwnProperty('id')) {
-        this.getCurrentCategoryName(params['id'])
-        this.tasksService.getTasksDataByCategoryId(params['id'])
+        this.getCurrentCategoryName(params['id']);
+        this.tasksService.getTasksDataByCategoryId(params['id']);
       } else {
-        this.currentCategory = null
+        this.currentCategory = null;
       }
-    })
+    });
   }
 
   getCurrentCategoryName(currentCategoryId: string) {
-    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId) || null
+    this.currentCategory = this.categoriesService.userCategoriesSig().find(category => category.id === currentCategoryId) || null;
   }
 
   onAddTaskClick() {
     this.currentCategory
       ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
-      : this.dataToEdit = {isEditForm: false}
-    this.modalService.open('taskModal')
+      : this.dataToEdit = {isEditForm: false};
+    this.modalService.open('taskModal');
   }
 
   toggleTaskState(taskToChangeStatus: ITask) {
-    this.tasksService.toggleTaskStatus(taskToChangeStatus)
+    this.tasksService.toggleTaskStatus(taskToChangeStatus);
   }
 
   setExpirationWarningColor(expiresIn: Date): string {
-    const currentDate = new Date()
-    const expirationDate = new Date(expiresIn)
-    const differenceInTime = expirationDate.getTime() - currentDate.getTime()
-    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24))
+    const currentDate = new Date();
+    const expirationDate = new Date(expiresIn);
+    const differenceInTime = expirationDate.getTime() - currentDate.getTime();
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
 
     if (!expiresIn) {
-      return 'inherit'
+      return 'inherit';
     } else if (differenceInDays < 0) {
-      return 'gray'
+      return 'gray';
     } else if (differenceInDays < 3) {
-      return 'red'
+      return 'red';
     } else if (differenceInDays < 6) {
-      return 'orange'
+      return 'orange';
     } else {
-      return 'inherit'
+      return 'inherit';
     }
   }
 
   getTasksForView(): any {
     if (this.isSearchPerformed || this.isSelectSingleTask) {
-      return this.foundedTasks
+      return this.foundedTasks;
     } else {
-      return this.tasksService.tasksListSig()
+      return this.tasksService.tasksListSig();
     }
   }
 
-  protected readonly window = window
+  protected readonly window = window;
 }

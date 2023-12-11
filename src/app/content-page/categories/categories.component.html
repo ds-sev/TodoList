@@ -19,7 +19,7 @@
         [routerLink]="['/categories', category.id]"
         routerLinkActive="categories-menu__list-link_active"
       >
-        <span class="categories-menu__list-link-text">{{category.name}}</span>
+        <span class="categories-menu__list-link-text">{{ category.name }}</span>
       </a>
       <app-actions-menu
         [category]="category"
@@ -33,13 +33,12 @@
   >
     Добавить категорию
   </button>
-
   <ng-container *ngIf="modalService.displayCategoryFormModal">
     <app-category-form [categoryToEdit]="categoryToEdit"></app-category-form>
   </ng-container>
-
 </div>
-<div [ngClass]="collapsed ? '' : 'categories-menu__overlay'" (click)="collapseCategoriesMenu()"></div>
+<div [ngClass]="collapsed ? '' : 'categories-menu__overlay'"
+     (click)="collapseCategoriesMenu()"></div>
 <button
   [ngClass]="collapsed ? 'categories-menu__thumb_collapsed' : ''"
   class="categories-menu__thumb"

@@ -1,8 +1,8 @@
-import {Component, HostListener} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {RouterOutlet} from '@angular/router'
+import { Component, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
-import {CategoriesComponent} from './categories/categories.component'
+import { CategoriesComponent } from './categories/categories.component';
 
 @Component({
   selector: 'app-content-page',
@@ -12,14 +12,14 @@ import {CategoriesComponent} from './categories/categories.component'
   styleUrl: './content-page.component.scss',
 })
 export class ContentPageComponent {
-  showScrollToTopButton: boolean = false
+  showScrollToTopButton: boolean = false;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    this.showScrollToTopButton = window.pageYOffset > 0
+    this.showScrollToTopButton = window.pageYOffset > 0;
   }
 
   scrollToTop() {
-    window.scrollTo(({top: 0, behavior: 'smooth'}))
+    window.scrollTo(({top: 0, behavior: 'smooth'}));
   }
 }

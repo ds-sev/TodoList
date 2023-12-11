@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { Router } from '@angular/router'
-import { ConfirmationService, MessageService } from 'primeng/api'
-import { ConfirmPopupModule } from 'primeng/confirmpopup'
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
-import { AuthService } from '../shared/services/auth.service'
-import { UserService } from '../shared/services/user.service'
+import { AuthService } from '../shared/services/auth.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +16,8 @@ import { UserService } from '../shared/services/user.service'
 })
 export class HeaderComponent {
 
-  confirmationService = inject(ConfirmationService)
-  messageService = inject(MessageService)
+  confirmationService = inject(ConfirmationService);
+  messageService = inject(MessageService);
 
   constructor(public authService: AuthService, public userService: UserService, private router: Router) {
   }
@@ -34,12 +34,12 @@ export class HeaderComponent {
           severity: 'info',
           summary: 'Вы успешно вышли',
           key: 'notificationToast'
-        })
-        this.authService.logout()
-        this.router.navigate(['/login']).then()
+        });
+        this.authService.logout();
+        this.router.navigate(['/login']).then();
       }
-    })
+    });
   }
 
-  protected readonly window = window
+  protected readonly window = window;
 }

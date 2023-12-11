@@ -21,33 +21,19 @@
     >
       <label for="name">Название</label>
     </span>
-      <span
-        class="form__tip"
-        *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
-      >
-          <span *ngIf="formGroup.get('name')?.errors?.['required']">
-            Название задачи не должно быть пустым
-          </span>
-          <span
-            *ngIf="formGroup.get('name')?.errors?.['minlength']"
-          >
-            Слишком короткое название. Минимум:
-            {{ formGroup.get('name')?.errors?.['minlength']['requiredLength'] }}
-            симв.
-          </span>
-        </span>
     </div>
     <div class="task-form__options-container">
       <span class="p-float-label">
         <p-calendar
           id="calendar"
-          formControlName="expiresIn"
+          formControlName="rangeDates"
+          selectionMode="range"
           appendTo="body"
           dateFormat="dd.mm.yy"
-          placeholder="Выполнить до:"
+          placeholder="Дата"
         >
         </p-calendar>
-        <label for="calendar">Выполнить до:</label>
+        <label for="calendar">Дата</label>
       </span>
       <div class="task-form__priority priority-block">
         <label class="priority-block__label _input-field__label">Приоритет: </label>
@@ -88,12 +74,13 @@
                 [style]="{ width: '100%' }"
                 class="task-form__categories"
     ></p-dropdown>
+    <span>Найдено({{ filteredTasks.length }})</span>
     <button
       class="form__submit-button _button"
       type="submit"
       [disabled]="formGroup.invalid || formGroup.disabled"
     >
-      Найти
+      Показать
     </button>
   </form>
 </p-dialog>

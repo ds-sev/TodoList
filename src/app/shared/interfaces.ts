@@ -23,6 +23,7 @@ export interface ITask {
 export interface ITaskFormControls {
   name: string | null;
   expiresIn?: Date | string | null;
+  rangeDates?: Date[] | Date | null;
   category?: ICategory | null;
   priority?: '1' | '2' | '3' | null;
 }

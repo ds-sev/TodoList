@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +10,7 @@ import { ModalService } from '../../shared/services/modal.service';
 import { ITask, ITaskFormControls } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
-import { TasksService } from '../../shared/services/tasks.service';
+import { FilterTasksService } from '../../shared/services/filterTasks.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,9 +19,11 @@ import { TasksService } from '../../shared/services/tasks.service';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements AfterViewInit {
 
   filteredTasks: ITask[] = [];
+  tasksList: ITask[] = []
+
 
   formGroup = this.formBuilder.group<ITaskFormControls>({
     name: null,
@@ -30,53 +32,60 @@ export class FilterComponent implements OnInit {
     priority: null
   });
 
+  @Output() filterPerformed = new EventEmitter<boolean>(false);
+
   constructor(
     private formBuilder: FormBuilder,
     public modalService: ModalService,
     public categoriesService: CategoriesService,
-    private tasksService: TasksService,
-    private userService: UserService
+    private userService: UserService,
+    private filterTasksService: FilterTasksService
   ) {
   }
 
-  ngOnInit() {
-    this.tasksService.getTasksData();
-
+  ngAfterViewInit() {
+    this.tasksList = this.userService.getStoredCurrentUserData().tasks
     this.formGroup.valueChanges
     .subscribe((formValues) => {
 
-      const categoryId = formValues.category ? formValues.category.id : null;
-      const rangeDates = formValues.rangeDates || [];
+      this.filteredTasks = this.filterTasksService.filterTasks(this.tasksList, formValues)
 
-      //получаем отфильтрованный список на основе введенных данных
-      this.filteredTasks = this.tasksService.tasksListSig().filter(task => {
+      // const categoryId = formValues.category ? formValues.category.id : null;
+      // const rangeDates = formValues.rangeDates || [];
+      //
+      // //получаем отфильтрованный список на основе введенных данных
+      // this.filteredTasks = this.filteredTasksListSig().filter(task => {
+      //
+      //   const taskCategoryId = task.category ? task.category.id : null;
+      //   const taskExpiresIn = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
+      //
+      //   return (
+      //     //ищем совпадение по имени
+      //     (!formValues.name || task.name.toLowerCase().includes(formValues.name.toLowerCase())) &&
+      //     //ищем совпадение по приоритету
+      //     (!formValues.priority || task.priority === formValues.priority) &&
+      //     //ищем совпадение по категории
+      //     (!categoryId || taskCategoryId === categoryId) &&
+      //     //ищем совпадение по дате
+      //     (!rangeDates.length || taskExpiresIn &&
+      //       (
+      //         //учитываем случаи, если введена одна дата или диапазон дат
+      //         rangeDates[1] === null || rangeDates[0].getTime() === rangeDates[1].getTime()
+      //           ? new Date(taskExpiresIn).getTime() === rangeDates[0].getTime()
+      //           : new Date(taskExpiresIn) >= rangeDates[0] && new Date(taskExpiresIn) <= rangeDates[1]
+      //       )
+      //     )
+      //   );
+      // });
 
-        const taskCategoryId = task.category ? task.category.id : null;
-        const taskExpiresIn = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
 
-        return (
-          //ищем совпадение по имени
-          (!formValues.name || task.name.toLowerCase().includes(formValues.name.toLowerCase())) &&
-          //ищем совпадение по приоритету
-          (!formValues.priority || task.priority === formValues.priority) &&
-          //ищем совпадение по категории
-          (!categoryId || taskCategoryId === categoryId) &&
-          //ищем совпадение по дате
-          (!rangeDates.length || taskExpiresIn &&
-            (
-              //учитываем случаи, если введена одна дата или диапазон дат
-              rangeDates[1] === null || rangeDates[0].getTime() === rangeDates[1].getTime()
-                ? new Date(taskExpiresIn).getTime() === rangeDates[0].getTime()
-                : new Date(taskExpiresIn) >= rangeDates[0] && new Date(taskExpiresIn) <= rangeDates[1]
-            )
-          )
-        );
-      });
     });
   }
 
   onSubmitForm() {
-    console.log(this.formGroup.value);
+    // console.log(this.filterTasksService.filteredTasksListSig());
+    // console.log(this.formGroup.value);
+    // this.filterPerformed.emit(true);
 
   }
 }

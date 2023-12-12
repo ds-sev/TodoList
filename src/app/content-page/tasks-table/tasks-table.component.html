@@ -53,7 +53,12 @@
       </button>
     }
   </div>
-  <app-filter></app-filter>
+
+    <app-filter
+      *ngIf="modalService.displayFilterModal"
+      (filterPerformed)="getFilterPerformStatus($event)"
+    ></app-filter>
+
   <p-table
     class="table"
     [value]="getTasksForView()"

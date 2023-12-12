@@ -33,6 +33,7 @@ export class TasksTableComponent implements OnInit {
     currentCategory?: ICategory
   } = {isEditForm: false};
   isSearchPerformed: boolean = false;
+  isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
 
   currentCategory: ICategory | null = null;
@@ -43,6 +44,8 @@ export class TasksTableComponent implements OnInit {
     public tasksService: TasksService,
     private categoriesService: CategoriesService,
     public modalService: ModalService,
+
+
   ) {
   }
 
@@ -82,6 +85,10 @@ export class TasksTableComponent implements OnInit {
     this.isSearchPerformed = value;
   }
 
+  getFilterPerformStatus(value: boolean) {
+    this.isFilterPerformed = value
+  }
+
   getSingleTaskSelectedStatus(value: boolean) {
     this.isSelectSingleTask = value;
   }
@@ -116,6 +123,8 @@ export class TasksTableComponent implements OnInit {
   getTasksForView(): any {
     if (this.isSearchPerformed || this.isSelectSingleTask) {
       return this.foundedTasks;
+    } else if (this.isFilterPerformed) {
+      // this.filterS.filteredTasksListSig()
     } else {
       return this.tasksService.tasksListSig();
     }

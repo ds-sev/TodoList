@@ -42,80 +42,35 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
     this.tasksService.getTasksData();
 
-    // forkJoin([
-    //   this.formGroup.get('name')?.valueChanges,
-    //   this.formGroup.get('priority')?.valueChanges,
-    //   this.formGroup.get('category')?.valueChanges
-    //   ])
-    // .pipe(
-    //   debounceTime(300),
-    //   distinctUntilChanged()
-    // )
     this.formGroup.valueChanges
     .subscribe((formValues) => {
 
-      // if (nameValue !== undefined && priorityValue !== undefined && categoryValue !== undefined) {
-      // }
+      const categoryId = formValues.category ? formValues.category.id : null;
+      const rangeDates = formValues.rangeDates || [];
 
       //получаем отфильтрованный список на основе введенных данных
       this.filteredTasks = this.tasksService.tasksListSig().filter(task => {
-        if (task.expiresIn) {
 
-        }
-
-        if (formValues.rangeDates && formValues.rangeDates instanceof Array) {
-
-          // console.log(formValues.rangeDates[0]); // Начальная дата
-          // console.log(formValues.rangeDates[1]); // Конечная дата
-        }
+        const taskCategoryId = task.category ? task.category.id : null;
+        const taskExpiresIn = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
 
         return (
+          //ищем совпадение по имени
           (!formValues.name || task.name.toLowerCase().includes(formValues.name.toLowerCase())) &&
-
+          //ищем совпадение по приоритету
           (!formValues.priority || task.priority === formValues.priority) &&
-
-          (!formValues.category?.id || task.category?.id === formValues.category?.id)
-
-          &&
-
-          (
-            !formValues.rangeDates ||
+          //ищем совпадение по категории
+          (!categoryId || taskCategoryId === categoryId) &&
+          //ищем совпадение по дате
+          (!rangeDates.length || taskExpiresIn &&
             (
-              task.expiresIn &&
-              formValues.rangeDates instanceof Array &&
-              (
-                formValues.rangeDates[1] === null || formValues.rangeDates[0] == formValues.rangeDates[1]
-                  ?
-
-                  console.log(formValues.rangeDates[0], formValues.rangeDates[1])
-
-                      // console.log(formValues.rangeDates[0], new Date(task.expiresIn))
-                      // formValues.rangeDates[0] == new Date(task.expiresIn)
-                  // new Date(task.expiresIn) >= formValues.rangeDates[0] && new Date(task.expiresIn) <= formValues.rangeDates[1]
-
-
-
-                // : new Date(task.expiresIn) >= formValues.rangeDates[0] && new Date(task.expiresIn) <= formValues.rangeDates[1]
-: console.log('2')
-
-
-
-
-                // (!formValues.expiresIn || task.expiresIn === )
-
-                // if (formValues.name) {
-                //   console.log(task);
-                //   return task.name.toLowerCase().includes(formValues.name.toLowerCase());
-                //
-                // } else if (formValues.priority) {
-                //   return task.priority === formValues.priority
-                // } else {
-                //   return false;
-                // }
-
-                // console.log(this.filteredTasks);
-
-              ))));
+              //учитываем случаи, если введена одна дата или диапазон дат
+              rangeDates[1] === null || rangeDates[0].getTime() === rangeDates[1].getTime()
+                ? new Date(taskExpiresIn).getTime() === rangeDates[0].getTime()
+                : new Date(taskExpiresIn) >= rangeDates[0] && new Date(taskExpiresIn) <= rangeDates[1]
+            )
+          )
+        );
       });
     });
   }
@@ -124,5 +79,4 @@ export class FilterComponent implements OnInit {
     console.log(this.formGroup.value);
 
   }
-
 }

@@ -14,6 +14,7 @@ import { ActionsMenuComponent } from '../actions-menu/actions-menu.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FilterComponent } from '../filter/filter.component';
+import { FilterService } from '../../shared/services/filter.service';
 
 @Component({
   selector: 'app-tasks-table',
@@ -44,6 +45,7 @@ export class TasksTableComponent implements OnInit {
     public tasksService: TasksService,
     private categoriesService: CategoriesService,
     public modalService: ModalService,
+    private filterService: FilterService
 
 
   ) {
@@ -124,7 +126,7 @@ export class TasksTableComponent implements OnInit {
     if (this.isSearchPerformed || this.isSelectSingleTask) {
       return this.foundedTasks;
     } else if (this.isFilterPerformed) {
-      // this.filterS.filteredTasksListSig()
+      return this.filterService.filteredTasksSig()
     } else {
       return this.tasksService.tasksListSig();
     }

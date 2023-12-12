@@ -1,27 +1,19 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { ITask } from '../interfaces';
-import { UserService } from './user.service';
+import { ICategory, ITask } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class FilterTasksService {
+export class FilterService {
 
-  filteredTasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
-
-  constructor(private userService: UserService) {
-    console.log('init');
-    this.filteredTasksListSig.set(this.userService.getStoredCurrentUserData().tasks);
-  }
+  filteredTasksSig: WritableSignal<ICategory[]> = signal<ICategory[]>([]);
 
   filterTasks(tasks: ITask[], formValues: any) {
-
     const categoryId = formValues.category ? formValues.category.id : null;
     const rangeDates = formValues.rangeDates || [];
-
-    //получаем отфильтрованный список на основе введенных данных
-    return tasks.filter(task => {
+    //получаем отфильтрованный список на основе введенных данных из переданного массива задач
+    this.filteredTasksSig.set(tasks.filter(task => {
 
       const taskCategoryId = task.category ? task.category.id : null;
       const taskExpiresIn = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
@@ -43,6 +35,8 @@ export class FilterTasksService {
           )
         )
       );
-    });
+
+    }));
+
   }
 }

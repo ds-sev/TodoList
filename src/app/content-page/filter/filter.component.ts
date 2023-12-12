@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Output,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +17,7 @@ import { ModalService } from '../../shared/services/modal.service';
 import { ITask, ITaskFormControls } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
-import { FilterTasksService } from '../../shared/services/filterTasks.service';
+import { FilterService } from '../../shared/services/filter.service';
 
 @Component({
   selector: 'app-filter',
@@ -22,8 +29,7 @@ import { FilterTasksService } from '../../shared/services/filterTasks.service';
 export class FilterComponent implements AfterViewInit {
 
   filteredTasks: ITask[] = [];
-  tasksList: ITask[] = []
-
+  initialTasksList: ITask[] = [];
 
   formGroup = this.formBuilder.group<ITaskFormControls>({
     name: null,
@@ -32,6 +38,8 @@ export class FilterComponent implements AfterViewInit {
     priority: null
   });
 
+  filteredTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
+
   @Output() filterPerformed = new EventEmitter<boolean>(false);
 
   constructor(
@@ -39,53 +47,22 @@ export class FilterComponent implements AfterViewInit {
     public modalService: ModalService,
     public categoriesService: CategoriesService,
     private userService: UserService,
-    private filterTasksService: FilterTasksService
+    public filterService: FilterService
   ) {
   }
 
   ngAfterViewInit() {
-    this.tasksList = this.userService.getStoredCurrentUserData().tasks
+    this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
     this.formGroup.valueChanges
     .subscribe((formValues) => {
-
-      this.filteredTasks = this.filterTasksService.filterTasks(this.tasksList, formValues)
-
-      // const categoryId = formValues.category ? formValues.category.id : null;
-      // const rangeDates = formValues.rangeDates || [];
-      //
-      // //получаем отфильтрованный список на основе введенных данных
-      // this.filteredTasks = this.filteredTasksListSig().filter(task => {
-      //
-      //   const taskCategoryId = task.category ? task.category.id : null;
-      //   const taskExpiresIn = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
-      //
-      //   return (
-      //     //ищем совпадение по имени
-      //     (!formValues.name || task.name.toLowerCase().includes(formValues.name.toLowerCase())) &&
-      //     //ищем совпадение по приоритету
-      //     (!formValues.priority || task.priority === formValues.priority) &&
-      //     //ищем совпадение по категории
-      //     (!categoryId || taskCategoryId === categoryId) &&
-      //     //ищем совпадение по дате
-      //     (!rangeDates.length || taskExpiresIn &&
-      //       (
-      //         //учитываем случаи, если введена одна дата или диапазон дат
-      //         rangeDates[1] === null || rangeDates[0].getTime() === rangeDates[1].getTime()
-      //           ? new Date(taskExpiresIn).getTime() === rangeDates[0].getTime()
-      //           : new Date(taskExpiresIn) >= rangeDates[0] && new Date(taskExpiresIn) <= rangeDates[1]
-      //       )
-      //     )
-      //   );
-      // });
-
-
+      this.filterService.filterTasks(this.initialTasksList, formValues);
+      // this.filteredTasksSig.set(this.filterTasksService.filterTasks(this.initialTasksList, formValues));
     });
   }
 
   onSubmitForm() {
     // console.log(this.filterTasksService.filteredTasksListSig());
     // console.log(this.formGroup.value);
-    // this.filterPerformed.emit(true);
-
+    this.filterPerformed.emit(true);
   }
 }

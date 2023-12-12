@@ -62,6 +62,6 @@ export class FilterComponent implements AfterViewInit {
     // console.log(this.filterTasksService.filteredTasksListSig());
     // console.log(this.formGroup.value);
     // this.filterPerformed.emit(true);
-    this.formService.triggerFormSubmitted()
+    this.formService.triggerFilterFormSubmitted()
   }
 }

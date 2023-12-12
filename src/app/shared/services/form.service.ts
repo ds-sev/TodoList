@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class FormService {
-  public formSubmittedSource = new BehaviorSubject<boolean>(false)
-  formSubmitted$ = this.formSubmittedSource.asObservable()
+  public filterSubmittedSource = new Subject<void>()
 
-  triggerFormSubmitted() {
-    this.formSubmittedSource.next(true)
+  formSubmitted$ = this.filterSubmittedSource.asObservable()
+
+  triggerFilterFormSubmitted() {
+    this.filterSubmittedSource.next()
     // this.formSubmittedSource.next(false)
   }
 }

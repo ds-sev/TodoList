@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -68,19 +68,15 @@ export class TasksTableComponent implements OnInit {
       }
     });
 
-    this.formService.formSubmitted$.subscribe((submitted) => {
-      this.isFilterPerformed = submitted
+    this.formService.formSubmitted$.subscribe(() => {
+      this.isSearchPerformed = false
+      this.isSelectSingleTask = false
+      this.isFilterPerformed = true
       this.filteredTasks = this.filterService.filteredTasksSig()
     })
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-
-    if (changes['isFilterPerformed']) {
-      console.log(changes);
-    }
-
+    // this.formService.searchSubmitted$.subscribe(() => {
+    //   this.isSearchPerformed = true
+    // })
   }
 
   onAddTaskClick() {

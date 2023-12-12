@@ -21,6 +21,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { TasksService } from '../../shared/services/tasks.service';
 import { ITask } from '../../shared/interfaces';
+import { FormService } from '../../shared/services/form.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -52,7 +53,8 @@ export class SearchBarComponent implements OnInit {
   constructor(
     public tasksService: TasksService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private formService: FormService
   ) {
   }
 

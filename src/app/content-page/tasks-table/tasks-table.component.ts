@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -15,6 +15,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FilterComponent } from '../filter/filter.component';
 import { FilterService } from '../../shared/services/filter.service';
+import { FormService } from '../../shared/services/form.service';
 
 @Component({
   selector: 'app-tasks-table',
@@ -39,13 +40,18 @@ export class TasksTableComponent implements OnInit {
 
   currentCategory: ICategory | null = null;
 
+  filteredTasks: ITask[] = []
+
+
+
   constructor(
     private route: ActivatedRoute,
     public router: Router,
     public tasksService: TasksService,
     private categoriesService: CategoriesService,
     public modalService: ModalService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private formService: FormService
 
 
   ) {
@@ -61,6 +67,20 @@ export class TasksTableComponent implements OnInit {
         this.currentCategory = null;
       }
     });
+
+    this.formService.formSubmitted$.subscribe((submitted) => {
+      this.isFilterPerformed = submitted
+      this.filteredTasks = this.filterService.filteredTasksSig()
+    })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+
+    if (changes['isFilterPerformed']) {
+      console.log(changes);
+    }
+
   }
 
   onAddTaskClick() {
@@ -122,11 +142,11 @@ export class TasksTableComponent implements OnInit {
     }
   }
 
-  getTasksForView(): any {
+  getTasksForView(): ITask[] {
     if (this.isSearchPerformed || this.isSelectSingleTask) {
       return this.foundedTasks;
     } else if (this.isFilterPerformed) {
-      return this.filterService.filteredTasksSig()
+      return this.filteredTasks
     } else {
       return this.tasksService.tasksListSig();
     }

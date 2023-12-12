@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Output,
-  signal,
-  WritableSignal
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
@@ -18,6 +11,7 @@ import { ITask, ITaskFormControls } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
 import { FilterService } from '../../shared/services/filter.service';
+import { FormService } from '../../shared/services/form.service';
 
 @Component({
   selector: 'app-filter',
@@ -28,7 +22,6 @@ import { FilterService } from '../../shared/services/filter.service';
 })
 export class FilterComponent implements AfterViewInit {
 
-  filteredTasks: ITask[] = [];
   initialTasksList: ITask[] = [];
 
   formGroup = this.formBuilder.group<ITaskFormControls>({
@@ -38,7 +31,8 @@ export class FilterComponent implements AfterViewInit {
     priority: null
   });
 
-  filteredTasksSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
+
+
 
   @Output() filterPerformed = new EventEmitter<boolean>(false);
 
@@ -47,15 +41,19 @@ export class FilterComponent implements AfterViewInit {
     public modalService: ModalService,
     public categoriesService: CategoriesService,
     private userService: UserService,
-    public filterService: FilterService
+    public filterService: FilterService,
+    private formService: FormService
   ) {
   }
 
   ngAfterViewInit() {
     this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
+
+
     this.formGroup.valueChanges
     .subscribe((formValues) => {
       this.filterService.filterTasks(this.initialTasksList, formValues);
+      // this.filterPerformed.emit(false);
       // this.filteredTasksSig.set(this.filterTasksService.filterTasks(this.initialTasksList, formValues));
     });
   }
@@ -63,6 +61,7 @@ export class FilterComponent implements AfterViewInit {
   onSubmitForm() {
     // console.log(this.filterTasksService.filteredTasksListSig());
     // console.log(this.formGroup.value);
-    this.filterPerformed.emit(true);
+    // this.filterPerformed.emit(true);
+    this.formService.triggerFormSubmitted()
   }
 }

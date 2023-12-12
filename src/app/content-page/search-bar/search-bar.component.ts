@@ -21,7 +21,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { TasksService } from '../../shared/services/tasks.service';
 import { ITask } from '../../shared/interfaces';
-import { FormService } from '../../shared/services/form.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -35,6 +35,7 @@ export class SearchBarComponent implements OnInit {
   searchForm!: FormGroup;
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
   autocompleteVisible: boolean = false;
+  initialTasksList: ITask[] = [];
 
   //отслеживаем клики вне инпута
   @HostListener('document:click', ['$event'])
@@ -54,7 +55,7 @@ export class SearchBarComponent implements OnInit {
     public tasksService: TasksService,
     private renderer: Renderer2,
     private el: ElementRef,
-    private formService: FormService
+    private userService: UserService
   ) {
   }
 
@@ -81,7 +82,7 @@ export class SearchBarComponent implements OnInit {
     )
     .subscribe(value => {
       //получаем отфильтрованный список на основе введенных данных
-      const suggestions = this.tasksService.tasksListSig().filter(task => {
+      const suggestions = this.initialTasksList.filter(task => {
         if (task && task.name && value !== null) {
           return task.name.toLowerCase().includes(value.toLowerCase());
         } else {
@@ -96,6 +97,10 @@ export class SearchBarComponent implements OnInit {
         this.closeSuggestionsList();
       }
     });
+  }
+
+  onFormFocus() {
+    this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
   }
 
   //закрытие списка автокомплита

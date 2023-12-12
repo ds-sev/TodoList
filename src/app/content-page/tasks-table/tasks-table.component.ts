@@ -15,7 +15,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FilterComponent } from '../filter/filter.component';
 import { FilterService } from '../../shared/services/filter.service';
-import { FormService } from '../../shared/services/form.service';
+import { FormSubmitService } from '../../shared/services/formSubmit.service';
 
 @Component({
   selector: 'app-tasks-table',
@@ -51,9 +51,7 @@ export class TasksTableComponent implements OnInit {
     private categoriesService: CategoriesService,
     public modalService: ModalService,
     private filterService: FilterService,
-    private formService: FormService
-
-
+    private formService: FormSubmitService
   ) {
   }
 
@@ -74,9 +72,6 @@ export class TasksTableComponent implements OnInit {
       this.isFilterPerformed = true
       this.filteredTasks = this.filterService.filteredTasksSig()
     })
-    // this.formService.searchSubmitted$.subscribe(() => {
-    //   this.isSearchPerformed = true
-    // })
   }
 
   onAddTaskClick() {
@@ -101,10 +96,6 @@ export class TasksTableComponent implements OnInit {
 
   getSearchStatus(value: boolean) {
     this.isSearchPerformed = value;
-  }
-
-  getFilterPerformStatus(value: boolean) {
-    this.isFilterPerformed = value
   }
 
   getSingleTaskSelectedStatus(value: boolean) {

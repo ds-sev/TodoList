@@ -3,8 +3,9 @@
       (ngSubmit)="onSearchSubmit()"
 >
   <input class="search-bar__input"
+         (focus)="onFormFocus()"
          type="text"
-         placeholder="Поиск в категории..."
+         placeholder="Быстрый поиск"
          formControlName="searchValue">
   <button
     class="search-bar__search-button"

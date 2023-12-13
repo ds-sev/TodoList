@@ -32,9 +32,14 @@
         </app-search-bar>
         <button
           class="tasks-section__filter-button _button"
-        (click)="toggleFilterVisibility()"
+          (click)="toggleFilterVisibility()"
         >
           <i class="pi pi-filter"></i>
+          <i class="pi pi-chevron-down"
+             [ngClass]="isFilterVisible
+               ? 'tasks-section__filter-button-icon_rotate'
+               : 'tasks-section__filter-button-icon'">
+          </i>
         </button>
         <button
           class="tasks-section__add-task-button _button"
@@ -53,11 +58,9 @@
       </button>
     }
   </div>
-
-    <app-filter [isFilterVisible]="isFilterVisible">
-<!--      *ngIf="modalService.displayFilterModal"-->
-    </app-filter>
-
+  <app-filter [isFilterVisible]="isFilterVisible">
+    <!--      *ngIf="modalService.displayFilterModal"-->
+  </app-filter>
   <p-table
     class="table"
     [value]="getTasksForView()"
@@ -74,9 +77,9 @@
           [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >
           Готово
-          <p-sortIcon  class="table__header-sort-icon"
-                       field="complete"
-                       *ngIf="getTasksForView().length > 1"
+          <p-sortIcon class="table__header-sort-icon"
+                      field="complete"
+                      *ngIf="getTasksForView().length > 1"
           ></p-sortIcon>
         </th>
         <th pSortableColumn="name"

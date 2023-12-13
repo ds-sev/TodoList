@@ -27,6 +27,14 @@
     color: white;
     background-color: var(--main-blue);
   }
+
+  &__filter-button-icon {
+    transition: transform .3s;
+    &_rotate {
+      transform: rotate(180deg);
+      transition: transform .3s;
+    }
+  }
 }
 
 .table {

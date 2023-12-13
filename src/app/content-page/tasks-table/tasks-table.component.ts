@@ -83,7 +83,6 @@ export class TasksTableComponent implements OnInit {
   }
 
   toggleFilterVisibility() {
-    // this.modalService.open('filterModal')
     this.isFilterVisible = !this.isFilterVisible
   }
 

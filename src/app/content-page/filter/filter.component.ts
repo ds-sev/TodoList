@@ -54,6 +54,6 @@ export class FilterComponent implements AfterViewInit {
 
   onSubmitForm() {
     console.log(this.formGroup.value);
-    // this.formService.triggerFilterFormSubmitted();
+    this.formService.triggerFilterFormSubmitted();
   }
 }

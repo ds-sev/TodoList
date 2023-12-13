@@ -12,19 +12,15 @@ export class FilterService {
 
     const categoryId = formValues.category ? formValues.category.id : null;
     const rangeDates = formValues.rangeDates || [];
+    //количество дней для задач у которых почти истек срок исполнения
     const almostOverThreshold = 3;
-
-
 
     //получаем отфильтрованный список на основе введенных данных из переданного массива задач
     this.filteredTasksSig.set(tasks.filter(task => {
-
       const taskCategoryId = task.category ? task.category.id : null;
       const taskExpiresInDate = task.expiresIn ? new Date(task.expiresIn) : null;
       const taskExpiresInTime = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
-
       const daysDifference = this.getDifferenceInDays(taskExpiresInDate)
-      console.log(task.priority);
 
       return (
         //ищем совпадение по имени
@@ -51,7 +47,7 @@ export class FilterService {
       );
     }));
   }
-
+  //для вычисления разницы в днях между текущей и целевой датой
   getDifferenceInDays(expirationDate: Date | null) {
     const currentDate = new Date()
     if (expirationDate) {

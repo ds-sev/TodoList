@@ -35,6 +35,7 @@ export class TasksTableComponent implements OnInit {
     currentCategory?: ICategory
   } = {isEditForm: false};
   isSearchPerformed: boolean = false;
+  isFilterVisible: boolean = false
   isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
 
@@ -81,8 +82,9 @@ export class TasksTableComponent implements OnInit {
     this.modalService.open('taskModal');
   }
 
-  onShowFilterClick() {
-    this.modalService.open('filterModal')
+  toggleFilterVisibility() {
+    // this.modalService.open('filterModal')
+    this.isFilterVisible = !this.isFilterVisible
   }
 
   searchResult(value: ITask[]) {

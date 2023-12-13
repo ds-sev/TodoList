@@ -32,7 +32,7 @@
         </app-search-bar>
         <button
           class="tasks-section__filter-button _button"
-        (click)="onShowFilterClick()"
+        (click)="toggleFilterVisibility()"
         >
           <i class="pi pi-filter"></i>
         </button>
@@ -54,7 +54,7 @@
     }
   </div>
 
-    <app-filter>
+    <app-filter [isFilterVisible]="isFilterVisible">
 <!--      *ngIf="modalService.displayFilterModal"-->
     </app-filter>
 

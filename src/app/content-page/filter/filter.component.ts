@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
@@ -22,6 +22,8 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
 export class FilterComponent implements AfterViewInit {
 
   initialTasksList: ITask[] = [];
+
+  @Input() isFilterVisible: boolean = false
 
   formGroup = this.formBuilder.group<IFilterFormControls>({
     name: null,

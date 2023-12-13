@@ -1,14 +1,8 @@
-<!--  header="Фильтр"-->
-<!--  [(visible)]="modalService.displayFilterModal"-->
-<!--  [style]="{ width: '550px', minWidth: '375px' }"-->
-<!--  [modal]="true"-->
-<!--  [dismissableMask]="true"-->
-<!--&gt;-->
-<form
-  [formGroup]="formGroup"
-  class="filter"
-  (ngSubmit)="onSubmitForm()">
-  <div class="filter__input-container">
+<div [ngClass]="isFilterVisible ? 'filter filter_visible' : 'filter'">
+  <form
+    class="filter__form"
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmitForm()">
     <span class="p-float-label task-form__name-input">
     <input pInputText
            formControlName="name"
@@ -20,18 +14,17 @@
     >
       <label for="name">Название</label>
     </span>
-  </div>
-  <p-dropdown class="filter__categories"
-              [style]="{ width: '100%' }"
-              [options]="categoriesService.userCategoriesSig()"
-              placeholder="Категория"
-              optionLabel="name"
-              inputId="float-label"
-              appendTo="body"
-              formControlName="category"
-  ></p-dropdown>
-  <!--    <div class="filter__options-container">-->
-  <span class="p-float-label">
+    <p-dropdown class="filter__categories"
+                [style]="{ width: '100%' }"
+                [options]="categoriesService.userCategoriesSig()"
+                placeholder="Категория"
+                optionLabel="name"
+                inputId="float-label"
+                appendTo="body"
+                formControlName="category"
+    ></p-dropdown>
+    <!--    <div class="filter__options-container">-->
+    <span class="p-float-label">
         <p-calendar
           id="calendar"
           [style]="{ width: '100%' }"
@@ -39,78 +32,80 @@
           selectionMode="range"
           appendTo="body"
           dateFormat="dd.mm.yy"
-          placeholder="Дата"
+          placeholder="Дата или диапазон"
         >
         </p-calendar>
-        <label for="calendar">Дата</label>
+        <label for="calendar">Дата или диапазон</label>
       </span>
-  <div class="filter__priority priority-block">
-    <label class="priority-block__label _input-field__label">Приоритет: </label>
-    <div class="priority-block__radio-buttons-container">
-      <label class="custom-radiobutton" for="low-priority">
-        <input class="custom-radiobutton__input"
-               formControlName="priority"
-               type="radio"
-               value="1"
-               id="low-priority">
-        <span class="custom-radiobutton__priority_low">Низкий</span>
-      </label>
-      <label class="custom-radiobutton" for="mid-priority">
-        <input class="custom-radiobutton__input"
-               formControlName="priority"
-               type="radio"
-               value="2"
-               id="mid-priority">
-        <span class="custom-radiobutton__priority_mid">Средний</span>
-      </label>
-      <label class="custom-radiobutton" for="high-priority">
-        <input class="custom-radiobutton__input"
-               formControlName="priority"
-               type="radio"
-               value="3"
-               id="high-priority">
-        <span class="custom-radiobutton__priority_high">Высокий</span>
-      </label>
-      <label class="custom-radiobutton" for="unspecified">
-        <input class="custom-radiobutton__input"
-               formControlName="priority"
-               type="radio"
-               value="0"
-               id="unspecified">
-        <span class="custom-radiobutton__priority_unspecified">Не указан</span>
-      </label>
+    <div class="filter__priority priority-block">
+      <label class="priority-block__label _input-field__label">Приоритет: </label>
+      <div class="priority-block__radio-buttons-container">
+        <label class="custom-radiobutton" for="low-priority">
+          <input class="custom-radiobutton__input"
+                 formControlName="priority"
+                 type="radio"
+                 value="1"
+                 id="low-priority">
+          <span class="custom-radiobutton__priority_low">Низкий</span>
+        </label>
+        <label class="custom-radiobutton" for="mid-priority">
+          <input class="custom-radiobutton__input"
+                 formControlName="priority"
+                 type="radio"
+                 value="2"
+                 id="mid-priority">
+          <span class="custom-radiobutton__priority_mid">Средний</span>
+        </label>
+        <label class="custom-radiobutton" for="high-priority">
+          <input class="custom-radiobutton__input"
+                 formControlName="priority"
+                 type="radio"
+                 value="3"
+                 id="high-priority">
+          <span class="custom-radiobutton__priority_high">Высокий</span>
+        </label>
+        <label class="custom-radiobutton" for="unspecified">
+          <input class="custom-radiobutton__input"
+                 formControlName="priority"
+                 type="radio"
+                 value="0"
+                 id="unspecified">
+          <span class="custom-radiobutton__priority_unspecified">Не указан</span>
+        </label>
+      </div>
     </div>
-  </div>
-  <!--    </div>-->
-  <div class="filter__checkboxes-container">
-    <div class="filter__checkbox">
-      <input type="checkbox" id="almostOver" formControlName="almostOver">
-      <label class="custom-radiobutton" for="almostOver">Почти истек срок</label>
+    <!--    </div>-->
+    <div class="filter__checkboxes-container">
+      <div class="filter__checkbox">
+        <input type="checkbox" id="almostOver" formControlName="almostOver">
+        <label class="custom-radiobutton" for="almostOver">Почти истек срок</label>
+      </div>
+      <div class="filter__checkbox">
+        <input type="checkbox" id="expired" formControlName="expired">
+        <label class="custom-radiobutton" for="expired">Просроченные</label>
+      </div>
+      <div class="filter__checkbox">
+        <input type="checkbox" id="completed" formControlName="completed">
+        <label class="custom-radiobutton" for="completed">Выполненные</label>
+      </div>
     </div>
-    <div class="filter__checkbox">
-      <input type="checkbox" id="expired" formControlName="expired">
-      <label class="custom-radiobutton" for="expired">Просроченные</label>
+    <div class="filter__buttons-container">
+      <button
+        class="filter__button filter__button_primary _button"
+        type="submit"
+        [disabled]="formGroup.invalid || formGroup.disabled || !filterService.filteredTasksSig().length"
+      >
+        @if (filterService.filteredTasksSig().length > 0) {
+          Показать {{ filterService.filteredTasksSig().length }}
+        } @else {
+          Ничего не найдено
+        }
+      </button>
+      <button class="filter__button filter__button_extra _button"
+              (click)="onResetFormClick()"
+      >Очистить
+      </button>
     </div>
-    <div class="filter__checkbox">
-      <input type="checkbox" id="completed" formControlName="completed">
-      <label class="custom-radiobutton" for="completed">Выполненные</label>
-    </div>
-  </div>
-  <div class="filter__buttons-container">
-    <button
-      class="filter__button filter__button_primary _button"
-      type="submit"
-      [disabled]="formGroup.invalid || formGroup.disabled"
-    >
-      @if (filterService.filteredTasksSig().length > 0) {
-        Показать {{ filterService.filteredTasksSig().length }}
-      } @else {
-        Ничего не найдено
-      }
-    </button>
-    <button class="filter__button filter__button_extra _button"
-            (click)="onResetFormClick()"
-    >Очистить</button>
-  </div>
-</form>
+  </form>
+</div>
 

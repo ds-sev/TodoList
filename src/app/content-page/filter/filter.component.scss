@@ -1,13 +1,24 @@
-.task-form {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
+
+
+
+.filter {
+  padding: 30px;
+  //padding-top: 20px;
+  //display: flex;
+  //flex-direction: column;
   align-items: center;
   gap: 30px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
 
-  &__name-input {
-    width: 100%;
+  background-color: white;
+  backdrop-filter: blur(1px);
+
+  &__checkboxes-container {
+    border: 1px solid red;
+    text-align: start;
   }
+
 
   &__options-container {
     display: flex;
@@ -23,36 +34,64 @@
   }
 
   &__categories {
-    width: 60%;
+
+    &::placeholder {
+      border: 1px solid red!important;
+    }
+  }
+
+  &__buttons-container {
+    border: 1px solid red;
+    display: flex;
+    gap: 10px;
+  }
+
+  &__button {
+    font-weight: 200;
+    outline: none;
+    color: white;
+
+    &_primary {
+      width: 180px;
+      background-color: var(--main-blue);
+    }
+    &_extra {
+      width: 100px;
+      background-color: var(--priority-orange);
+    }
   }
 }
 
 .priority-block {
+  border: 1px solid red;
   position: relative;
   display: flex;
-  flex-direction: column;
+
+
 
   &__label {
     position: absolute;
-    top: -35px;
+    top: -25px;
     font-size: 12px;
   }
 
   &__radio-buttons-container {
     display: flex;
+    align-items: center;
     gap: 8px;
 
-    @media screen and (max-width: 498px) {
-      text-align: start;
-      flex-direction: column;
-      gap: 18px;
-    }
+    //@media screen and (max-width: 498px) {
+    //  text-align: start;
+    //  flex-direction: column;
+    //  gap: 18px;
+    //}
   }
 }
 
 .custom-radiobutton {
-  width: 95px;
-  transition: opacity .3s;
+
+  width: 100px;
+  //transition: opacity .3s;
 
   &:not(:checked):hover {
     opacity: .8;
@@ -104,5 +143,10 @@
     &_high::before {
       background-color: var(--priority-red);
     }
+    &_unspecified::before {
+      border: 1px solid var(--bg-light-grey);
+    }
   }
 }
+
+

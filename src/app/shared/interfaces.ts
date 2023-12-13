@@ -23,9 +23,15 @@ export interface ITask {
 export interface ITaskFormControls {
   name: string | null;
   expiresIn?: Date | string | null;
-  rangeDates?: Date[] | null;
   category?: ICategory | null;
   priority?: '1' | '2' | '3' | null;
+}
+
+export interface IFilterFormControls extends ITaskFormControls {
+  rangeDates: Date[] | null;
+  almostOver: boolean;
+  expired: boolean;
+  completed: boolean;
 }
 
 export interface IAuthFormControls {

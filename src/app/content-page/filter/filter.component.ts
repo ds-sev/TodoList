@@ -4,9 +4,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from '../../shared/services/modal.service';
-import { ITask, ITaskFormControls } from '../../shared/interfaces';
+import { IFilterFormControls, ITask } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
 import { FilterService } from '../../shared/services/filter.service';
@@ -15,7 +15,7 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, InputTextModule, ReactiveFormsModule],
+  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, InputTextModule, ReactiveFormsModule, FormsModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
@@ -23,11 +23,14 @@ export class FilterComponent implements AfterViewInit {
 
   initialTasksList: ITask[] = [];
 
-  formGroup = this.formBuilder.group<ITaskFormControls>({
+  formGroup = this.formBuilder.group<IFilterFormControls>({
     name: null,
     rangeDates: null,
     category: null,
-    priority: null
+    priority: null,
+    almostOver: false,
+    expired: false,
+    completed: false,
   });
 
   constructor(
@@ -50,6 +53,7 @@ export class FilterComponent implements AfterViewInit {
   }
 
   onSubmitForm() {
-    this.formService.triggerFilterFormSubmitted();
+    console.log(this.formGroup.value);
+    // this.formService.triggerFilterFormSubmitted();
   }
 }

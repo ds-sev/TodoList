@@ -6,9 +6,26 @@
   transition: height .4s;
 
   &_visible {
-    height: 190px;
-
+    height: 212px;
     transition: height .4s;
+
+    @media screen and (max-width: 1280px) {
+      height: 286px;
+    }
+
+    @media screen and (max-width: 666px) {
+      height: 483px;
+    }
+
+    @media screen and (max-width: 523px) {
+      height: 524px;
+    }
+  }
+
+  &__title {
+    margin: 15px auto 0;
+    font-size: 16px;
+    color: var(--main-grey);
   }
 
   &__form {
@@ -17,12 +34,28 @@
     gap: 30px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
+
+    @media screen and (max-width: 1280px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 666px) {
+      grid-template-columns: 1fr;
+    }
   }
 
-
-
   &__checkboxes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     text-align: start;
+
+    & input {
+      margin-right: 8px;
+    }
+  }
+
+  &__checkbox {
   }
 
   &__options-container {
@@ -44,9 +77,12 @@
   }
 
   &__buttons-container {
-    //border: 1px solid red;
     display: flex;
+    justify-content: flex-end;
     gap: 10px;
+    @media screen and (max-width: 666px) {
+      justify-content: center;
+    }
   }
 
   &__button {
@@ -68,12 +104,16 @@
 
 .priority-block {
   position: relative;
-  display: flex;
+  //display: flex;
 
   &__label {
     position: absolute;
     top: -25px;
+    left: 10px;
     font-size: 12px;
+    @media screen and (max-width: 698px) {
+
+    }
   }
 
   &__radio-buttons-container {
@@ -81,11 +121,11 @@
     align-items: center;
     gap: 8px;
 
-    //@media screen and (max-width: 498px) {
-    //  text-align: start;
-    //  flex-direction: column;
-    //  gap: 18px;
-    //}
+    @media screen and (max-width: 1239px) {
+      text-align: start;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
   }
 }
 

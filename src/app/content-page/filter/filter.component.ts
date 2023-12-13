@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
-import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalService } from '../../shared/services/modal.service';
 import { IFilterFormControls, ITask } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
@@ -15,11 +13,11 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [CommonModule, CalendarModule, DialogModule, DropdownModule, InputTextModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, CalendarModule, DropdownModule, InputTextModule, ReactiveFormsModule, FormsModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
-export class FilterComponent implements AfterViewInit {
+export class FilterComponent implements OnInit {
 
   initialTasksList: ITask[] = [];
 
@@ -37,7 +35,6 @@ export class FilterComponent implements AfterViewInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public modalService: ModalService,
     public categoriesService: CategoriesService,
     private userService: UserService,
     public filterService: FilterService,
@@ -45,7 +42,7 @@ export class FilterComponent implements AfterViewInit {
   ) {
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
 
     this.formGroup.valueChanges
@@ -55,7 +52,6 @@ export class FilterComponent implements AfterViewInit {
   }
 
   onSubmitForm() {
-    console.log(this.formGroup.value);
     this.formService.triggerFilterFormSubmitted();
   }
 

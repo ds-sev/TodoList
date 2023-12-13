@@ -38,12 +38,8 @@ export class TasksTableComponent implements OnInit {
   isFilterVisible: boolean = false
   isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
-
   currentCategory: ICategory | null = null;
-
   filteredTasks: ITask[] = []
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +55,7 @@ export class TasksTableComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData();
+      this.isFilterVisible = false
       if (params.hasOwnProperty('id')) {
         this.getCurrentCategoryName(params['id']);
         this.tasksService.getTasksDataByCategoryId(params['id']);
@@ -76,6 +73,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   onAddTaskClick() {
+    this.isFilterVisible = false
     this.currentCategory
       ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
       : this.dataToEdit = {isEditForm: false};
@@ -96,6 +94,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   getSearchStatus(value: boolean) {
+    this.isFilterVisible = false
     this.isSearchPerformed = value;
   }
 

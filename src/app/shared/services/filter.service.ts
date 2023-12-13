@@ -24,12 +24,13 @@ export class FilterService {
       const taskExpiresInTime = task.expiresIn ? new Date(task.expiresIn).getTime() : null;
 
       const daysDifference = this.getDifferenceInDays(taskExpiresInDate)
+      console.log(task.priority);
 
       return (
         //ищем совпадение по имени
         (!formValues.name || task.name.toLowerCase().includes(formValues.name.toLowerCase())) &&
-        //ищем совпадение по приоритету
-        (!formValues.priority || task.priority === formValues.priority) &&
+        //ищем совпадение по приоритету / если в форме приходит "0" - ищем задачи, для которых не задан приоритет
+        (!formValues.priority || task.priority === formValues.priority || (formValues.priority === '0' && task.priority === null)) &&
         //ищем совпадение по категории
         (!categoryId || taskCategoryId === categoryId) &&
         //ищем совпадение по дате

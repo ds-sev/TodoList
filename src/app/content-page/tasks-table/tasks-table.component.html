@@ -54,18 +54,18 @@
       </div>
     } @else {
       <div class="tasks-section__buttons-container">
-      <button
-        class="tasks-section__filter-button _button"
-        (click)="toggleFilterVisibility()"
-      >
-        <i class="pi pi-filter"></i>
-      </button>
-      <button
-        class="tasks-section__add-task-button _button"
-        (click)="onAddTaskClick()"
-      >
-        <i class="pi pi-plus"></i>
-      </button>
+        <button
+          class="tasks-section__filter-button _button"
+          (click)="toggleFilterVisibility()"
+        >
+          <i class="pi pi-filter"></i>
+        </button>
+        <button
+          class="tasks-section__add-task-button _button"
+          (click)="onAddTaskClick()"
+        >
+          <i class="pi pi-plus"></i>
+        </button>
       </div>
     }
   </div>
@@ -104,22 +104,31 @@
           pSortableColumn="category.name"
           *ngIf="router.url.endsWith('all')"
           class="table__categories-header"
+          [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Категория
-          <p-sortIcon field="category.name"></p-sortIcon>
+          <p-sortIcon field="category.name"
+                      *ngIf="getTasksForView().length > 1"
+          ></p-sortIcon>
         </th>
         <th
           class="table__date-cell-header"
           pSortableColumn="expiresIn"
           style="width: 8rem"
+          [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Срок
-          <p-sortIcon field="expiresIn"></p-sortIcon>
+          <p-sortIcon field="expiresIn"
+                      *ngIf="getTasksForView().length > 1"
+          ></p-sortIcon>
         </th>
         <th
           class="table__priority-header"
           pSortableColumn="priority"
           style="width: 8rem"
+          [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Приор.
-          <p-sortIcon field="priority"></p-sortIcon>
+          <p-sortIcon field="priority"
+                      *ngIf="getTasksForView().length > 1"
+          ></p-sortIcon>
         </th>
         <th style="width: 20px"></th>
       </tr>

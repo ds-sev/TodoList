@@ -36,10 +36,10 @@ export class TasksTableComponent implements OnInit {
   } = {isEditForm: false};
   isSearchPerformed: boolean = false;
   isFilterVisible: boolean = false;
-  isFilterPerformed: boolean = false
+  private isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
   currentCategory: ICategory | null = null;
-  filteredTasks: ITask[] = []
+  private filteredTasks: ITask[] = []
 
   constructor(
     private route: ActivatedRoute,

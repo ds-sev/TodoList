@@ -48,7 +48,7 @@ export class FilterService {
     }));
   }
   //для вычисления разницы в днях между текущей и целевой датой
-  getDifferenceInDays(expirationDate: Date | null) {
+  private getDifferenceInDays(expirationDate: Date | null) {
     const currentDate = new Date()
     if (expirationDate) {
       const differenceInTime =  expirationDate.getTime() - currentDate.getTime();

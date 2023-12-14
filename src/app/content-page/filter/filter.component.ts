@@ -4,6 +4,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { IFilterFormControls, ITask } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
@@ -19,7 +20,7 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
 })
 export class FilterComponent implements OnInit, OnChanges {
 
-  initialTasksList: ITask[] = [];
+  private initialTasksList: ITask[] = [];
 
   @Input() isFilterVisible: boolean = false;
 

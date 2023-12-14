@@ -20,6 +20,11 @@ export interface ITask {
   priority?: '1' | '2' | '3' | null;
 }
 
+export interface IAuthFormControls {
+  email: string | null;
+  password: string | null;
+}
+
 export interface ITaskFormControls {
   name: string | null;
   expiresIn?: Date | string | null;
@@ -32,9 +37,4 @@ export interface IFilterFormControls extends ITaskFormControls {
   almostOver: boolean;
   expired: boolean;
   completed: boolean;
-}
-
-export interface IAuthFormControls {
-  email: string | null;
-  password: string | null;
 }

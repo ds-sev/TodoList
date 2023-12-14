@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 import { ICategory, ITask } from '../../shared/interfaces';
 import { ModalService } from '../../shared/services/modal.service';
 import { TasksService } from '../../shared/services/tasks.service';
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-actions-menu',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ConfirmPopupModule, ToastModule, TaskFormComponent],
+  imports: [CommonModule, ConfirmPopupModule, ToastModule, TaskFormComponent],
   templateUrl: './actions-menu.component.html',
   styleUrl: './actions-menu.component.scss',
   providers: [ConfirmationService]

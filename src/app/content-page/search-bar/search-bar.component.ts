@@ -18,8 +18,6 @@ import {
   Validators
 } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-
-import { TasksService } from '../../shared/services/tasks.service';
 import { ITask } from '../../shared/interfaces';
 import { UserService } from '../../shared/services/user.service';
 
@@ -35,7 +33,7 @@ export class SearchBarComponent implements OnInit {
   searchForm!: FormGroup;
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
   autocompleteVisible: boolean = false;
-  initialTasksList: ITask[] = [];
+  private initialTasksList: ITask[] = [];
 
   //отслеживаем клики вне инпута
   @HostListener('document:click', ['$event'])
@@ -52,7 +50,6 @@ export class SearchBarComponent implements OnInit {
   @Output() singleTaskSelected = new EventEmitter<boolean>(false);
 
   constructor(
-    public tasksService: TasksService,
     private renderer: Renderer2,
     private el: ElementRef,
     private userService: UserService

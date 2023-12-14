@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class TasksService {
 
   tasksListSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
-  storedData!: IUser;
+  private storedData!: IUser;
 
   constructor(private router: Router, private userService: UserService) {
     this.storedData = this.userService.getStoredCurrentUserData();
@@ -25,22 +25,6 @@ export class TasksService {
       taskArr.filter(task =>
         task.category && task.category.id === categoryId)
     );
-  }
-
-  updateStoredData() {
-    const currentUserId = this.userService.getCurrentUserId();
-    if (currentUserId) {
-      localStorage.setItem(currentUserId, JSON.stringify(this.storedData));
-    }
-  }
-
-  updateTasksView(currentCategory: ICategory | null) {
-    if (currentCategory) {
-      this.getTasksData();
-      this.getTasksDataByCategoryId(currentCategory.id);
-    } else {
-      this.getTasksData();
-    }
   }
 
   addTask(newTaskData: any, currentCategory: ICategory | null) {
@@ -96,6 +80,22 @@ export class TasksService {
     this.updateStoredData();
     if (this.router.url === '/categories/all') {
       this.updateTasksView(null);
+    }
+  }
+
+  private updateStoredData() {
+    const currentUserId = this.userService.getCurrentUserId();
+    if (currentUserId) {
+      localStorage.setItem(currentUserId, JSON.stringify(this.storedData));
+    }
+  }
+
+  private updateTasksView(currentCategory: ICategory | null) {
+    if (currentCategory) {
+      this.getTasksData();
+      this.getTasksDataByCategoryId(currentCategory.id);
+    } else {
+      this.getTasksData();
     }
   }
 }

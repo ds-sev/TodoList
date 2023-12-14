@@ -11,7 +11,7 @@ export class CategoriesService {
 
   userCategoriesSig: WritableSignal<ICategory[]> = signal<ICategory[]>([]);
 
-  storedData!: IUser;
+  private storedData!: IUser;
 
   constructor(private userService: UserService, private tasksService: TasksService) {
     this.storedData = this.userService.getStoredCurrentUserData();
@@ -20,14 +20,6 @@ export class CategoriesService {
   getUserCategories() {
     this.storedData = this.userService.getStoredCurrentUserData();
     this.userCategoriesSig.set(this.storedData.categories);
-  }
-
-  updateStoredData() {
-    const currentUserId = this.userService.getCurrentUserId();
-    if (currentUserId) {
-      localStorage.setItem(currentUserId, JSON.stringify(this.storedData));
-    }
-    this.getUserCategories();
   }
 
   createCategory(newCategoryName: string) {
@@ -72,5 +64,13 @@ export class CategoriesService {
         === newCategoryName.toLowerCase().split(' ').join('');
     });
     return !!duplicateCategory;
+  }
+
+  private updateStoredData() {
+    const currentUserId = this.userService.getCurrentUserId();
+    if (currentUserId) {
+      localStorage.setItem(currentUserId, JSON.stringify(this.storedData));
+    }
+    this.getUserCategories();
   }
 }

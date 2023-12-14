@@ -55,9 +55,6 @@
     }
   }
 
-  &__checkbox {
-  }
-
   &__options-container {
     display: flex;
     justify-content: space-between;
@@ -106,16 +103,12 @@
 
 .priority-block {
   position: relative;
-  //display: flex;
 
   &__label {
     position: absolute;
     top: -25px;
     left: 10px;
     font-size: 12px;
-    @media screen and (max-width: 698px) {
-
-    }
   }
 
   &__radio-buttons-container {
@@ -132,9 +125,7 @@
 }
 
 .custom-radiobutton {
-
   width: 100px;
-  //transition: opacity .3s;
 
   &:not(:checked):hover {
     opacity: .8;
@@ -198,9 +189,3 @@
   font-weight: 200;
   text-align: start;
 }
-
-
-
-
-
-

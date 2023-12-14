@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -17,11 +17,11 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit, OnChanges {
 
   initialTasksList: ITask[] = [];
 
-  @Input() isFilterVisible: boolean = false
+  @Input() isFilterVisible: boolean = false;
 
   formGroup = this.formBuilder.group<IFilterFormControls>({
     name: null,
@@ -42,9 +42,14 @@ export class FilterComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isFilterVisible'] && changes['isFilterVisible'].currentValue === true) {
+      this.initialTasksList = this.userService.getStoredCurrentUserData().tasks;
+      this.formGroup.reset();
+    }
+  }
 
+  ngOnInit() {
     this.formGroup.valueChanges
     .subscribe((formValues) => {
       this.filterService.filterTasks(this.initialTasksList, formValues);
@@ -56,6 +61,6 @@ export class FilterComponent implements OnInit {
   }
 
   onResetFormClick() {
-    this.formGroup.reset()
+    this.formGroup.reset();
   }
 }

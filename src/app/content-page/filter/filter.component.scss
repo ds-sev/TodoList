@@ -9,8 +9,8 @@
     height: 212px;
     transition: height .4s;
 
-    @media screen and (max-width: 1280px) {
-      height: 286px;
+    @media screen and (max-width: 1324px) {
+      height: 295px;
     }
 
     @media screen and (max-width: 666px) {
@@ -35,7 +35,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
 
-    @media screen and (max-width: 1280px) {
+    @media screen and (max-width: 1324px) {
       grid-template-columns: 1fr 1fr;
     }
 
@@ -72,8 +72,10 @@
   }
 
   &__categories {
-
-
+    min-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__buttons-container {
@@ -190,6 +192,14 @@
     }
   }
 }
+
+:host ::ng-deep .p-dropdown-label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  text-align: start;
+}
+
+
 
 
 

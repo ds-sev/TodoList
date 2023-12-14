@@ -106,3 +106,9 @@
     }
   }
 }
+
+:host ::ng-deep .p-dropdown-label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  text-align: start;
+}

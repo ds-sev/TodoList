@@ -35,7 +35,7 @@ export class TasksTableComponent implements OnInit {
     currentCategory?: ICategory
   } = {isEditForm: false};
   isSearchPerformed: boolean = false;
-  isFilterVisible: boolean = false
+  isFilterVisible: boolean = false;
   isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
   currentCategory: ICategory | null = null;

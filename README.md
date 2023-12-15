@@ -26,9 +26,12 @@ This project is a task list application with extended functionality. Upon first 
 - Validation for input fields
 - Editing for tasks and categories
 - Confirmation request before delete task or category
-- Filter tasks by name, category, deadline-date, readiness and priority
+- Sorting tasks in table by name, category, deadline-date, readiness and priority
+- Quick search by task name. A list of matches appears as user enter a search-query
+- Filter tasks by name, category, priority, range of dates and other. Displaying the number of found tasks.
 - Minimalistic design
 - Adaptive page-view for different devices
+- Convenient use on small-diagonal mobile devices (advanced functionality is available in landscape screen orientation)
 
 ## Project setup:
 

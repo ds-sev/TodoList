@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, } from '@angular/core';
+import { Component, Input, OnInit, WritableSignal, } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
@@ -27,6 +27,7 @@ export class TaskFormComponent implements OnInit {
     category: null,
     priority: null
   });
+  categoriesListSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig
 
   @Input() formOptions: {
     taskToEdit?: ITask,
@@ -34,9 +35,9 @@ export class TaskFormComponent implements OnInit {
   } = {};
 
   constructor(
-    private tasksService: TasksService,
-    public categoriesService: CategoriesService,
     public modalService: ModalService,
+    private tasksService: TasksService,
+    private categoriesService: CategoriesService,
     private formBuilder: FormBuilder
   ) {
   }

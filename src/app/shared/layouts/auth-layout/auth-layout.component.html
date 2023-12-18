@@ -3,10 +3,10 @@
   <h3 class="auth__title" *ngIf="router.url === '/register'">Создать учетную запись</h3>
   <router-outlet></router-outlet>
   <div *ngIf="router.url.includes('/login')">
-    <a class="auth__link" routerLink="/register">Зарегистрироваться</a>
+    <a class="auth__hint auth__hint_link" routerLink="/register">Зарегистрироваться</a>
   </div>
   <div *ngIf="router.url === '/register'">
-    <span style="font-size: 14px; font-weight: lighter; color: grey">Уже зарегистрированы? </span>
-    <a class="auth__link" routerLink="/login">Войти</a>
+    <span class="auth__hint">Уже зарегистрированы? </span>
+    <a class="auth__hint auth__hint_link" routerLink="/login">Войти</a>
   </div>
 </div>

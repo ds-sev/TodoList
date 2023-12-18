@@ -12,6 +12,10 @@
     font-family: 'Caveat', sans-serif;
     color: rgba(3, 35, 122, 0.73);
     text-shadow: rgba(98, 95, 95, 0.22) 4px 4px;
+
+    &_regular {
+      font-weight: 400;
+    }
   }
 }
 

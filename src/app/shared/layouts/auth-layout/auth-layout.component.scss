@@ -14,15 +14,19 @@
     color: var(--main-grey);
   }
 
-  &__link {
+  &__hint {
     font-size: 14px;
     font-weight: 200;
-    transition: opacity .3s;
-    color: var(--main-blue);
+    color: grey;
 
-    &:hover {
-      opacity: .7;
+    &_link {
       transition: opacity .3s;
+      color: var(--main-blue);
+
+      &:hover {
+        opacity: .7;
+        transition: opacity .3s;
+      }
     }
   }
 }

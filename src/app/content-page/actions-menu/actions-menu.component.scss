@@ -12,6 +12,7 @@
   display: flex;
 
   &__button {
+    color: var(--main-light-grey);
     outline: white;
     transition: background-color .2s;
 

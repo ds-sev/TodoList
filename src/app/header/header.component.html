@@ -1,5 +1,5 @@
 <header class="header">
-  <h1 class="header__title">TODO.<b style="font-weight: 400">листЪ</b></h1>
+  <h1 class="header__title">TODO.<b class="header__title_regular">листЪ</b></h1>
   <div class="header__user-options user-options">
     @if (window.innerWidth > 676) {
       <span class="user-options__email"
@@ -14,7 +14,7 @@
       (click)="confirmLogOut($event)"
       *ngIf="this.authService.isAuthenticated()"
     >
-      <i class="pi pi-sign-out" style="color: white"></i>
+      <i class="pi pi-sign-out"></i>
     </button>
   </div>
 </header>

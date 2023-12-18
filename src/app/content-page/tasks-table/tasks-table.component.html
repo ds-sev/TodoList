@@ -81,9 +81,8 @@
     <ng-template pTemplate="header">
       <tr>
         <th
-          class="table__header"
+          class="table__header table__header_medium-width"
           pSortableColumn="complete"
-          style="width: 8rem"
           [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >
           Готово
@@ -92,8 +91,10 @@
                       *ngIf="getTasksForView().length > 1"
           ></p-sortIcon>
         </th>
-        <th pSortableColumn="name"
-            [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
+        <th
+          class="table__header"
+          pSortableColumn="name"
+          [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >
           Задача
           <p-sortIcon field="name"
@@ -101,9 +102,9 @@
           ></p-sortIcon>
         </th>
         <th
+          class="table__categories-header table__header"
           pSortableColumn="category.name"
           *ngIf="router.url.endsWith('all')"
-          class="table__categories-header"
           [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Категория
           <p-sortIcon field="category.name"
@@ -111,9 +112,8 @@
           ></p-sortIcon>
         </th>
         <th
-          class="table__date-cell-header"
+          class="table__date-cell-header table__header table__header_medium-width"
           pSortableColumn="expiresIn"
-          style="width: 8rem"
           [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Срок
           <p-sortIcon field="expiresIn"
@@ -121,16 +121,15 @@
           ></p-sortIcon>
         </th>
         <th
-          class="table__priority-header"
+          class="table__priority-header table__header table__header_medium-width"
           pSortableColumn="priority"
-          style="width: 8rem"
           [ngStyle]="getTasksForView().length < 2 ? {'pointerEvents': 'none'} : {}"
         >Приор.
           <p-sortIcon field="priority"
                       *ngIf="getTasksForView().length > 1"
           ></p-sortIcon>
         </th>
-        <th style="width: 20px"></th>
+        <th class="table__header table__header_small-width"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
@@ -168,12 +167,15 @@
             }}</span>
         </td>
         <td class="table__priority">
-          <div class="table__task-priority-icon" *ngIf="task.priority === '1'"
-               style="background-color: var(--priority-blue)"></div>
-          <div class="table__task-priority-icon" *ngIf="task.priority === '2'"
-               style="background-color: var(--priority-orange)"></div>
-          <div class="table__task-priority-icon" *ngIf="task.priority === '3'"
-               style="background-color: var(--priority-red)"></div>
+          <div class="table__task-priority-icon table__task-priority-icon_low"
+               *ngIf="task.priority === '1'"
+          ></div>
+          <div class="table__task-priority-icon table__task-priority-icon_medium"
+               *ngIf="task.priority === '2'"
+          ></div>
+          <div class="table__task-priority-icon table__task-priority-icon_high"
+               *ngIf="task.priority === '3'"
+          ></div>
           <div class="table__task-priority-icon" *ngIf="!task.priority"></div>
         </td>
         <td class="table__actions">

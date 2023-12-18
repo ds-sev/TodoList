@@ -19,7 +19,7 @@ export class CategoriesComponent implements OnInit {
 
   collapsed = true;
   categoryToEdit: ICategory | null = null;
-  userCategoriesSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig
+  userCategoriesSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig;
 
   constructor(
     private categoriesService: CategoriesService,

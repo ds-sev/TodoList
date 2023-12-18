@@ -1,11 +1,11 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IFilterFormControls, ITask } from '../../shared/interfaces';
+import { ICategory, IFilterFormControls, ITask } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { UserService } from '../../shared/services/user.service';
 import { FilterService } from '../../shared/services/filter.service';
@@ -33,12 +33,14 @@ export class FilterComponent implements OnInit, OnChanges {
     expired: false,
     completed: false,
   });
+  categoriesListSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig;
+  filteredTasksListSig: WritableSignal<ITask[]> = this.filterService.filteredTasksSig;
 
   constructor(
     private formBuilder: FormBuilder,
-    public categoriesService: CategoriesService,
+    private categoriesService: CategoriesService,
     private userService: UserService,
-    public filterService: FilterService,
+    private filterService: FilterService,
     private formService: FormSubmitService
   ) {
   }

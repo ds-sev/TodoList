@@ -18,7 +18,7 @@
 <!--CATEGORIES-FIELD-->
     <p-dropdown class="filter__categories"
                 [style]="{ width: '100%' }"
-                [options]="categoriesService.userCategoriesSig()"
+                [options]="categoriesListSig()"
                 placeholder="Категория"
                 optionLabel="name"
                 inputId="float-label"
@@ -97,10 +97,10 @@
       <button
         class="filter__button filter__button_primary _button"
         type="submit"
-        [disabled]="formGroup.invalid || formGroup.disabled || !filterService.filteredTasksSig().length"
+        [disabled]="formGroup.invalid || formGroup.disabled || !filteredTasksListSig().length"
       >
-        @if (filterService.filteredTasksSig().length > 0) {
-          Показать {{ filterService.filteredTasksSig().length }}
+        @if (filteredTasksListSig().length > 0) {
+          Показать {{ filteredTasksListSig().length }}
         } @else {
           Ничего не найдено
         }

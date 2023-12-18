@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -36,17 +36,18 @@ export class TasksTableComponent implements OnInit {
   } = {isEditForm: false};
   isSearchPerformed: boolean = false;
   isFilterVisible: boolean = false;
-  private isFilterPerformed: boolean = false
   isSelectSingleTask: boolean = false;
   currentCategory: ICategory | null = null;
-  private filteredTasks: ITask[] = []
+  tasksListSig: WritableSignal<ITask[]> = this.tasksService.tasksListSig;
+  private filteredTasks: ITask[] = [];
+  private isFilterPerformed: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
     public router: Router,
-    public tasksService: TasksService,
-    private categoriesService: CategoriesService,
     public modalService: ModalService,
+    private route: ActivatedRoute,
+    private tasksService: TasksService,
+    private categoriesService: CategoriesService,
     private filterService: FilterService,
     private formService: FormSubmitService
   ) {
@@ -55,7 +56,7 @@ export class TasksTableComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.tasksService.getTasksData();
-      this.isFilterVisible = false
+      this.isFilterVisible = false;
       if (params.hasOwnProperty('id')) {
         this.getCurrentCategoryName(params['id']);
         this.tasksService.getTasksDataByCategoryId(params['id']);
@@ -65,15 +66,15 @@ export class TasksTableComponent implements OnInit {
     });
 
     this.formService.formSubmitted$.subscribe(() => {
-      this.isSearchPerformed = false
-      this.isSelectSingleTask = false
-      this.isFilterPerformed = true
-      this.filteredTasks = this.filterService.filteredTasksSig()
-    })
+      this.isSearchPerformed = false;
+      this.isSelectSingleTask = false;
+      this.isFilterPerformed = true;
+      this.filteredTasks = this.filterService.filteredTasksSig();
+    });
   }
 
   onAddTaskClick() {
-    this.isFilterVisible = false
+    this.isFilterVisible = false;
     this.currentCategory
       ? this.dataToEdit = {isEditForm: false, currentCategory: this.currentCategory}
       : this.dataToEdit = {isEditForm: false};
@@ -81,7 +82,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   toggleFilterVisibility() {
-    this.isFilterVisible = !this.isFilterVisible
+    this.isFilterVisible = !this.isFilterVisible;
   }
 
   searchResult(value: ITask[]) {
@@ -94,7 +95,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   getSearchStatus(value: boolean) {
-    this.isFilterVisible = false
+    this.isFilterVisible = false;
     this.isSearchPerformed = value;
   }
 
@@ -133,7 +134,7 @@ export class TasksTableComponent implements OnInit {
     if (this.isSearchPerformed || this.isSelectSingleTask) {
       return this.foundedTasks;
     } else if (this.isFilterPerformed) {
-      return this.filteredTasks
+      return this.filteredTasks;
     } else {
       return this.tasksService.tasksListSig();
     }

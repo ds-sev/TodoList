@@ -20,7 +20,9 @@ import { CommonModule } from '@angular/common';
 export class CategoryFormComponent implements OnInit {
 
   categoryForm: FormGroup<{ name: FormControl<string | null> }> = new FormGroup({
-    name: new FormControl(),
+    name: new FormControl<string | null>(
+      null, [Validators.required, Validators.minLength(3)]
+    ),
   });
 
   @Input() categoryToEdit: ICategory | null = null;
@@ -34,13 +36,6 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryForm.setValue({
-      name: null
-    });
-
-    this.categoryForm.get('name')?.setValidators([Validators.required, Validators.minLength(3)]);
-    this.categoryForm.updateValueAndValidity();
-
     if (this.categoryToEdit) {
       this.categoryForm.setValue({
         name: this.categoryToEdit.name

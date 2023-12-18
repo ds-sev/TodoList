@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ICategory, IFilterFormControls, ITask } from '../../shared/interfaces';
 import { CategoriesService } from '../../shared/services/categories.service';
@@ -25,7 +25,7 @@ export class FilterComponent implements OnInit, OnChanges {
   @Input() isFilterVisible: boolean = false;
 
   formGroup = this.formBuilder.group<IFilterFormControls>({
-    name: null,
+    name: new FormControl(null),
     rangeDates: null,
     category: null,
     priority: null,

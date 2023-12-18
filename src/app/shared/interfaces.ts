@@ -28,7 +28,7 @@ export interface IAuthFormControls {
 }
 
 export interface ITaskFormControls {
-  name: string | null;
+  name: FormControl<string | null>;
   expiresIn?: Date | string | null;
   category?: ICategory | null;
   priority?: '1' | '2' | '3' | null;

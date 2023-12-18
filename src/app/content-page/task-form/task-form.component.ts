@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, WritableSignal, } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
@@ -22,7 +22,7 @@ export class TaskFormComponent implements OnInit {
 
   minDate: Date = new Date();
   formGroup = this.formBuilder.group<ITaskFormControls>({
-    name: null,
+    name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
     expiresIn: null,
     category: null,
     priority: null
@@ -43,10 +43,6 @@ export class TaskFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.formGroup.get('name')?.setValidators([Validators.required, Validators.minLength(3)]);
-    this.formGroup.updateValueAndValidity();
-
     if (!this.formOptions.taskToEdit) {
       if (this.formOptions.currentCategory && this.formOptions.currentCategory.id !== 'all') {
         this.formGroup.setValue({

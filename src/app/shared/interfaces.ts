@@ -1,3 +1,5 @@
+import { FormControl } from '@angular/forms';
+
 export interface IUser {
   email: string;
   password: string;
@@ -21,8 +23,8 @@ export interface ITask {
 }
 
 export interface IAuthFormControls {
-  email: string | null;
-  password: string | null;
+  email: FormControl<string | null>;
+  password: FormControl<string | null>;
 }
 
 export interface ITaskFormControls {

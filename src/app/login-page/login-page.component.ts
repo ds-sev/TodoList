@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { AuthService } from '../shared/services/auth.service';
 import { LoaderComponent } from '../loader/loader.component';
+import { IAuthFormControls } from '../shared/interfaces';
 
 @Component({
   selector: 'app-login-page',
@@ -23,10 +24,7 @@ import { LoaderComponent } from '../loader/loader.component';
 export class LoginPageComponent {
 
   isLoading: boolean = false;
-  form: FormGroup = this.formBuilder.group<{
-    email: FormControl<string | null>,
-    password: FormControl<string | null>
-  }>({
+  form: FormGroup = this.formBuilder.group<IAuthFormControls>({
     email: new FormControl<string | null>(
       null, [Validators.required, Validators.email]
     ),
@@ -34,7 +32,7 @@ export class LoginPageComponent {
       null, [Validators.required, Validators.minLength(6)]
     )
   });
-  
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

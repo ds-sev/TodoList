@@ -27,7 +27,7 @@ export class TaskFormComponent implements OnInit {
     category: null,
     priority: null
   });
-  categoriesListSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig
+  categoriesListSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig;
 
   @Input() formOptions: {
     taskToEdit?: ITask,

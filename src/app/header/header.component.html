@@ -3,16 +3,16 @@
   <div class="header__user-options user-options">
     @if (window.innerWidth > 676) {
       <span class="user-options__email"
-            *ngIf="this.authService.isAuthenticated()"
+            *ngIf="getIsAuthenticated()"
       >
-      {{ userService.getStoredCurrentUserData().email }}
+      {{ getCurrentUserEmail() }}
     </span>
     }
     <p-confirmPopup></p-confirmPopup>
     <button
       class="user-options__logout-button _button"
       (click)="confirmLogOut($event)"
-      *ngIf="this.authService.isAuthenticated()"
+      *ngIf="getIsAuthenticated()"
     >
       <i class="pi pi-sign-out"></i>
     </button>

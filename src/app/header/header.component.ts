@@ -22,8 +22,8 @@ export class HeaderComponent {
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    public authService: AuthService,
-    public userService: UserService
+    private authService: AuthService,
+    private userService: UserService
   ) {
   }
 
@@ -44,5 +44,13 @@ export class HeaderComponent {
         this.router.navigate(['/login']).then();
       }
     });
+  }
+
+  getIsAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  getCurrentUserEmail(): string {
+    return this.userService.getStoredCurrentUserData().email;
   }
 }

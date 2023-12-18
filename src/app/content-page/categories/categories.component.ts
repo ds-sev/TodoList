@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { ICategory } from '../../shared/interfaces';
 import { ModalService } from '../../shared/services/modal.service';
@@ -19,20 +19,16 @@ export class CategoriesComponent implements OnInit {
 
   collapsed = true;
   categoryToEdit: ICategory | null = null;
+  userCategoriesSig: WritableSignal<ICategory[]> = this.categoriesService.userCategoriesSig
 
   constructor(
-    public categoriesService: CategoriesService,
-    private route: ActivatedRoute,
+    private categoriesService: CategoriesService,
     public modalService: ModalService
   ) {
   }
 
   ngOnInit() {
     this.categoriesService.getUserCategories();
-    this.route.params.subscribe(params => {
-      if (params.hasOwnProperty('id')) {
-      }
-    });
     this.collapseCategoriesMenuIfResize();
   }
 

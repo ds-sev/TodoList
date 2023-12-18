@@ -10,7 +10,7 @@
         <span class="categories-menu__list-link-text categories-menu__list-link-text_bold">Все</span>
       </a>
     </li>
-    <li *ngFor="let category of categoriesService.userCategoriesSig()"
+    <li *ngFor="let category of userCategoriesSig()"
         class="categories-menu__list-item"
         (click)="collapseCategoriesMenu()"
     >

@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal } from '@angular/core';
+import { Component, OnDestroy, OnInit, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -16,6 +16,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { FilterComponent } from '../filter/filter.component';
 import { FilterService } from '../../shared/services/filter.service';
 import { FormSubmitService } from '../../shared/services/formSubmit.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-table',
@@ -24,7 +25,7 @@ import { FormSubmitService } from '../../shared/services/formSubmit.service';
   templateUrl: './tasks-table.component.html',
   styleUrl: './tasks-table.component.scss'
 })
-export class TasksTableComponent implements OnInit {
+export class TasksTableComponent implements OnInit, OnDestroy {
 
   protected readonly window = window;
 
@@ -41,6 +42,8 @@ export class TasksTableComponent implements OnInit {
   tasksListSig: WritableSignal<ITask[]> = this.tasksService.tasksListSig;
   private filteredTasks: ITask[] = [];
   private isFilterPerformed: boolean = false;
+  private routeSubscription$: Subscription | undefined;
+  private formSubscription$: Subscription | undefined;
 
   constructor(
     public router: Router,
@@ -54,7 +57,7 @@ export class TasksTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.routeSubscription$ = this.route.params.subscribe(params => {
       this.tasksService.getTasksData();
       this.isFilterVisible = false;
       if (params.hasOwnProperty('id')) {
@@ -65,7 +68,7 @@ export class TasksTableComponent implements OnInit {
       }
     });
 
-    this.formService.formSubmitted$.subscribe(() => {
+    this.formSubscription$ = this.formService.formSubmitted$.subscribe(() => {
       this.isSearchPerformed = false;
       this.isSelectSingleTask = false;
       this.isFilterPerformed = true;
@@ -137,6 +140,15 @@ export class TasksTableComponent implements OnInit {
       return this.filteredTasks;
     } else {
       return this.tasksService.tasksListSig();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.routeSubscription$) {
+      this.routeSubscription$.unsubscribe();
+    }
+    if (this.formSubscription$) {
+      this.formSubscription$.unsubscribe();
     }
   }
 }

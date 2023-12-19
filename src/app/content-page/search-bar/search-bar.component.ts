@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  OnDestroy,
   OnInit,
   Output,
   Renderer2,
@@ -17,7 +18,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { ITask } from '../../shared/interfaces';
 import { UserService } from '../../shared/services/user.service';
 
@@ -28,12 +29,13 @@ import { UserService } from '../../shared/services/user.service';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss'
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
 
   searchForm!: FormGroup;
   autocompleteSuggestionsSig: WritableSignal<ITask[]> = signal<ITask[]>([]);
   autocompleteVisible: boolean = false;
   private initialTasksList: ITask[] = [];
+  private formSubscription$: Subscription | undefined;
 
   //отслеживаем клики вне инпута
   @HostListener('document:click', ['$event'])
@@ -70,7 +72,7 @@ export class SearchBarComponent implements OnInit {
       searchValue: new FormControl(null, Validators.required)
     });
 
-    this.searchForm.get('searchValue')?.valueChanges
+    this.formSubscription$ = this.searchForm.get('searchValue')?.valueChanges
     .pipe(
       //небольшая задержка, если пользователь быстро вводит данные
       debounceTime(100),
@@ -123,5 +125,11 @@ export class SearchBarComponent implements OnInit {
     this.singleTaskSelected.emit(true);
     this.selectedTaskFromSuggestionsList.emit(task);
     this.closeSuggestionsList();
+  }
+
+  ngOnDestroy() {
+    if (this.formSubscription$) {
+      this.formSubscription$.unsubscribe();
+    }
   }
 }
